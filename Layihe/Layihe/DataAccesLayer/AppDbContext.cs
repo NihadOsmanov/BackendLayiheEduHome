@@ -20,5 +20,10 @@ namespace Layihe.DataAccesLayer
         public DbSet<Slider> Sliders { get; set; }
         public DbSet<AboutArea> AboutAreas { get; set; }
         public DbSet<Course> Courses { get; set; }
+        public DbSet<NoticeBoard> NoticeBoards { get; set; }
+        public DbSet<Video> Videos { get; set; }
+        public DbSet<Event> Events { get; set; }
+        public DbSet<Testimonial> Testimonials { get; set; }
+        public DbSet<Blog> Blogs { get; set; }
     }
 }

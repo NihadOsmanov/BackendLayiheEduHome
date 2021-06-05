@@ -1,0 +1,33 @@
+﻿@model HomeViewModel
+
+<section class="notice-area two pt-140">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="notice-right-wrapper mb-25 pb-25">
+                    <h3>@Model.Video.VideoTitle</h3>
+                    <div class="notice-video">
+                        <div class="video-icon video-hover">
+                            <a class="video-popup" href="@Model.Video.VideoLink">
+                                <i class="zmdi zmdi-play"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="notice-left-wrapper">
+                    <h3>@Model.Video.TitleBoard</h3>
+                    <div class="notice-left">
+                        @foreach (var board in Model.NoticeBoards)
+                        {
+                            <div class="single-notice-left mb-23 pb-20">
+                                <h4>@board.Date.ToString("dd, MMMM yyyy")</h4>
+                                <p>@board.Descriptioon</p>
+                            </div>
+                        }
+                    </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -142,3 +142,7 @@ C:\Users\ASUS\Desktop\BackendLayiheEduHome\Layihe\Layihe\obj\Debug\net5.0\Layihe
 C:\Users\ASUS\Desktop\BackendLayiheEduHome\Layihe\Layihe\obj\Debug\net5.0\Layihe.genruntimeconfig.cache
 C:\Users\ASUS\Desktop\BackendLayiheEduHome\Layihe\Layihe\obj\Debug\net5.0\Razor\Views\Shared\Components\AboutArea\default.cshtml.g.cs
 C:\Users\ASUS\Desktop\BackendLayiheEduHome\Layihe\Layihe\obj\Debug\net5.0\Razor\Views\Shared\Components\Course\default.cshtml.g.cs
+C:\Users\ASUS\Desktop\BackendLayiheEduHome\Layihe\Layihe\obj\Debug\net5.0\Razor\Views\Shared\Components\NoticeVideo\default.cshtml.g.cs
+C:\Users\ASUS\Desktop\BackendLayiheEduHome\Layihe\Layihe\obj\Debug\net5.0\Razor\Views\Shared\Components\Event\default.cshtml.g.cs
+C:\Users\ASUS\Desktop\BackendLayiheEduHome\Layihe\Layihe\obj\Debug\net5.0\Razor\Views\Shared\Components\Testimonial\default.cshtml.g.cs
+C:\Users\ASUS\Desktop\BackendLayiheEduHome\Layihe\Layihe\obj\Debug\net5.0\Razor\Views\Shared\Components\Blog\default.cshtml.g.cs

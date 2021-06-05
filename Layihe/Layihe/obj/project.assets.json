@@ -5801,11 +5801,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ASUS\\Desktop\\P316 Asp.Net\\Layihe\\Layihe\\Layihe.csproj",
+      "projectUniqueName": "C:\\Users\\ASUS\\Desktop\\BackendLayiheEduHome\\Layihe\\Layihe\\Layihe.csproj",
       "projectName": "Layihe",
-      "projectPath": "C:\\Users\\ASUS\\Desktop\\P316 Asp.Net\\Layihe\\Layihe\\Layihe.csproj",
+      "projectPath": "C:\\Users\\ASUS\\Desktop\\BackendLayiheEduHome\\Layihe\\Layihe\\Layihe.csproj",
       "packagesPath": "C:\\Users\\ASUS\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ASUS\\Desktop\\P316 Asp.Net\\Layihe\\Layihe\\obj\\",
+      "outputPath": "C:\\Users\\ASUS\\Desktop\\BackendLayiheEduHome\\Layihe\\Layihe\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\ASUS\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -8,19 +8,17 @@ using System.Threading.Tasks;
 
 namespace Layihe.Models
 {
-    public class Slider
+    public class Course
     {
         public int Id { get; set; }
-
-        [Required]
-        public string Image { get; set; }
-
-        [StringLength(100)]
-        public string Title { get; set; }
-        
-        [StringLength(200)]
+        [Required, MaxLength(50)]
+        public string Name { get; set; }
+        [Required, MaxLength(350)]
         public string Description { get; set; }
+        [Required]
+        public bool IsDeleted { get; set; }
 
+        public string Image { get; set; }
         [NotMapped]
         public IFormFile Photo { get; set; }
     }

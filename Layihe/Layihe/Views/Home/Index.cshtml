@@ -32,52 +32,8 @@
     </div>
 </section>
 <!-- Background Area End -->
-<!-- Service Start -->
-<div class="service-area two pt-150 pb-150">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 col-sm-4 col-xs-12">
-                <div class="single-service">
-                    <h3><a href="teacher.html">PROFESSIONAL TEACHER</a></h3>
-                    <p>I must explain to you how all this mistaken denouncing pleure and praising pain </p>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-4 col-xs-12">
-                <div class="single-service">
-                    <h3><a href="teacher.html">PROFESSIONAL TEACHER</a></h3>
-                    <p>I must explain to you how all this mistaken denouncing pleure and praising pain </p>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-4 col-xs-12">
-                <div class="single-service">
-                    <h3><a href="teacher.html">PROFESSIONAL TEACHER</a></h3>
-                    <p>I must explain to you how all this mistaken denouncing pleure and praising pain </p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Service End -->
 <!-- About Start -->
-<div class="about-area pb-155">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-sm-6">
-                <div class="about-content">
-                    <h2>WELCOME TO <span>EDUHOME</span></h2>
-                    <p>I must explain to you how all this mistaken idea of denouncing pleure and prsing pain was born and I will give you a complete account of the system, and expound the actual teachings  the master-builder of humanit happiness</p>
-                    <p class="hidden-sm">I must explain to you how all this mistaken idea of denouncing pleure and prsing pain was born and I will give you a complete account of the system</p>
-                    <a class="default-btn" href="about.html">view courses</a>
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-6">
-                <div class="about-img">
-                    <img src="~/img/about/about.png" alt="about">
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+@await Component.InvokeAsync("AboutArea")
 <!-- About End -->
 <!-- Courses Area Start -->
 <div class="courses-area two pt-150 pb-150 text-center">
@@ -90,59 +46,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                <div class="single-course">
-                    <div class="course-img">
-                        <a href="course-details.html">
-                            <img src="~/img/course/course1.jpg" alt="course">
-                            <div class="course-hover">
-                                <i class="fa fa-link"></i>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="course-content">
-                        <h3><a href="course-details.html">CSE ENGINEERING</a></h3>
-                        <p>I must explain to you how all this a mistaken idea of denouncing great explorer of the rut the is lder of human happiness</p>
-                        <a class="default-btn" href="course-details.html">read more</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                <div class="single-course">
-                    <div class="course-img">
-                        <a href="course-details.html">
-                            <img src="~/img/course/course2.jpg" alt="course">
-                            <div class="course-hover">
-                                <i class="fa fa-link"></i>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="course-content">
-                        <h3><a href="course-details.html">political science</a></h3>
-                        <p>I must explain to you how all this a mistaken idea of denouncing great explorer of the rut the is lder of human happiness</p>
-                        <a class="default-btn" href="course-details.html">read more</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 hidden-sm col-xs-12">
-                <div class="single-course">
-                    <div class="course-img">
-                        <a href="course-details.html">
-                            <img src="~/img/course/course3.jpg" alt="course">
-                            <div class="course-hover">
-                                <i class="fa fa-link"></i>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="course-content">
-                        <h3><a href="course-details.html">micro biology</a></h3>
-                        <p>I must explain to you how all this a mistaken idea of denouncing great explorer of the rut the is lder of human happiness</p>
-                        <a class="default-btn" href="course-details.html">read more</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @await Component.InvokeAsync("Course", new {take = 3})
     </div>
 </div>
 <!-- Courses Area End -->

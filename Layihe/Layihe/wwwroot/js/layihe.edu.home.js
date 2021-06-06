@@ -1,8 +1,8 @@
-﻿//Course Search
+﻿//Courses Search
 
 $(document).ready(function () {
     let search;
-    $(document).on("keyup", "#search-input", function () {
+    $(document).on("keyup", "#search-course-input", function () {
 
         search = $(this).val().trim();
         
@@ -20,6 +20,32 @@ $(document).ready(function () {
         }
         else {
             $("#old-courses").css("display", "block")
+        }
+    });
+});
+
+//Events Search
+
+$(document).ready(function () {
+    let search;
+    $(document).on("keyup", "#search-event-input", function () {
+
+        search = $(this).val().trim();
+
+        $("#new-events").empty()
+
+        if (search.length > 0) {
+            $.ajax({
+                url: '/Event/Search?search=' + search,
+                type: "Get",
+                success: function (res) {
+                    $("#old-events").css("display", "none")
+                    $("#new-events").append(res)
+                }
+            });
+        }
+        else {
+            $("#old-events").css("display", "block")
         }
     });
 });

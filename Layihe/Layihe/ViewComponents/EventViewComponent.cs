@@ -19,7 +19,7 @@ namespace Layihe.ViewComponents
         public async Task<IViewComponentResult> InvokeAsync(int? take)
         {
 
-            if (take == 0)
+            if (take == null)
             {
                 var events = _dbContext.Events.Where(x => x.IsDeleted == false).OrderByDescending(y => y.StartingTime).ToList();
                 return View(events);

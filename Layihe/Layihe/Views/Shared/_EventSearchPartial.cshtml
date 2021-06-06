@@ -1,0 +1,27 @@
+﻿@model List<Event>
+
+<div class="row">
+    @foreach (var evnt in Model)
+    {
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="single-event mb-35">
+                <div class="event-img">
+                    <a href="event-details.html"><img src="img/event/@evnt.Image" alt="event"></a>
+                    <div class="event-date">
+                        <h3>@evnt.StartingTime.ToString("dd") <span>@evnt.StartingTime.ToString("MMM")</span></h3>
+                    </div>
+                </div>
+                <div class="event-content text-left">
+                    <h4><a href="event-details.html">@evnt.Name</a></h4>
+                    <ul>
+                        <li><span>time:</span> @evnt.StartingTime.ToString("t")- @evnt.StartingTime.ToString("t")</li>
+                        <li><span>venue</span> @evnt.Adress</li>
+                    </ul>
+                    <div class="event-content-right">
+                        <a class="default-btn" href="event-details.html">join now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

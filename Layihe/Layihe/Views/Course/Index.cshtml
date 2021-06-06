@@ -1,37 +1,33 @@
 ﻿
 @{
-    ViewData["Title"] = "About Index";
+    ViewData["Title"] = "Course Index";
 }
 
 <!-- Banner Area Start -->
 @await Component.InvokeAsync("BannerArea", new { title = "About Us" })
 <!-- Banner Area End -->
-<!-- About Start -->
-@await Component.InvokeAsync("AboutArea")
-<!-- About End -->
-<!-- Teacher Start -->
-<div class="teacher-area pb-150">
+<!-- Course Start -->
+<div class="course-area pt-150 pb-150">
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <div class="section-title text-center">
-                    <img src="~/img/icon/section.png" alt="title">
-                    <h2>meet our teachers</h2>
+                <div class="course-title">
+                    <h3>search courses</h3>
+                </div>
+                <div class="course-form">
+                    <form id="search" action="#">
+                        <input type="search" placeholder="Search..." name="search" />
+                        <button type="submit">search</button>
+                    </form>
                 </div>
             </div>
         </div>
-        @await Component.InvokeAsync("Teacher", 4)
+        @await Component.InvokeAsync("Course")
     </div>
 </div>
-<!-- Teacher End -->
-<!-- Testimonial Area Start -->
-@await Component.InvokeAsync("Testimonial")
-<!-- Testimonial Area End -->
-<!-- Notice Start -->
-@await Component.InvokeAsync("NoticeVideo")
-<!-- Notice End -->
+<!-- Course End -->
 <!-- Subscribe Start -->
-<div class="subscribe-area pt-58 pb-70">
+<div class="subscribe-area pt-60 pb-70">
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">

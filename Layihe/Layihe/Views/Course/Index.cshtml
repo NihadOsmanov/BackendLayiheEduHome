@@ -16,13 +16,16 @@
                 </div>
                 <div class="course-form">
                     <form id="search" action="#">
-                        <input type="search" placeholder="Search..." name="search" />
-                        <button type="submit">search</button>
+                        <input type="text" placeholder="Search..." name="search" id="search-input" />
                     </form>
                 </div>
             </div>
         </div>
-        @await Component.InvokeAsync("Course")
+        <div class="row" id="old-courses">
+            @await Component.InvokeAsync("Course")
+        </div>
+        <div class="row" id="new-courses">
+        </div>
     </div>
 </div>
 <!-- Course End -->

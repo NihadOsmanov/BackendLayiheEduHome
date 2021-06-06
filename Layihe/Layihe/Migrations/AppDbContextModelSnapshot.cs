@@ -42,6 +42,22 @@ namespace Layihe.Migrations
                     b.ToTable("AboutAreas");
                 });
 
+            modelBuilder.Entity("Layihe.Models.BannerArea", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BannerAreas");
+                });
+
             modelBuilder.Entity("Layihe.Models.Bio", b =>
                 {
                     b.Property<int>("Id")
@@ -214,6 +230,25 @@ namespace Layihe.Migrations
                     b.ToTable("NoticeBoards");
                 });
 
+            modelBuilder.Entity("Layihe.Models.ProfessionOfTeacher", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Profession")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProfessionOfTeachers");
+                });
+
             modelBuilder.Entity("Layihe.Models.Slider", b =>
                 {
                     b.Property<int>("Id")
@@ -236,6 +271,60 @@ namespace Layihe.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Sliders");
+                });
+
+            modelBuilder.Entity("Layihe.Models.SocialMediaOfTeacher", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Icon")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Link")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TeacherId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TeacherId");
+
+                    b.ToTable("SocialMediaOfTeachers");
+                });
+
+            modelBuilder.Entity("Layihe.Models.Teacher", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("ProfessionOfTeacherId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProfessionOfTeacherId");
+
+                    b.ToTable("Teachers");
                 });
 
             modelBuilder.Entity("Layihe.Models.Testimonial", b =>
@@ -291,6 +380,36 @@ namespace Layihe.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Videos");
+                });
+
+            modelBuilder.Entity("Layihe.Models.SocialMediaOfTeacher", b =>
+                {
+                    b.HasOne("Layihe.Models.Teacher", "Teacher")
+                        .WithMany("SocialMediaOfTeachers")
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Teacher");
+                });
+
+            modelBuilder.Entity("Layihe.Models.Teacher", b =>
+                {
+                    b.HasOne("Layihe.Models.ProfessionOfTeacher", "ProfessionOfTeacher")
+                        .WithMany("Teachers")
+                        .HasForeignKey("ProfessionOfTeacherId");
+
+                    b.Navigation("ProfessionOfTeacher");
+                });
+
+            modelBuilder.Entity("Layihe.Models.ProfessionOfTeacher", b =>
+                {
+                    b.Navigation("Teachers");
+                });
+
+            modelBuilder.Entity("Layihe.Models.Teacher", b =>
+                {
+                    b.Navigation("SocialMediaOfTeachers");
                 });
 #pragma warning restore 612, 618
         }

@@ -25,5 +25,9 @@ namespace Layihe.DataAccesLayer
         public DbSet<Event> Events { get; set; }
         public DbSet<Testimonial> Testimonials { get; set; }
         public DbSet<Blog> Blogs { get; set; }
+        public DbSet<BannerArea> BannerAreas { get; set; }
+        public DbSet<Teacher> Teachers { get; set; }
+        public DbSet<SocialMediaOfTeacher> SocialMediaOfTeachers { get; set; }
+        public DbSet<ProfessionOfTeacher> ProfessionOfTeachers { get; set; }
     }
 }

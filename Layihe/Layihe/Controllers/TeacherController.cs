@@ -19,6 +19,19 @@ namespace Layihe.Controllers
         {
             return View();
         }
+        public IActionResult Detail(int? id)
+        {
+            if (id == null) 
+                return NotFound();
+
+            var teacherDetail = _dbContext.TeacherDetails.Where(x => x.IsDeleted == false).Include(x => x.Teacher).ThenInclude(y => y.SocialMediaOfTeachers)
+                .Include(t => t.Teacher).ThenInclude(t => t.ProfessionOfTeacher).FirstOrDefault(z => z.TeacherId == id);
+
+            if (teacherDetail == null) 
+                return NotFound();
+           
+            return View(teacherDetail);
+        }
         public IActionResult Search(string search)
         {
             if (search == null)

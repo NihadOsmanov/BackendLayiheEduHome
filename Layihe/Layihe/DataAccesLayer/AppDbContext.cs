@@ -30,5 +30,9 @@ namespace Layihe.DataAccesLayer
         public DbSet<SocialMediaOfTeacher> SocialMediaOfTeachers { get; set; }
         public DbSet<ProfessionOfTeacher> ProfessionOfTeachers { get; set; }
         public DbSet<TeacherDetail> TeacherDetails { get; set; }
+        public DbSet<CourseDetail> CourseDetails { get; set; }
+        public DbSet<EventDetail> EventDetails { get; set; }
+        public DbSet<EventSpiker> EventSpikers { get; set; }
+        public DbSet<BlogDetail> BlogDetails { get; set; }
     }
 }

@@ -22,5 +22,6 @@ namespace Layihe.Models
         public string Image { get; set; }
         [NotMapped]
         public IFormFile Photo { get; set; }
+        public BlogDetail BlogDetail { get; set; }
     }
 }

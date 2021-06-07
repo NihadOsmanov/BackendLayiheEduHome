@@ -15,7 +15,7 @@ namespace Layihe.Controllers
         {
             _dbContext = dbContexxt;
         }
-        public IActionResult Index()
+        public IActionResult Index(int page = 1)
         {
             return View();
         }

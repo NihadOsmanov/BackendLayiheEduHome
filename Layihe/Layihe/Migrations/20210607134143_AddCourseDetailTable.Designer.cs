@@ -4,14 +4,16 @@ using Layihe.DataAccesLayer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Layihe.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210607134143_AddCourseDetailTable")]
+    partial class AddCourseDetailTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -117,31 +119,6 @@ namespace Layihe.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Blogs");
-                });
-
-            modelBuilder.Entity("Layihe.Models.BlogDetail", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("BlogId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDelete")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BlogId")
-                        .IsUnique();
-
-                    b.ToTable("BlogDetails");
                 });
 
             modelBuilder.Entity("Layihe.Models.Contact", b =>
@@ -288,69 +265,6 @@ namespace Layihe.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Events");
-                });
-
-            modelBuilder.Entity("Layihe.Models.EventDetail", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Decscription")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("EventId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsDelete")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EventId")
-                        .IsUnique();
-
-                    b.ToTable("EventDetails");
-                });
-
-            modelBuilder.Entity("Layihe.Models.EventSpiker", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("EventDetailId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("EventId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Image")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Profession")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EventDetailId");
-
-                    b.HasIndex("EventId");
-
-                    b.ToTable("EventSpikers");
                 });
 
             modelBuilder.Entity("Layihe.Models.NoticeBoard", b =>
@@ -590,17 +504,6 @@ namespace Layihe.Migrations
                     b.ToTable("Videos");
                 });
 
-            modelBuilder.Entity("Layihe.Models.BlogDetail", b =>
-                {
-                    b.HasOne("Layihe.Models.Blog", "Blog")
-                        .WithOne("BlogDetail")
-                        .HasForeignKey("Layihe.Models.BlogDetail", "BlogId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Blog");
-                });
-
             modelBuilder.Entity("Layihe.Models.CourseDetail", b =>
                 {
                     b.HasOne("Layihe.Models.Course", "Course")
@@ -610,32 +513,6 @@ namespace Layihe.Migrations
                         .IsRequired();
 
                     b.Navigation("Course");
-                });
-
-            modelBuilder.Entity("Layihe.Models.EventDetail", b =>
-                {
-                    b.HasOne("Layihe.Models.Event", "Event")
-                        .WithOne("EventDetail")
-                        .HasForeignKey("Layihe.Models.EventDetail", "EventId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Event");
-                });
-
-            modelBuilder.Entity("Layihe.Models.EventSpiker", b =>
-                {
-                    b.HasOne("Layihe.Models.EventDetail", "EventDetail")
-                        .WithMany("EventSpikers")
-                        .HasForeignKey("EventDetailId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Layihe.Models.Event", null)
-                        .WithMany("EventSpikers")
-                        .HasForeignKey("EventId");
-
-                    b.Navigation("EventDetail");
                 });
 
             modelBuilder.Entity("Layihe.Models.SocialMediaOfTeacher", b =>
@@ -669,26 +546,9 @@ namespace Layihe.Migrations
                     b.Navigation("Teacher");
                 });
 
-            modelBuilder.Entity("Layihe.Models.Blog", b =>
-                {
-                    b.Navigation("BlogDetail");
-                });
-
             modelBuilder.Entity("Layihe.Models.Course", b =>
                 {
                     b.Navigation("CourseDetail");
-                });
-
-            modelBuilder.Entity("Layihe.Models.Event", b =>
-                {
-                    b.Navigation("EventDetail");
-
-                    b.Navigation("EventSpikers");
-                });
-
-            modelBuilder.Entity("Layihe.Models.EventDetail", b =>
-                {
-                    b.Navigation("EventSpikers");
                 });
 
             modelBuilder.Entity("Layihe.Models.ProfessionOfTeacher", b =>

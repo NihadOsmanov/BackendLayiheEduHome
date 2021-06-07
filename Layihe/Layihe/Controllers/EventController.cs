@@ -1,5 +1,6 @@
 ﻿using Layihe.DataAccesLayer;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,19 @@ namespace Layihe.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+        public IActionResult Detail(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var eventDetail = _dbContext.EventDetails.Where(x => x.IsDelete == false).Include(x => x.Event).Include(y => y.EventSpikers)
+                                        .FirstOrDefault(z => z.EventId == id);
+
+            if (eventDetail == null)
+                return NotFound();
+
+            return View(eventDetail);
         }
         public IActionResult Search(string search)
         {

@@ -4,14 +4,16 @@ using Layihe.DataAccesLayer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Layihe.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210607150858_AddEventDetailAndEventSpikerTable")]
+    partial class AddEventDetailAndEventSpikerTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -117,31 +119,6 @@ namespace Layihe.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Blogs");
-                });
-
-            modelBuilder.Entity("Layihe.Models.BlogDetail", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("BlogId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDelete")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BlogId")
-                        .IsUnique();
-
-                    b.ToTable("BlogDetails");
                 });
 
             modelBuilder.Entity("Layihe.Models.Contact", b =>
@@ -325,7 +302,7 @@ namespace Layihe.Migrations
                     b.Property<int>("EventDetailId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("EventId")
+                    b.Property<int?>("EventSpikerId")
                         .HasColumnType("int");
 
                     b.Property<string>("FullName")
@@ -348,7 +325,7 @@ namespace Layihe.Migrations
 
                     b.HasIndex("EventDetailId");
 
-                    b.HasIndex("EventId");
+                    b.HasIndex("EventSpikerId");
 
                     b.ToTable("EventSpikers");
                 });
@@ -590,17 +567,6 @@ namespace Layihe.Migrations
                     b.ToTable("Videos");
                 });
 
-            modelBuilder.Entity("Layihe.Models.BlogDetail", b =>
-                {
-                    b.HasOne("Layihe.Models.Blog", "Blog")
-                        .WithOne("BlogDetail")
-                        .HasForeignKey("Layihe.Models.BlogDetail", "BlogId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Blog");
-                });
-
             modelBuilder.Entity("Layihe.Models.CourseDetail", b =>
                 {
                     b.HasOne("Layihe.Models.Course", "Course")
@@ -631,9 +597,9 @@ namespace Layihe.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Layihe.Models.Event", null)
+                    b.HasOne("Layihe.Models.EventSpiker", null)
                         .WithMany("EventSpikers")
-                        .HasForeignKey("EventId");
+                        .HasForeignKey("EventSpikerId");
 
                     b.Navigation("EventDetail");
                 });
@@ -669,11 +635,6 @@ namespace Layihe.Migrations
                     b.Navigation("Teacher");
                 });
 
-            modelBuilder.Entity("Layihe.Models.Blog", b =>
-                {
-                    b.Navigation("BlogDetail");
-                });
-
             modelBuilder.Entity("Layihe.Models.Course", b =>
                 {
                     b.Navigation("CourseDetail");
@@ -682,11 +643,14 @@ namespace Layihe.Migrations
             modelBuilder.Entity("Layihe.Models.Event", b =>
                 {
                     b.Navigation("EventDetail");
-
-                    b.Navigation("EventSpikers");
                 });
 
             modelBuilder.Entity("Layihe.Models.EventDetail", b =>
+                {
+                    b.Navigation("EventSpikers");
+                });
+
+            modelBuilder.Entity("Layihe.Models.EventSpiker", b =>
                 {
                     b.Navigation("EventSpikers");
                 });

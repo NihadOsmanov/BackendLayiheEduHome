@@ -17,13 +17,24 @@ namespace Layihe.Controllers
             _dbContext = dbContext;
         }
 
-        public async Task<IActionResult> Index(int page = 1)
+        public IActionResult Index(int page = 1)
         {
             ViewBag.PageCount = Decimal.Ceiling((decimal)_dbContext.Blogs.Count() / 6);
             ViewBag.Page = page;
 
           
             return View();
+        }
+        public IActionResult Detail(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var blogDetails = _dbContext.BlogDetails.Where(x => x.IsDelete == false).Include(x => x.Blog).FirstOrDefault(x => x.BlogId == id);
+            if (blogDetails == null)
+                return NotFound();
+
+            return View(blogDetails);
         }
         public IActionResult Search(string search)
         {

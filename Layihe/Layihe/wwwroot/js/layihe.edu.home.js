@@ -50,28 +50,29 @@ $(document).ready(function () {
     });
 });
 
-//Teachers Search
+//Blog Search
 
 $(document).ready(function () {
     let search;
-    $(document).on("keyup", "#search-teacher-input", function () {
+    $(document).on("keyup", "#search-blog-input", function () {
 
         search = $(this).val().trim();
 
-        $("#new-teachers").empty()
+        $("#new-blogs").empty()
 
         if (search.length > 0) {
             $.ajax({
-                url: '/Teacher/Search?search=' + search,
+                url: '/Blog/Search?search=' + search,
                 type: "Get",
                 success: function (res) {
-                    $("#old-teachers").css("display", "none")
-                    $("#new-teachers").append(res)
+                    $("#old-blogs").css("display", "none")
+                    $("#new-blogs").append(res)
                 }
             });
         }
         else {
-            $("#old-teachers").css("display", "block")
+            $("#old-blogs").css("display", "block")
         }
     });
 });
+

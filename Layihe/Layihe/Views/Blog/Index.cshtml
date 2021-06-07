@@ -1,34 +1,55 @@
 ﻿
 @{
-    ViewData["Title"] = "Course Index";
+    ViewData["Title"] = "Blog Index";
 }
 
 <!-- Banner Area Start -->
-@await Component.InvokeAsync("BannerArea", new { title = "Course Us" })
+@await Component.InvokeAsync("BannerArea", new { title = "Blog" })
 <!-- Banner Area End -->
-<!-- Course Start -->
-<div class="course-area pt-150 pb-150">
+<!-- Blog Start -->
+<div class="blog-area pt-150 pb-150">
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
                 <div class="course-title">
-                    <h3>search courses</h3>
+                    <h3>search blog</h3>
                 </div>
                 <div class="course-form">
                     <form id="search" action="#">
-                        <input type="text" placeholder="Search..." name="search" id="search-course-input" />
+                        <input type="text" placeholder="Search..." name="search" id="search-blog-input" />
                     </form>
                 </div>
             </div>
         </div>
-        <div class="row" id="old-courses">
-            @await Component.InvokeAsync("Course")
+        <div class="row" id="old-blogs">
+            @await Component.InvokeAsync("Blog" , new { take=6,skip = ViewBag.Page })
         </div>
-        <div class="row" id="new-courses">
+        <div class="row" id="new-blogs">
+        </div>
+        <div>
+            <nav aria-label="..." id="pagination1">
+                <ul class="pagination pagination-lg">
+                    @for (int i = 1; i <= ViewBag.PageCount; i++)
+                    {
+                        if (ViewBag.Page == i)
+                        {
+                            <li class="page-item disabled">
+                                <a class="page-link" asp-action="Index" asp-route-page="@i" tabindex="-1">@i</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="page-item">
+                                <a class="page-link" asp-action="Index" asp-route-page="@i" tabindex="-1">@i</a>
+                            </li>
+                        }
+                    }
+                </ul>
+            </nav>
         </div>
     </div>
 </div>
-<!-- Course End -->
+<!-- Blog End -->
 <!-- Subscribe Start -->
 <div class="subscribe-area pt-60 pb-70">
     <div class="container">
@@ -59,4 +80,4 @@
         </div>
     </div>
 </div>
-<!-- Subscribe End -->
+

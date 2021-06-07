@@ -16,16 +16,16 @@ namespace Layihe.ViewComponents
         {
             _dbContext = dbContext;
         }
-        public async Task<IViewComponentResult> InvokeAsync(int? take)
+        public async Task<IViewComponentResult> InvokeAsync(int? take ,int skip)
         {
-            if (take == 0)
+            if (take == null)
             {
                 var blog = await _dbContext.Blogs.Where(x => x.IsDeleted == false).OrderByDescending(y => y.Id).ToListAsync();
                 return View(blog);
             }
             else
             {
-                var blog = await _dbContext.Blogs.Where(x => x.IsDeleted == false).OrderByDescending(y => y.Id).Take((int)take).ToListAsync();
+                var blog = await _dbContext.Blogs.Where(x => x.IsDeleted == false).OrderByDescending(y => y.Id).Skip((skip-1)*6).Take((int)take).ToListAsync();
                 return View(blog);
             }
         }

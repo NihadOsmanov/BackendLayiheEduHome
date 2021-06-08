@@ -30,5 +30,18 @@ namespace Layihe.Controllers
 
             return View(homeViewModel);
         }
+        public IActionResult Search(string search)
+        {
+            if (search == null)
+                return NotFound();
+
+            var searchViewModel = new SearchViewModel
+            {
+                Teachers = _dbContext.Teachers.Where(x => x.IsDeleted == false && x.FullName.Contains(search)).Take(4).ToList(),
+                Events = _dbContext.Events.Where(x => x.IsDeleted == false && x.Name.Contains(search)).Take(4).ToList(),
+                Courses = _dbContext.Courses.Where(x => x.IsDeleted == false && x.Name.Contains(search)).Take(4).ToList(),
+            };
+            return PartialView("_SearchPartial", searchViewModel);
+        }
     }
 }

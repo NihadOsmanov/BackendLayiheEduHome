@@ -236,3 +236,13 @@ C:\Users\ASUS\Desktop\BackendLayiheEduHome\Layihe\Layihe\obj\Debug\net5.0\Razor\
 C:\Users\ASUS\Desktop\BackendLayiheEduHome\Layihe\Layihe\obj\Debug\net5.0\Razor\Views\Course\Detail.cshtml.g.cs
 C:\Users\ASUS\Desktop\BackendLayiheEduHome\Layihe\Layihe\obj\Debug\net5.0\Razor\Views\Event\Detail.cshtml.g.cs
 C:\Users\ASUS\Desktop\BackendLayiheEduHome\Layihe\Layihe\obj\Debug\net5.0\Razor\Views\Blog\Detail.cshtml.g.cs
+C:\Users\ASUS\Desktop\BackendLayiheEduHome\Layihe\Layihe\obj\Debug\net5.0\Razor\Views\Shared\_SearchViewPartial.cshtml.g.cs
+C:\Users\ASUS\Desktop\BackendLayiheEduHome\Layihe\Layihe\bin\Debug\net5.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\ASUS\Desktop\BackendLayiheEduHome\Layihe\Layihe\bin\Debug\net5.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Users\ASUS\Desktop\BackendLayiheEduHome\Layihe\Layihe\bin\Debug\net5.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\ASUS\Desktop\BackendLayiheEduHome\Layihe\Layihe\bin\Debug\net5.0\Microsoft.Extensions.Identity.Core.dll
+C:\Users\ASUS\Desktop\BackendLayiheEduHome\Layihe\Layihe\bin\Debug\net5.0\Microsoft.Extensions.Identity.Stores.dll
+C:\Users\ASUS\Desktop\BackendLayiheEduHome\Layihe\Layihe\obj\Debug\net5.0\Razor\Views\Account\Login.cshtml.g.cs
+C:\Users\ASUS\Desktop\BackendLayiheEduHome\Layihe\Layihe\obj\Debug\net5.0\Razor\Views\Account\Register.cshtml.g.cs
+C:\Users\ASUS\Desktop\BackendLayiheEduHome\Layihe\Layihe\obj\Debug\net5.0\Razor\Views\Account\ForgotPassword.cshtml.g.cs
+C:\Users\ASUS\Desktop\BackendLayiheEduHome\Layihe\Layihe\obj\Debug\net5.0\Razor\Views\Account\ResetPassword.cshtml.g.cs

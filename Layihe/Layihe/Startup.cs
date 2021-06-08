@@ -1,7 +1,9 @@
 using Layihe.DataAccesLayer;
+using Layihe.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,11 +27,29 @@ namespace Layihe
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSession((options) =>
+            {
+                options.IdleTimeout = TimeSpan.FromSeconds(30);
+
+            });
+
+            services.AddIdentity<User, IdentityRole>(options =>
+            {
+                options.Password.RequiredLength = 8;
+                options.User.RequireUniqueEmail = true;
+                options.Lockout.MaxFailedAccessAttempts = 3;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromSeconds(10);
+                options.Lockout.AllowedForNewUsers = true;
+            }).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
+
             services.AddDbContext<AppDbContext>(options =>
             {
                 var connectionString = _configuration.GetConnectionString("DefaultConnection");
 
-                options.UseSqlServer(connectionString);
+                options.UseSqlServer(connectionString, builder =>
+                {
+                    builder.MigrationsAssembly(nameof(Layihe));
+                });
             });
             services.AddControllersWithViews();
         }
@@ -46,7 +66,7 @@ namespace Layihe
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

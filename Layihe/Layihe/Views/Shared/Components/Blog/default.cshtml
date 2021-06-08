@@ -3,7 +3,7 @@
 <div class="row">
     @foreach (var blog in Model)
     {
-        <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="col-md-4 col-sm-6 col-xs-12 mt-40">
             <div class="single-blog">
                 <div class="blog-img">
                     <a asp-controller="Blog" asp-action="Detail" asp-route-id="@blog.Id"><img src="~/img/blog/@blog.Image" alt="blog"></a>

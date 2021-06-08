@@ -17,6 +17,9 @@ namespace Layihe.Controllers
         }
         public IActionResult Index(int page = 1)
         {
+            ViewBag.PageCount = Decimal.Ceiling((decimal)_dbContext.Events.Count() / 6);
+            ViewBag.Page = page;
+
             return View();
         }
         public IActionResult Detail(int? id)

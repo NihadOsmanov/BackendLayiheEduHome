@@ -104,25 +104,25 @@ $(document).ready(function () {
 
 // Home Page Search
 
-$(document).ready(function () {
-    let search;
+//$(document).ready(function () {
+//    let search;
 
-    $(document).on("keyup", "#search-home-input", function () {
+//    $(document).on("keyup", "#search-home-input", function () {
 
-        search = $(this).val().trim();
+//        search = $(this).val().trim();
 
-        $(`#new-search-list #search-list`).remove();
+//        $(`#new-search-list #search-list`).remove();
 
-        if (search.length > 0) {
-            $.ajax({
-                url: '/Home/Search?search=' + search,
-                type: "Get",
-                success: function (res) {
+//        if (search.length > 0) {
+//            $.ajax({
+//                url: '/Home/Search?search=' + search,
+//                type: "Get",
+//                success: function (res) {
 
-                    $(`#new-search-list`).append(res)
-                })
-            });
-        }
-    })
-}
+//                    $(`#new-search-list`).append(res)
+//                })
+//            });
+//        }
+//    })
+//}
 

@@ -16,7 +16,7 @@ namespace Layihe.ViewComponents
         {
             _dbContext = dbContext;
         }
-        public async Task<IViewComponentResult> InvokeAsync(int? take)
+        public async Task<IViewComponentResult> InvokeAsync(int? take, int skip)
         {
             if (take == null)
             {
@@ -25,7 +25,7 @@ namespace Layihe.ViewComponents
             }
             else
             {
-                var courses = await _dbContext.Courses.Where(d => d.IsDeleted == false).Take((int)take).ToListAsync();
+                var courses = await _dbContext.Courses.Where(d => d.IsDeleted == false).Skip((skip - 1) * 6).Take((int)take).ToListAsync();
                 return View(courses);
             }
         }

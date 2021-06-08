@@ -1,4 +1,5 @@
 ﻿using Layihe.DataAccesLayer;
+using Layihe.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -21,7 +22,6 @@ namespace Layihe.Controllers
         {
             ViewBag.PageCount = Decimal.Ceiling((decimal)_dbContext.Blogs.Count() / 6);
             ViewBag.Page = page;
-
           
             return View();
         }
@@ -30,11 +30,16 @@ namespace Layihe.Controllers
             if (id == null)
                 return NotFound();
 
-            var blogDetails = _dbContext.BlogDetails.Where(x => x.IsDelete == false).Include(x => x.Blog).FirstOrDefault(x => x.BlogId == id);
+            var blogDetails = _dbContext.BlogDetails.Where(x => x.IsDelete == false).Include(x => x.Blog).OrderByDescending(x => x.Id).FirstOrDefault(x => x.BlogId == id);
             if (blogDetails == null)
                 return NotFound();
 
-            return View(blogDetails);
+            var blogViewModel = new BlogViewModel
+            {
+                BlogDetail = blogDetails,
+                Blogs = _dbContext.Blogs.Where(x => x.IsDeleted == false).Take(3).ToList()
+            };
+            return View(blogViewModel);
         }
         public IActionResult Search(string search)
         {

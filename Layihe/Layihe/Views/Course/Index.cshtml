@@ -22,9 +22,30 @@
             </div>
         </div>
         <div class="row" id="old-courses">
-            @await Component.InvokeAsync("Course")
+            @await Component.InvokeAsync("Course", new { take = 6, skip = ViewBag.Page })
         </div>
         <div class="row" id="new-courses">
+        </div>
+        <div>
+            <nav aria-label="..." id="pagination1">
+                <ul class="pagination pagination-lg">
+                    @for (int i = 1; i <= ViewBag.PageCount; i++)
+                    {
+                        if (ViewBag.Page == i)
+                        {
+                            <li class="page-item disabled">
+                                <a class="page-link" asp-action="Index" asp-route-page="@i" >@i</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="page-item">
+                                <a class="page-link" asp-action="Index" asp-route-page="@i" >@i</a>
+                            </li>
+                        }
+                    }
+                </ul>
+            </nav>
         </div>
     </div>
 </div>

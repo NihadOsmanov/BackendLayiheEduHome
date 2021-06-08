@@ -17,6 +17,5 @@ namespace Layihe.Models
         [ForeignKey("Event")]
         public int EventId { get; set; }
         public Event Event { get; set; }
-        public ICollection<EventSpiker> EventSpikers { get; set; }
     }
 }

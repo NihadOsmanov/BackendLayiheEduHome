@@ -4,7 +4,7 @@
 <div class="row">
     @foreach (var teacher in Model)
     {
-        <div class="col-md-3 col-sm-4 col-xs-12">
+        <div class="col-md-3 col-sm-4 col-xs-12 mt-40">
             <div class="single-teacher">
                 <div class="single-teacher-img">
                     <a asp-controller="Teacher" asp-action="Detail" asp-route-id="@teacher.Id"><img src="~/img/teacher/@teacher.Image" alt="teacher"></a>

@@ -6,7 +6,7 @@
         <div class="col-md-4 col-sm-6 col-xs-12">
             <div class="single-event mb-35">
                 <div class="event-img">
-                    <a asp-controller="Event" asp-action="Detail" asp-route-id="@evnt.Id"><img src="img/event/@evnt.Image" alt="event"></a>
+                    <a asp-controller="Event" asp-action="Detail" asp-route-id="@evnt.Id"><img src="~/img/event/@evnt.Image" alt="event"></a>
                     <div class="event-date">
                         <h3>@evnt.StartingTime.ToString("dd") <span>@evnt.StartingTime.ToString("MMM")</span></h3>
                     </div>
@@ -14,7 +14,7 @@
                 <div class="event-content text-left">
                     <h4><a asp-controller="Event" asp-action="Detail" asp-route-id="@evnt.Id">@evnt.Name</a></h4>
                     <ul>
-                        <li><span>time:</span> @evnt.StartingTime.ToString("t")- @evnt.StartingTime.ToString("t")</li>
+                        <li><span>time:</span> @evnt.StartingTime.ToString("t")- @evnt.EndTime.ToString("t")</li>
                         <li><span>venue</span> @evnt.Adress</li>
                     </ul>
                     <div class="event-content-right">

@@ -1,0 +1,14 @@
+﻿using Layihe.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace Layihe.ViewModels
+{
+    public class BlogViewModel
+    {
+        public List<Blog> Blogs { get; set; }
+        public BlogDetail BlogDetail { get; set; }
+    }
+}

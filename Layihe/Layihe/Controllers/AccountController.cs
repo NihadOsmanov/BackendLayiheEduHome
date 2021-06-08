@@ -104,7 +104,7 @@ namespace Layihe.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
-        public async Task<IActionResult> ForgotPassword(string id)
+        public IActionResult ForgotPassword(string id)
         {
             return View();
         }

@@ -1,5 +1,6 @@
 ﻿using Layihe.DataAccesLayer;
 using Layihe.Models;
+using Layihe.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -17,8 +18,11 @@ namespace Layihe.Controllers
         {
             _dbContext = dbContext;
         }
-        public IActionResult Index()
+        public IActionResult Index(int page = 1)
         {
+            ViewBag.PageCount = Decimal.Ceiling((decimal)_dbContext.Courses.Count() / 6);
+            ViewBag.Page = page;
+
             var courses = _dbContext.Courses.Where(c => c.IsDeleted == false).ToList();
             return View(courses);
         }
@@ -27,12 +31,18 @@ namespace Layihe.Controllers
             if (id == null)
                 return NotFound();
 
-            var courseDetails = _dbContext.CourseDetails.Where(x => x.IsDeleted == false).Include(x => x.Course).FirstOrDefault(y => y.CourseId == id);
+            var courseDetails = _dbContext.CourseDetails.Where(x => x.IsDeleted == false).Include(x => x.Course).OrderByDescending(t => t.Id)
+                                                                                                        .FirstOrDefault(y => y.CourseId == id);
 
             if (courseDetails == null)
                 return NotFound();
 
-            return View(courseDetails);
+            var courseViewModel = new CourseViewModel
+            {
+                CourseDetail = courseDetails,
+                Blogs = _dbContext.Blogs.Where(x => x.IsDeleted == false).Take(3).ToList()
+            };
+            return View(courseViewModel);
         }
         public IActionResult Search(string search)
         {

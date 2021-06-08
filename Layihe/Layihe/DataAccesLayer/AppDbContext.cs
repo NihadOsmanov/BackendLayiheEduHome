@@ -33,7 +33,8 @@ namespace Layihe.DataAccesLayer
         public DbSet<TeacherDetail> TeacherDetails { get; set; }
         public DbSet<CourseDetail> CourseDetails { get; set; }
         public DbSet<EventDetail> EventDetails { get; set; }
-        public DbSet<EventSpiker> EventSpikers { get; set; }
+        public DbSet<Spiker> Spikers { get; set; }
         public DbSet<BlogDetail> BlogDetails { get; set; }
+        public DbSet<EventSpiker> EventSpikers { get; set; }
     }
 }

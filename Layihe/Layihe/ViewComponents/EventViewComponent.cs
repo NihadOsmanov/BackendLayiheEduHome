@@ -16,7 +16,7 @@ namespace Layihe.ViewComponents
         {
             _dbContext = dbContext;
         }
-        public async Task<IViewComponentResult> InvokeAsync(int? take)
+        public async Task<IViewComponentResult> InvokeAsync(int? take,int skip)
         {
 
             if (take == null)
@@ -26,7 +26,8 @@ namespace Layihe.ViewComponents
             }
             else
             {
-                var events = _dbContext.Events.Where(x => x.IsDeleted == false).OrderByDescending(y => y.StartingTime).Take((int)take).ToList();
+                var events = _dbContext.Events.Where(x => x.IsDeleted == false).OrderByDescending(y => y.StartingTime).Skip((skip - 1) * 6)
+                                                                                                                      .Take((int)take).ToList();
                 return View(events);
             }
 

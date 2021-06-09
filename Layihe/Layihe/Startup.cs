@@ -1,3 +1,4 @@
+using Layihe.Areas.AdminPanel.Utils;
 using Layihe.DataAccesLayer;
 using Layihe.Models;
 using Microsoft.AspNetCore.Builder;
@@ -10,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -17,12 +19,15 @@ namespace Layihe
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment enviroment)
         {
             _configuration = configuration;
+            _enviroment = enviroment;
         }
 
         private readonly IConfiguration _configuration;
+        public readonly IWebHostEnvironment _enviroment;
+
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -52,6 +57,8 @@ namespace Layihe
                 });
             });
             services.AddControllersWithViews();
+
+            Constants.ImageFolderPath = Path.Combine(_enviroment.WebRootPath, "img","course");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,13 +71,16 @@ namespace Layihe
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(
+                    name: "areas",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                    );
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

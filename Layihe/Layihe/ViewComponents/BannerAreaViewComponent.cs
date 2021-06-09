@@ -1,5 +1,6 @@
 ﻿using Layihe.DataAccesLayer;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,9 @@ namespace Layihe.ViewComponents
         {
             ViewBag.BannerArea = title;
             ViewBag.Source = source;
-            return View(await Task.FromResult(_dbContext.BannerAreas.FirstOrDefault()));
+
+            var bannerArea = await _dbContext.BannerAreas.FirstOrDefaultAsync();
+            return View(bannerArea);
         }
     }
 }

@@ -40,8 +40,9 @@ namespace Layihe.Controllers
                 Teachers = _dbContext.Teachers.Where(x => x.IsDeleted == false && x.FullName.Contains(search)).Take(4).ToList(),
                 Events = _dbContext.Events.Where(x => x.IsDeleted == false && x.Name.Contains(search)).Take(4).ToList(),
                 Courses = _dbContext.Courses.Where(x => x.IsDeleted == false && x.Name.Contains(search)).Take(4).ToList(),
+                Blogs = _dbContext.Blogs.Where(x => x.IsDeleted == false && x.Title.Contains(search)).Take(4).ToList(),
             };
-            return PartialView("_SearchPartial", searchViewModel);
+            return PartialView("_SearchViewPartial", searchViewModel);
         }
     }
 }

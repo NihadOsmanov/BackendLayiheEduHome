@@ -1,0 +1,19 @@
+﻿#home-search{
+    background-color:white !important;
+    margin:0px !important;
+}
+.search-form{
+    
+}
+
+#global-search li {
+    text-align: center;
+    padding: 10px 0;
+
+}
+
+#global-search .global-search-title {
+    text-align: center;
+    padding: 10px 0;
+    font-weight: bold;
+}

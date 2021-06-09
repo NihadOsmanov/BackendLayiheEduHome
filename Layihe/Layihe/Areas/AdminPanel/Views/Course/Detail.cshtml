@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewData["Title"] = "Detail";
+    CourseDetail courseDetail = Model;
+}
+
+<div class="card-body">
+    <img src="~/img/course/@courseDetail.Course.Image"/>
+</div>
+<div class="card-body">
+    <h5>Course Name</h5>  @courseDetail.Course.Name
+</div>
+<div class="card-body">
+    <h5>Course Description</h5>  @courseDetail.Course.Description
+</div>
+<div class="card-body">
+    <h5>AboutCourse</h5>  @courseDetail.AboutCourse
+</div>
+<div class="card-body">
+    <h5>HowToApply</h5>  @courseDetail.HowToApply
+</div>
+<div class="card-body">
+    <h5>Certification</h5>  @courseDetail.Certification
+</div>
+<div class="card-body">
+    <h5>StartDate</h5>  @courseDetail.StartDate.ToString("dd MMM yyyy")
+</div>
+<div class="card-body">
+    <h5>Students</h5>  @courseDetail.Students
+</div>
+<div class="card-body">
+    <h5>Duration</h5>  @courseDetail.Duration Month
+</div>
+<div class="card-body">
+    <h5>ClassDuration</h5>  @courseDetail.ClassDuration Hours
+</div>
+<div class="card-body">
+    <h5>Assesments</h5>  @courseDetail.Assesments
+</div>
+<div class="card-body">
+    <h5>Language</h5>  @courseDetail.Language
+</div>
+<div class="card-body">
+    <h5>Price</h5>  @courseDetail.Price $
+</div>
+<div style="padding 0 10px">
+    <a asp-action="Index" class="btn btn-secondary">Go Back</a>
+</div>

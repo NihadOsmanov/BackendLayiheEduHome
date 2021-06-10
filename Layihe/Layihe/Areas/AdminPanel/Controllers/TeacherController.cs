@@ -30,15 +30,24 @@ namespace Layihe.Areas.AdminPanel.Controllers
 
             return View(teachers);
         }
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            ViewBag.Profession = await _dbContext.ProfessionOfTeachers.Where(x => x.IsDeleted == false).ToListAsync();
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Teacher teacher)
+        public async Task<IActionResult> Create(Teacher teacher, int? ProfessionId)
         {
+            ViewBag.Profession = await _dbContext.ProfessionOfTeachers.Where(x => x.IsDeleted == false).ToListAsync();
+
+            if(ProfessionId == null)
+            {
+                ModelState.AddModelError("", "Please select");
+                return View();
+            }
+
             if (!ModelState.IsValid)
             {
                 return View();
@@ -63,10 +72,9 @@ namespace Layihe.Areas.AdminPanel.Controllers
             }
 
             var fileName = await FileUtil.GenerateFileAsync(Constants.TeacherImageFolderPath, teacher.Photo);
-
             teacher.Image = fileName;
             teacher.IsDeleted = false;
-
+            teacher.ProfessionOfTeacherId = (int)ProfessionId;
             await _dbContext.Teachers.AddAsync(teacher);
             teacher.TeacherDetail.TeacherId = teacher.Id;
             await _dbContext.TeacherDetails.AddAsync(teacher.TeacherDetail);
@@ -74,13 +82,15 @@ namespace Layihe.Areas.AdminPanel.Controllers
 
             return RedirectToAction("Index");
         }
-        public IActionResult Update(int? id)
+        public async Task<IActionResult> Update(int? id)
         {
             if (id == null)
                 return View();
 
             var teacher = _dbContext.Teachers.Where(x => x.IsDeleted == false).Include(x => x.TeacherDetail).Include(y => y.SocialMediaOfTeachers)
                                                                                         .Include(y => y.ProfessionOfTeacher).FirstOrDefault(x => x.Id == id);
+
+            ViewBag.Profession = await _dbContext.ProfessionOfTeachers.Where(x => x.IsDeleted == false).ToListAsync();
 
             if (teacher == null)
                 return NotFound();
@@ -90,8 +100,16 @@ namespace Layihe.Areas.AdminPanel.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Update(int? id, Teacher teacher)
+        public async Task<ActionResult> Update(int? id, Teacher teacher, int? ProfessionId)
         {
+            ViewBag.Profession = await _dbContext.ProfessionOfTeachers.Where(x => x.IsDeleted == false).ToListAsync();
+
+            if (ProfessionId == null)
+            {
+                ModelState.AddModelError("", "Please select");
+                return View();
+            }
+
             if (!ModelState.IsValid)
                 return NotFound();
 
@@ -144,6 +162,7 @@ namespace Layihe.Areas.AdminPanel.Controllers
             dbTeacher.TeacherDetail.InnovtionValue = teacher.TeacherDetail.InnovtionValue;
             dbTeacher.TeacherDetail.DevelopmentValue = teacher.TeacherDetail.DevelopmentValue;
             dbTeacher.TeacherDetail.ComunicationValue = teacher.TeacherDetail.ComunicationValue;
+            dbTeacher.ProfessionOfTeacherId = (int)ProfessionId;
 
             await _dbContext.SaveChangesAsync();
 

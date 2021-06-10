@@ -20,6 +20,7 @@ namespace Layihe.Models
         [NotMapped]
         public IFormFile Photo { get; set; }
         public ICollection<SocialMediaOfTeacher> SocialMediaOfTeachers { get; set; }
+        public int ProfessionOfTeacherId { get; set; }
         public ProfessionOfTeacher ProfessionOfTeacher { get; set; }
         public TeacherDetail TeacherDetail { get; set; }
 

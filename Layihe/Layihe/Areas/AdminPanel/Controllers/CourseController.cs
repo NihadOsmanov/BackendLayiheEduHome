@@ -51,8 +51,8 @@ namespace Layihe.Areas.AdminPanel.Controllers
             return View();
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+            [HttpPost]
+            [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Course course)
         {
             if (!ModelState.IsValid)
@@ -85,7 +85,7 @@ namespace Layihe.Areas.AdminPanel.Controllers
             //    return View();
             //}
 
-            var fileName = await FileUtil.GenerateFileAsync(Constants.ImageFolderPath, course.Photo);
+            var fileName = await FileUtil.GenerateFileAsync(Constants.CourseImageFolderPath, course.Photo);
 
             course.Image = fileName;
             course.IsDeleted = false;
@@ -102,13 +102,13 @@ namespace Layihe.Areas.AdminPanel.Controllers
             if (id == null)
                 return NotFound();
 
-            var courseDetails = _dbContext.CourseDetails.Where(x => x.IsDeleted == false).Include(x => x.Course).OrderByDescending(t => t.Id)
+            var courseDetail = _dbContext.CourseDetails.Where(x => x.IsDeleted == false).Include(x => x.Course).OrderByDescending(t => t.Id)
                                                                                                         .FirstOrDefault(y => y.CourseId == id);
 
-            if (courseDetails == null)
+            if (courseDetail == null)
                 return NotFound();
 
-            return View(courseDetails);
+            return View(courseDetail);
         }
 
         [HttpPost]
@@ -140,14 +140,14 @@ namespace Layihe.Areas.AdminPanel.Controllers
                     return View();
                 }
 
-                var path = Path.Combine(Constants.ImageFolderPath, dbCourse.Course.Image);
+                var path = Path.Combine(Constants.CourseImageFolderPath, dbCourse.Course.Image);
 
                 if (System.IO.File.Exists(path))
                 {
                     System.IO.File.Delete(path);
                 }
 
-                var fileName = await FileUtil.GenerateFileAsync(Constants.ImageFolderPath, course.Photo);
+                var fileName = await FileUtil.GenerateFileAsync(Constants.CourseImageFolderPath, course.Photo);
                 dbCourse.Course.Image = fileName;
             }
 
@@ -173,13 +173,13 @@ namespace Layihe.Areas.AdminPanel.Controllers
             if (id == null)
                 return NotFound();
 
-            var courseDetails = _dbContext.CourseDetails.Where(x => x.IsDeleted == false).Include(x => x.Course).OrderByDescending(t => t.Id)
+            var courseDetail = _dbContext.CourseDetails.Where(x => x.IsDeleted == false).Include(x => x.Course).OrderByDescending(t => t.Id)
                                                                                                         .FirstOrDefault(y => y.CourseId == id);
 
-            if (courseDetails == null)
+            if (courseDetail == null)
                 return NotFound();
 
-            return View(courseDetails);
+            return View(courseDetail);
         }
 
         [HttpPost]

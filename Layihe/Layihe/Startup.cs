@@ -58,7 +58,8 @@ namespace Layihe
             });
             services.AddControllersWithViews();
 
-            Constants.ImageFolderPath = Path.Combine(_enviroment.WebRootPath, "img","course");
+            Constants.CourseImageFolderPath = Path.Combine(_enviroment.WebRootPath, "img","course");
+            Constants.BlogImageFolderPath = Path.Combine(_enviroment.WebRootPath, "img","blog");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

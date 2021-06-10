@@ -7,6 +7,7 @@ namespace Layihe.Areas.AdminPanel.Utils
 {
     public static class Constants
     {
-        public static string ImageFolderPath = "";
+        public static string CourseImageFolderPath = "";
+        public static string BlogImageFolderPath = "";
     }
 }

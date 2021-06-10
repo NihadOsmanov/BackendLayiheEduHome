@@ -9,5 +9,6 @@ namespace Layihe.Areas.AdminPanel.Utils
     {
         public static string CourseImageFolderPath = "";
         public static string BlogImageFolderPath = "";
+        public static string TeacherImageFolderPath = "";
     }
 }

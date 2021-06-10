@@ -60,6 +60,7 @@ namespace Layihe
 
             Constants.CourseImageFolderPath = Path.Combine(_enviroment.WebRootPath, "img","course");
             Constants.BlogImageFolderPath = Path.Combine(_enviroment.WebRootPath, "img","blog");
+            Constants.TeacherImageFolderPath = Path.Combine(_enviroment.WebRootPath, "img","teacher");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

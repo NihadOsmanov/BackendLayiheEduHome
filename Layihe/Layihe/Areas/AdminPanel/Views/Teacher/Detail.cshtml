@@ -1,0 +1,61 @@
+﻿@model Teacher
+
+@{
+    ViewData["Title"] = "Update"; 
+}
+
+<div class="card-body">
+    <img src="~/img/teacher/@Model.Image" style="width: 200px; height: 200px; object-fit: cover;" />
+</div>
+<div class="card-body">
+    <h5>Course Name</h5>  @Model.FullName
+</div>
+<div class="card-body">
+    <h5>Course Description</h5>  @Model.ProfessionOfTeacher.Profession
+</div>
+<div class="card-body">
+    <h5>AboutCourse</h5>  @Model.TeacherDetail.AboutMe
+</div>
+<div class="card-body">
+    <h5>HowToApply</h5>  @Model.TeacherDetail.Degree
+</div>
+<div class="card-body">
+    <h5>Certification</h5>  @Model.TeacherDetail.Experience
+</div>
+<div class="card-body">
+    <h5>StartDate</h5>  @Model.TeacherDetail.Hobbies
+</div>
+<div class="card-body">
+    <h5>Students</h5>  @Model.TeacherDetail.Faculty
+</div>
+<div class="card-body">
+    <h5>Duration</h5>  @Model.TeacherDetail.MailMe
+</div>
+<div class="card-body">
+    <h5>ClassDuration</h5>  @Model.TeacherDetail.Number
+</div>
+<div class="card-body">
+    <h5>Assesments</h5>  @Model.TeacherDetail.Skype
+</div>
+<div class="card-body">
+    <h5>Language</h5>  @Model.TeacherDetail.LanguageValue
+</div>
+<div class="card-body">
+    <h5>Price</h5>  @Model.TeacherDetail.TeamLeaderValue
+</div>
+<div class="card-body">
+    <h5>Price</h5>  @Model.TeacherDetail.DevelopmentValue
+</div>
+<div class="card-body">
+    <h5>Price</h5>  @Model.TeacherDetail.InnovtionValue
+</div>
+<div class="card-body">
+    <h5>Price</h5>  @Model.TeacherDetail.ComunicationValue
+</div>
+<div class="card-body">
+    <h5>Price</h5>  @Model.TeacherDetail.DesignValue
+</div>
+<div style="padding 0 10px">
+    <a asp-action="Index" class="btn btn-secondary">Go Back</a>
+</div>
+

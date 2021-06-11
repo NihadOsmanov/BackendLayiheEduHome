@@ -1,0 +1,16 @@
+﻿@model Spiker
+
+@{ ViewData["Title"] = "Detail"; }
+
+<div class="card-body">
+    <img src="~/img/event/@Model.Image" style="width: 200px; height: 200px; object-fit: cover;" />
+</div>
+<div class="card-body">
+    <h5>Spiker Name</h5>  @Model.FullName
+</div>
+<div class="card-body">
+    <h5>Profession</h5>  @Model.Profession
+</div>
+<div style="padding 0 10px">
+    <a asp-action="Index" class="btn btn-secondary">Go Back</a>
+</div>

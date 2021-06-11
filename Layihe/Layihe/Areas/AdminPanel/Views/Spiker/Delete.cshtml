@@ -1,26 +1,14 @@
-﻿   
+﻿
 @{
     ViewData["Title"] = "Delete";
-    Event evnt = Model;
+    Spiker spiker = Model;
 }
 
 <div class="card-body">
-    <img src="~/img/event/@evnt.Image" style="width: 200px !important; height: 200px !important; object-fit: cover !important" />
+    <img src="~/img/event/@spiker.Image" style="width: 200px !important; height: 200px !important; object-fit: cover !important" />
 </div>
 <div class="card-body">
-    <h5>Course Name</h5>  @evnt.Name
-</div>
-<div class="card-body">
-    <h5>Speakers</h5>
-    @foreach (var item in Model.EventSpikers)
-    {
-        <ul>
-            <li>
-                @item.Spiker.Profession
-
-            </li>
-        </ul>
-    }
+    <h5>FullName</h5>  @spiker.FullName
 </div>
 <div class="card-body">
     <h4 class="card-text" style="font-family: Montserrat, sans-serif;">Do you want to delete?</h4>

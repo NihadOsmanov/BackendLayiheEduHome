@@ -135,5 +135,47 @@ namespace Layihe.Areas.AdminPanel.Controllers
 
             return RedirectToAction("Index");
         }
+        public async Task<IActionResult> Detail(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var dbSpikers = _dbContext.Spikers.Where(x => x.IsDeleted == false).FirstOrDefault(x => x.Id == id);
+
+            if (dbSpikers == null)
+                return NotFound();
+
+            return View(dbSpikers);
+        }
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var dbSpikers = _dbContext.Spikers.Where(x => x.IsDeleted == false).FirstOrDefault(x => x.Id == id);
+
+            if (dbSpikers == null)
+                return NotFound();
+
+            return View(dbSpikers);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ActionName("Delete")]
+        public async Task<IActionResult> DeleteSpikert(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var dbSpiker = _dbContext.Spikers.Where(x => x.IsDeleted == false).FirstOrDefault(z => z.Id == id);
+
+            if (dbSpiker == null)
+                return NotFound();
+
+            dbSpiker.IsDeleted = true;
+            await _dbContext.SaveChangesAsync();
+
+            return RedirectToAction("Index");
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Layihe.Models;
+﻿using Layihe.DataAccesLayer;
+using Layihe.Models;
 using Layihe.Utils;
 using Layihe.ViewModels;
 using Microsoft.AspNetCore.Identity;
@@ -14,11 +15,13 @@ namespace Layihe.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
         }
 
         public IActionResult Login()
@@ -95,6 +98,7 @@ namespace Layihe.Controllers
                 }
                 return View();
             }
+            await _userManager.AddToRoleAsync(newUser, RoleConstant.Member);
             await _signInManager.SignInAsync(newUser, true);
 
             return RedirectToAction("Index", "Home");
@@ -181,6 +185,16 @@ namespace Layihe.Controllers
                 return View();
             }
             return RedirectToAction("Login");
-        }   
+        }
+
+        //public async Task CreateUserRole()
+        //{
+        //    if (!(await _roleManager.RoleExistsAsync("Admin")))
+        //        await _roleManager.CreateAsync(new IdentityRole { Name = "Admin" });
+        //    if (!(await _roleManager.RoleExistsAsync("CourseModerator")))
+        //        await _roleManager.CreateAsync(new IdentityRole { Name = "CourseModerator" });
+        //    if (!(await _roleManager.RoleExistsAsync("Member")))
+        //        await _roleManager.CreateAsync(new IdentityRole { Name = "Member" });
+        //}
     }
 }

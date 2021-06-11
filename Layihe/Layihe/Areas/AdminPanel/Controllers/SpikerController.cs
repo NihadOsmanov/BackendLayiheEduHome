@@ -162,7 +162,7 @@ namespace Layihe.Areas.AdminPanel.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ActionName("Delete")]
-        public async Task<IActionResult> DeleteSpikert(int? id)
+        public async Task<IActionResult> DeleteSpiker(int? id)
         {
             if (id == null)
                 return NotFound();

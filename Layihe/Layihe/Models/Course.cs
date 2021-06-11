@@ -22,5 +22,7 @@ namespace Layihe.Models
         [NotMapped]
         public IFormFile Photo { get; set; }
         public CourseDetail CourseDetail { get; set; }
+        public string UserId { get; set; }
+        public User User { get; set; }
     }
 }

@@ -15,5 +15,6 @@ namespace Layihe.Models
         [Required]
         public string Surname { get; set; }
         public bool IsDeleted { get; set; }
+        public List<Course> Courses { get; set; }
     }   
 }

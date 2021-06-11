@@ -17,7 +17,7 @@ namespace Layihe.Controllers
         }
         public IActionResult Index(int page = 1)
         {
-            ViewBag.PageCount = Decimal.Ceiling((decimal)_dbContext.Events.Count() / 6);
+            ViewBag.PageCount = Decimal.Ceiling((decimal)_dbContext.Teachers.Count() / 8);
             ViewBag.Page = page;
 
             return View();
@@ -28,7 +28,7 @@ namespace Layihe.Controllers
                 return NotFound();
 
             var teacherDetail = _dbContext.TeacherDetails.Where(x => x.IsDeleted == false).Include(x => x.Teacher).ThenInclude(y => y.SocialMediaOfTeachers)
-                .Include(t => t.Teacher).ThenInclude(t => t.ProfessionOfTeacher).FirstOrDefault(z => z.TeacherId == id);
+                                                        .Include(t => t.Teacher).ThenInclude(t => t.ProfessionOfTeacher).FirstOrDefault(z => z.TeacherId == id);
 
             if (teacherDetail == null) 
                 return NotFound();

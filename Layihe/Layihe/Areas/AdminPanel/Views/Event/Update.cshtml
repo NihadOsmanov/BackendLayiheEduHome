@@ -1,0 +1,70 @@
+﻿@model Event;
+@{
+    ViewData["Title"] = "Update";
+}
+
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Update Event</h4>
+                <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+                <form class="forms-sample" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label asp-for="Photo">Image</label>
+                        <input asp-for="Photo" class="form-control" placeholder="Image" accept="*/image">
+                        <span asp-validation-for="Photo" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Name"></label>
+                        <input asp-for="Name" class="form-control" placeholder="Name">
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Adress"></label>
+                        <input asp-for="Adress" class="form-control" placeholder="Adress">
+                        <span asp-validation-for="Adress" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="StartingTime"></label>
+                        <input asp-for="StartingTime" class="form-control" placeholder="StartingTime">
+                        <span asp-validation-for="StartingTime" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="EndTime"></label>
+                        <input asp-for="EndTime" class="form-control" placeholder="EndTime">
+                        <span asp-validation-for="EndTime" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@Model.EventDetail.Decscription"></label>
+                        <textarea asp-for="@Model.EventDetail.Decscription" class="form-control" rows="4"></textarea>
+                        <span asp-validation-for="@Model.EventDetail.Decscription" class="text-danger"></span>
+                    </div>
+                    <div class="form-group " id="Speakers">
+                        <label>Select Speakers</label>
+                        <select multiple class="custom-select" name="SpeakersId">
+                            @foreach (Spiker spiker in ViewBag.Speakers)
+                            {
+                                foreach (EventSpiker eventSpiker in Model.EventSpikers)
+                                {
+                                    if (eventSpiker.SpikerId == spiker.Id)
+                                    {
+                                        <option selected value="@spiker.Id">@spiker.FullName</option>
+
+                                    }
+                                    <option value="@spiker.Id">@spiker.FullName</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary mr-2">Create</button>
+                    <a asp-action="Index" class="btn btn-light">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+
+    <partial name="_ValidationScriptsPartial" />
+}

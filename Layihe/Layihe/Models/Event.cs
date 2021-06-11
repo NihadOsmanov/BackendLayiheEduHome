@@ -18,7 +18,6 @@ namespace Layihe.Models
         [Required, MaxLength(150)]
         public string Adress { get; set; }
 
-        [Required]
         public string Image { get; set; }
         [NotMapped]
         public IFormFile Photo { get; set; }

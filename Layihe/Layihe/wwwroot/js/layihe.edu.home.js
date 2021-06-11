@@ -13,6 +13,7 @@ $(document).ready(function () {
                 type: "Get",
                 success: function (res) {
                     $("#old-courses").css("display", "none")
+                    $("#pagination1").css("display", "none")
                     $("#new-courses").append(res)
 
                 }
@@ -20,6 +21,8 @@ $(document).ready(function () {
         }
         else {
             $("#old-courses").css("display", "block")
+            $("#pagination1").css("display", "block")
+
         }
     });
 });
@@ -40,12 +43,14 @@ $(document).ready(function () {
                 type: "Get",
                 success: function (res) {
                     $("#old-events").css("display", "none")
+                    $("#pagination1").css("display", "none")
                     $("#new-events").append(res)
                 }
             });
         }
         else {
             $("#old-events").css("display", "block")
+            $("#pagination1").css("display", "block")
         }
     });
 });
@@ -66,12 +71,14 @@ $(document).ready(function () {
                 type: "Get",
                 success: function (res) {
                     $("#old-blogs").css("display", "none")
+                    $("#pagination1").css("display", "none")
                     $("#new-blogs").append(res)
                 }
             });
         }
         else {
             $("#old-blogs").css("display", "block")
+            $("#pagination1").css("display", "block")
         }
     });
 });
@@ -92,12 +99,14 @@ $(document).ready(function () {
                 type: "Get",
                 success: function (res) {
                     $("#old-teachers").css("display", "none")
+                    $("#pagination1").css("display", "none")
                     $("#new-teachers").append(res)
                 }
             });
         }
         else {
             $("#old-teachers").css("display", "block")
+            $("#pagination1").css("display", "block")
         }
     });
 });

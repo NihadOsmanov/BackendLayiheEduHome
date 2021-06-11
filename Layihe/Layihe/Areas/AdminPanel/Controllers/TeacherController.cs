@@ -147,7 +147,6 @@ namespace Layihe.Areas.AdminPanel.Controllers
             }
 
             dbTeacher.FullName = teacher.FullName;
-            dbTeacher.ProfessionOfTeacher.Profession = teacher.ProfessionOfTeacher.Profession;
             dbTeacher.TeacherDetail.AboutMe = teacher.TeacherDetail.AboutMe;
             dbTeacher.TeacherDetail.Degree = teacher.TeacherDetail.Degree;
             dbTeacher.TeacherDetail.Experience = teacher.TeacherDetail.Experience;

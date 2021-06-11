@@ -25,6 +25,11 @@ namespace Layihe.Areas.AdminPanel.Controllers
             ViewBag.PageCount = Decimal.Ceiling((decimal)_dbContext.Events.Where(s => s.IsDeleted == false).Count() / 4);
             ViewBag.Page = page;
 
+            if (ViewBag.PageCount < page)
+            {
+                return NotFound();
+            }
+
             var events = _dbContext.Events.Where(x => x.IsDeleted == false).OrderByDescending(y => y.Id).Include(x => x.EventDetail).Include(x => x.EventSpikers).ThenInclude(x => x.Spiker)
                                                                .Skip(((int)page - 1) * 4).Take(4).ToList();
 
@@ -163,15 +168,61 @@ namespace Layihe.Areas.AdminPanel.Controllers
                 eventSpiker.EventId = dbEvent.Id;
                 eventSpiker.SpikerId = es;
                 eventSpikers.Add(eventSpiker);
-                await _dbContext.SaveChangesAsync();
             }
-
 
             dbEvent.Name = evnt.Name;
             dbEvent.Adress = evnt.Adress;
             dbEvent.StartingTime = evnt.StartingTime;
             dbEvent.EndTime = evnt.EndTime;
             dbEvent.EventDetail.Decscription = evnt.EventDetail.Decscription;
+            dbEvent.EventSpikers = eventSpikers;
+            await _dbContext.SaveChangesAsync();
+
+            return RedirectToAction("Index");
+        }
+        public IActionResult Detail(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var dbEvent = _dbContext.Events.Where(x => x.IsDeleted == false).Include(x => x.EventDetail).Include(y => y.EventSpikers)
+                                                                            .ThenInclude(y => y.Spiker).FirstOrDefault(z => z.Id == id);
+
+            if (dbEvent == null)
+                return NotFound();
+
+            return View(dbEvent);
+        }
+        public IActionResult Delete(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var dbEvent = _dbContext.Events.Where(x => x.IsDeleted == false).Include(x => x.EventDetail).Include(y => y.EventSpikers)
+                                                                            .ThenInclude(y => y.Spiker).FirstOrDefault(z => z.Id == id);
+
+            if (dbEvent == null)
+                return NotFound();
+
+            return View(dbEvent);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ActionName("Delete")]
+        public async Task<IActionResult> DeleteEvent(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var dbEvent = _dbContext.Events.Where(x => x.IsDeleted == false).Include(x => x.EventDetail).Include(y => y.EventSpikers)
+                                                                            .ThenInclude(y => y.Spiker).FirstOrDefault(z => z.Id == id);
+
+            if (dbEvent == null)
+                return NotFound();
+
+            dbEvent.IsDeleted = true;
+            dbEvent.EventDetail.IsDelete = true;
             await _dbContext.SaveChangesAsync();
 
             return RedirectToAction("Index");

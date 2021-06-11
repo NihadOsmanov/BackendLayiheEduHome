@@ -26,8 +26,13 @@ namespace Layihe.Areas.AdminPanel.Controllers
 
         public IActionResult Index(int page = 1)
         {
-            ViewBag.PageCount = Decimal.Ceiling((decimal)_dbContext.Courses.Where(s => s.IsDeleted == false).Count() / 4);
+            ViewBag.PageCount = Math.Ceiling((decimal)_dbContext.Courses.Where(s => s.IsDeleted == false).Count() / 4);
             ViewBag.Page = page;
+
+            if (ViewBag.PageCount < page)
+            {
+                return NotFound();
+            }
 
             var courses = _dbContext.Courses.Where(x => x.IsDeleted == false).Include(x => x.CourseDetail).OrderByDescending(x => x.Id)
                                                                                             .Skip(((int)page -1) * 4).Take(4).ToList();

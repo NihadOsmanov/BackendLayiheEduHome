@@ -23,6 +23,11 @@ namespace Layihe.Controllers
             ViewBag.PageCount = Decimal.Ceiling((decimal)_dbContext.Courses.Count() / 6);
             ViewBag.Page = page;
 
+            if (ViewBag.PageCount < page)
+            {
+                return NotFound();
+            }
+
             var courses = _dbContext.Courses.Where(c => c.IsDeleted == false).ToList();
             return View(courses);
         }

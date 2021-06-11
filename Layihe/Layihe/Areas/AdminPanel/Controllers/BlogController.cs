@@ -26,6 +26,11 @@ namespace Layihe.Areas.AdminPanel.Controllers
             ViewBag.PageCount = Decimal.Ceiling((decimal)_dbContext.Blogs.Where(s => s.IsDeleted == false).Count() / 4);
             ViewBag.Page = page;
 
+            if (ViewBag.PageCount < page)
+            {
+                return NotFound();
+            }
+
             var blogs = _dbContext.Blogs.Where(x => x.IsDeleted == false).Include(x => x.BlogDetail).OrderByDescending(x => x.Id)
                                                                                             .Skip(((int)page - 1) * 4).Take(4).ToList();
             return View(blogs);

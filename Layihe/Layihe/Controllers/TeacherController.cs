@@ -20,6 +20,11 @@ namespace Layihe.Controllers
             ViewBag.PageCount = Decimal.Ceiling((decimal)_dbContext.Teachers.Count() / 8);
             ViewBag.Page = page;
 
+            if (ViewBag.PageCount < page)
+            {
+                return NotFound();
+            }
+
             return View();
         }
         public IActionResult Detail(int? id)

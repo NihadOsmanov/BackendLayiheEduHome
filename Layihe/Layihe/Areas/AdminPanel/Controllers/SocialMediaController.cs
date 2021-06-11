@@ -23,6 +23,11 @@ namespace Layihe.Areas.AdminPanel.Controllers
             ViewBag.PageCount = Decimal.Ceiling((decimal)_dbContext.Teachers.Where(s => s.IsDeleted == false).Count() / 4);
             ViewBag.Page = page;
 
+            if (ViewBag.PageCount < page)
+            {
+                return NotFound();
+            }
+
             var teachers = _dbContext.Teachers.Where(x => x.IsDeleted == false).Include(x => x.TeacherDetail).Include(x => x.ProfessionOfTeacher)
                                         .OrderByDescending(y => y.Id).Include(x => x.SocialMediaOfTeachers).Skip(((int)page - 1) * 4).Take(4).ToList();
 

@@ -15,7 +15,6 @@ namespace Layihe.Models
         public string FullName { get; set; }
         [Required]
         public string Profession { get; set; }
-        [Required]
         public string Image { get; set; }
         [NotMapped]
         public IFormFile Photo { get; set; }

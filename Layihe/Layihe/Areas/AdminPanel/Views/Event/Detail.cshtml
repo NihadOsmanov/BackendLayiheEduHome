@@ -1,0 +1,39 @@
+﻿@model Event
+
+@{ ViewData["Title"] = "Detail"; }
+
+<div class="card-body">
+    <img src="~/img/event/@Model.Image" style="width: 200px; height: 200px; object-fit: cover;" />
+</div>
+<div class="card-body">
+    <h5>Event Name</h5>  @Model.Name
+</div>
+<div class="card-body">
+    <h5>Event Description</h5>  @Model.EventDetail.Decscription
+</div>
+<div class="card-body">
+    <h5>Adress</h5>  @Model.Adress
+</div>
+<div class="card-body">
+    <h5>StartingTime</h5>  @Model.StartingTime.ToString("dd MMMM yyyy")
+</div>
+<div class="card-body">
+    <h5>EndTime</h5>  @Model.EndTime.ToString("dd MMMM yyyy")
+</div>
+<div class="card-body">
+    @foreach (var item in Model.EventSpikers)
+    {
+        <ul>
+            <li>
+                <h5>Spiker Name</h5> @item.Spiker.FullName
+            </li>
+            <li>
+                <h5>Spiker Profession</h5> @item.Spiker.Profession
+            </li>
+        </ul>
+    }
+</div>
+<div style="padding 0 10px">
+    <a asp-action="Index" class="btn btn-secondary">Go Back</a>
+</div>
+

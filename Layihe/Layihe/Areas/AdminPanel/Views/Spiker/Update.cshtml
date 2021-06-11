@@ -1,0 +1,43 @@
+﻿@model Spiker
+
+@{ ViewData["Title"] = "Update"; }
+
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card d-flex">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Create Teacher</h4>
+                <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+                <form class="forms-sample" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label asp-for="Photo"></label>
+                        <input class="form-control-file" accept="image/*" asp-for="Photo">
+                        <span class="text-danger" asp-validation-for="Photo"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="FullName"></label>
+                        <input class="form-control" asp-for="FullName" placeholder="FullName">
+                        <span class=" text-danger" asp-validation-for="FullName"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Profession"> </label>
+                        <input class="form-control" asp-for="Profession" placeholder="Degree">
+                        <span class=" text-danger" asp-validation-for="Profession"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-success mr-2">Update</button>
+                    <a asp-action="Index" class="btn btn-secondary">Go Back</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+
+    <partial name="_ValidationScriptsPartial" />
+}
+
+
+

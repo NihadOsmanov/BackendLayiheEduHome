@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewData["Title"] = "Index";
-    List<Teacher> teachers = Model;
+    List<Spiker> spikers = Model;
 }
 
 <div class="row">
@@ -19,21 +19,20 @@
                                 <th>Image</th>
                                 <th>FullName</th>
                                 <th>Profession</th>
-                                @*<th>Social Icon</th>*@
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var teacher in teachers)
+                            @foreach (var spiker in spikers)
                             {
                                 <tr>
-                                    <td><img src="~/img/teacher/@teacher.Image" style="width: 100px !important; height:100px !important; object-fit: cover !important" /></td>
-                                    <td>@teacher.FullName</td>
-                                    <td>@teacher.ProfessionOfTeacher.Profession</td>
+                                    <td><img src="~/img/event/@spiker.Image" style="width: 100px !important; height:100px !important; object-fit: cover !important" /></td>
+                                    <td>@spiker.FullName</td>
+                                    <td>@spiker.Profession</td>
                                     <td>
-                                        <a class="btn btn-success" asp-action="Detail" asp-route-id="@teacher.Id">Detail</a>
-                                        <a class="btn btn-primary" asp-action="Update" asp-route-id="@teacher.Id">Update</a>
-                                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@teacher.Id">Delete</a>
+                                        <a class="btn btn-success" asp-action="Detail" asp-route-id="@spiker.Id">Detail</a>
+                                        <a class="btn btn-primary" asp-action="Update" asp-route-id="@spiker.Id">Update</a>
+                                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@spiker.Id">Delete</a>
                                     </td>
                                 </tr>
                             }

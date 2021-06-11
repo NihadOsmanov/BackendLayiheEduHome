@@ -43,18 +43,37 @@
                     <div class="form-group " id="Speakers">
                         <label>Select Speakers</label>
                         <select multiple class="custom-select" name="SpeakersId">
-                            @foreach (Spiker spiker in ViewBag.Speakers)
-                            {
-                                foreach (EventSpiker eventSpiker in Model.EventSpikers)
+                            @{
+                                bool isTrue = true;
+
+                                @foreach (Spiker spiker in ViewBag.Speakers)
                                 {
-                                    if (eventSpiker.SpikerId == spiker.Id)
+                                    foreach (EventSpiker eventSpiker in Model.EventSpikers)
+                                    {
+                                        if (eventSpiker.SpikerId == spiker.Id)
+                                        {
+                                            isTrue = true;
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            isTrue = false;
+                                        }
+
+                                    }
+                                    if (isTrue)
                                     {
                                         <option selected value="@spiker.Id">@spiker.FullName</option>
 
                                     }
-                                    <option value="@spiker.Id">@spiker.FullName</option>
+                                    else
+                                    {
+                                        <option value="@spiker.Id">@spiker.FullName</option>
+
+                                    }
                                 }
                             }
+
                         </select>
                     </div>
                     <button type="submit" class="btn btn-primary mr-2">Create</button>

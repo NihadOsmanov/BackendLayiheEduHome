@@ -1,6 +1,7 @@
 ﻿using Layihe.Areas.AdminPanel.Utils;
 using Layihe.DataAccesLayer;
 using Layihe.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,7 @@ using System.Threading.Tasks;
 namespace Layihe.Areas.AdminPanel.Controllers
 {
     [Area("AdminPanel")]
+    [Authorize(Roles = RoleConstant.Admin)]
     public class CourseController : Controller
     {
         private readonly AppDbContext _dbContext;

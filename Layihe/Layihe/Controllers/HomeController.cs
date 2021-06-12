@@ -1,4 +1,5 @@
 ﻿using Layihe.DataAccesLayer;
+using Layihe.Models;
 using Layihe.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -6,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Layihe.Controllers
@@ -43,6 +45,40 @@ namespace Layihe.Controllers
                 Blogs = _dbContext.Blogs.Where(x => x.IsDeleted == false && x.Title.Contains(search)).Take(4).ToList(),
             };
             return PartialView("_SearchViewPartial", searchViewModel);
+        }
+        public async Task<IActionResult> Subscriber(string email)
+        {
+            string pattern = "^(([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5}){1,25})+([;.](([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5}){1,25})+)*$";
+            
+            if(email == null)
+            {
+                return Content("Not");
+            }
+
+            if(!Regex.IsMatch(email, pattern))
+            {
+                return Content("Email is not valid");
+            }
+
+            var dbSubsriber = _dbContext.Subscribers.ToList();
+
+            var subscriber = new Subscriber()
+            {
+                Email = email
+            };
+
+            foreach (var item in dbSubsriber)
+            {
+                if(item.Email == email)
+                {
+                    return Content("Successed");
+                }
+            }
+
+            await _dbContext.AddAsync(subscriber);
+            await _dbContext.SaveChangesAsync();
+
+            return Content("Suceesfully");
         }
     }
 }

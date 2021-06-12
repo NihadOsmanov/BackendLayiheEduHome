@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    List<Course> courses = Model;
+}
+
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Categories</h4>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>StartDate</th>
+                                <th>Language</th>
+                                <th>Price</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var course in courses)
+                            {
+                                <tr>
+                                    <td><img src="~/img/course/@course.Image" style="width: 100px !important; height:100px !important; object-fit: cover !important" /></td>
+                                    <td>@course.Name</td>
+                                    <td>@course.CourseDetail.StartDate.ToString("dd MMMM")</td>
+                                    <td>@course.CourseDetail.Language</td>
+                                    <td>@course.CourseDetail.Price</td>
+                                    <td>
+                                        <a class="btn btn-primary" asp-action="Update" asp-route-id="@course.Id">Update</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+</div>

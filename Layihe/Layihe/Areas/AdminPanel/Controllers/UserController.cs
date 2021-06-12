@@ -1,6 +1,7 @@
 ﻿using Layihe.DataAccesLayer;
 using Layihe.Models;
 using Layihe.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 namespace Layihe.Areas.AdminPanel.Controllers
 {
     [Area("AdminPanel")]
-    //[Authorize(Roles = RoleConstants.AdminRole)]
+    [Authorize(Roles = RoleConstant.Admin + "," + RoleConstant.CourseModerator)]
     public class UserController : Controller
     {
         private readonly AppDbContext _dbContext;
@@ -118,8 +119,6 @@ namespace Layihe.Areas.AdminPanel.Controllers
             if (user == null)
                 return NotFound();
 
-            //ViewBag.Role = (await _userManager.GetRolesAsync(user)).FirstOrDefault();
-
             ChangeRoleViewModel changeRole = new ChangeRoleViewModel
             {
                 Username = user.UserName,
@@ -137,6 +136,8 @@ namespace Layihe.Areas.AdminPanel.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ChangeRole(string id, string selectedRole,List<int?> CoursesId)
         {
+            ViewBag.Courses = _dbContext.Courses.Where(x => x.IsDeleted == false).Include(x => x.CourseDetail).ToList();
+
             if (id == null)
                 return NotFound();
 
@@ -178,14 +179,19 @@ namespace Layihe.Areas.AdminPanel.Controllers
                 }
                 return View(changeRole);
             }
-            foreach (int cId in CoursesId)
+            if(CoursesId == null)
             {
-                Course course = _dbContext.Courses.Where(x => x.IsDeleted == false).FirstOrDefault();
-                course.UserId = id;
-
+                return NotFound();
             }
-            return RedirectToAction("Index");
 
+                foreach (int cId in CoursesId)
+                {
+                    Course course = _dbContext.Courses.Where(x => x.IsDeleted == false).FirstOrDefault(x => x.Id == cId);
+                    course.UserId = id;
+                    await _dbContext.SaveChangesAsync();
+                }
+
+            return RedirectToAction("Index");
         }
 
         public async Task<IActionResult> Activity(string id)

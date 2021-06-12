@@ -36,5 +36,6 @@ namespace Layihe.DataAccesLayer
         public DbSet<Spiker> Spikers { get; set; }
         public DbSet<BlogDetail> BlogDetails { get; set; }
         public DbSet<EventSpiker> EventSpikers { get; set; }
+        public DbSet<Subscriber> Subscribers { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿//Courses Search
 
+
 $(document).ready(function () {
     let search;
     $(document).on("keyup", "#search-course-input", function () {
@@ -134,3 +135,23 @@ $(document).ready(function () {
     })
 })
 
+//Subscriber
+
+$(document).ready(function () {
+    let subscriber;
+    $(document).on("click", `#btn-subs`, function () {
+        subscriber = $("#inp-subs").val();
+
+        $("#span-subs").empty();
+
+        $.ajax({
+            url: "Home/Subsriber?email=" + subscriber,
+            type: "Post",
+            success: function (res) {
+                console.log("ok")
+
+                $("#span-subs").append(res);
+            }
+        });
+    });
+});

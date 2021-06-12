@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace Layihe.Areas.AdminPanel.Controllers
 {
     [Area("AdminPanel")]
-    [Authorize]
+    [Authorize(Roles = RoleConstant.Admin)]
     public class BlogController : Controller
     {
         private readonly AppDbContext _dbContext;

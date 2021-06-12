@@ -16,11 +16,11 @@
                             @if (User.Identity.IsAuthenticated)
                             {
                                 <li><a>@User.Identity.Name</a></li>
-                                @*@if (User.IsInRole("Admin"))
+                                @if (User.IsInRole("Admin"))
                                 {
                                     <li><a asp-area="AdminPanel" asp-controller="Dashboard" asp-action="Index">Admin</a></li>
 
-                                }*@
+                                }
                                 <li><a asp-controller="Account" asp-action="Logout">logout</a></li>
 
                             }

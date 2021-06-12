@@ -36,6 +36,8 @@ namespace Layihe.Areas.AdminPanel.Controllers
 
             return View(spikers);
         }
+
+        #region Create
         public IActionResult Create()
         {
             return View();
@@ -78,6 +80,10 @@ namespace Layihe.Areas.AdminPanel.Controllers
 
             return RedirectToAction("Index");
         }
+
+        #endregion
+
+        #region Update
         public IActionResult Update(int? id)
         {
             if (id == null)
@@ -137,6 +143,10 @@ namespace Layihe.Areas.AdminPanel.Controllers
 
             return RedirectToAction("Index");
         }
+
+        #endregion
+
+        #region Detail
         public async Task<IActionResult> Detail(int? id)
         {
             if (id == null)
@@ -149,6 +159,10 @@ namespace Layihe.Areas.AdminPanel.Controllers
 
             return View(dbSpikers);
         }
+
+        #endregion
+
+        #region Delete
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -161,6 +175,7 @@ namespace Layihe.Areas.AdminPanel.Controllers
 
             return View(dbSpikers);
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ActionName("Delete")]
@@ -179,5 +194,7 @@ namespace Layihe.Areas.AdminPanel.Controllers
 
             return RedirectToAction("Index");
         }
+        #endregion
+
     }
 }

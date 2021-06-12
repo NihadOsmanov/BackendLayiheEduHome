@@ -37,8 +37,7 @@ namespace Layihe.Areas.AdminPanel.Controllers
             return View(courses);
         }
 
-
-
+        #region Update
         public IActionResult Update(int? id)
         {
             if (id == null)
@@ -110,5 +109,8 @@ namespace Layihe.Areas.AdminPanel.Controllers
 
             return RedirectToAction("Index");
         }
+
+        #endregion
+
     }
 }

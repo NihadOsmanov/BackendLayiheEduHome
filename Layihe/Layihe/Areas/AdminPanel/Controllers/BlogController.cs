@@ -37,18 +37,8 @@ namespace Layihe.Areas.AdminPanel.Controllers
                                                                                             .Skip(((int)page - 1) * 4).Take(4).ToList();
             return View(blogs);
         }
-        public IActionResult Detail(int? id)
-        {
-            if (id == null)
-                return NotFound();
 
-            var blogDetail = _dbContext.BlogDetails.Where(x => x.IsDelete == false).Include(x => x.Blog).FirstOrDefault(y => y.BlogId == id);
-
-            if (blogDetail == null)
-                return NotFound();
-
-            return View(blogDetail);
-        }
+        #region Create
         public IActionResult Create()
         {
             return View();
@@ -99,6 +89,10 @@ namespace Layihe.Areas.AdminPanel.Controllers
 
             return RedirectToAction("Index");
         }
+
+        #endregion
+
+        #region Update
         public IActionResult Update(int? id)
         {
             if (id == null)
@@ -159,6 +153,26 @@ namespace Layihe.Areas.AdminPanel.Controllers
 
             return RedirectToAction("Index");
         }
+
+        #endregion
+
+        #region Detail
+        public IActionResult Detail(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var blogDetail = _dbContext.BlogDetails.Where(x => x.IsDelete == false).Include(x => x.Blog).FirstOrDefault(y => y.BlogId == id);
+
+            if (blogDetail == null)
+                return NotFound();
+
+            return View(blogDetail);
+        }
+
+        #endregion
+
+        #region Delete
         public IActionResult Delete(int? id)
         {
             if (id == null)
@@ -189,8 +203,11 @@ namespace Layihe.Areas.AdminPanel.Controllers
             blogDetail.IsDelete = true;
             blogDetail.Blog.IsDeleted = true;
             await _dbContext.SaveChangesAsync();
-            
+
             return RedirectToAction("Index");
         }
     }
+
+    #endregion
+
 }

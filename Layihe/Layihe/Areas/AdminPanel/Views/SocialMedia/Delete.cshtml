@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewData["Title"] = "Delete";
+    SocialMediaOfTeacher social = Model;
+}
+
+<div class="card-body">
+    <h5>Link : </h5>  @social.Link
+</div>
+<div class="card-body">
+    <h5>Teacher FullName : </h5> @social.Teacher.FullName
+<div class="card-body">
+    <h4 class="card-text" style="font-family: Montserrat, sans-serif;">Do you want to delete?</h4>
+</div>
+<div class="row" style="margin-left: 10px;">
+    <form method="post">
+        <button type="submit" class="btn btn-danger">Delete</button>
+    </form>
+    <a asp-action="Index" class="btn btn-secondary" style="margin-left: 10px">Go Back</a>
+</div>

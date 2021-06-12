@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewData["Title"] = "Detail";
+    SocialMediaOfTeacher social = Model;
+}
+
+<div class="card-body">
+    <h5>Link</h5> <span>@social.Link</span> 
+</div>
+<div class="card-body">
+    <span>
+        <h5>Icon</h5> <span>@Html.Raw(social.Icon)</span>
+    </span>
+</div>
+<div class="card-body">
+    <span>
+        <h5>Teacher FullName</h5> <span>@social.Teacher.FullName</span>
+    </span>
+</div>
+<div class="card-body">
+    <a asp-action="Index" class="btn btn-secondary" style="margin-left: 10px">Go Back</a>
+</div>

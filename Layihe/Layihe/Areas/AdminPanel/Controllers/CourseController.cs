@@ -40,6 +40,8 @@ namespace Layihe.Areas.AdminPanel.Controllers
                                                                                             .Skip(((int)page -1) * 4).Take(4).ToList();
             return View(courses);
         }
+
+        #region Detail
         public IActionResult Detail(int? id)
         {
             if (id == null)
@@ -53,13 +55,17 @@ namespace Layihe.Areas.AdminPanel.Controllers
 
             return View(courseDetails);
         }
+
+        #endregion
+
+        #region Create
         public IActionResult Create()
         {
             return View();
         }
 
-            [HttpPost]
-            [ValidateAntiForgeryToken]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Course course)
         {
             if (!ModelState.IsValid)
@@ -85,13 +91,6 @@ namespace Layihe.Areas.AdminPanel.Controllers
                 return View();
             }
 
-            //var isExist = _dbContext.Courses.Where(x => x.IsDeleted == false).Any(x => x.Name.ToLower() == course.Name.ToLower());
-            //if (isExist)
-            //{
-            //    ModelState.AddModelError("Name", "There is a course with this name");
-            //    return View();
-            //}
-
             var fileName = await FileUtil.GenerateFileAsync(Constants.CourseImageFolderPath, course.Photo);
 
             course.Image = fileName;
@@ -104,6 +103,10 @@ namespace Layihe.Areas.AdminPanel.Controllers
 
             return RedirectToAction("Index");
         }
+
+        #endregion
+
+        #region Update
         public IActionResult Update(int? id)
         {
             if (id == null)
@@ -133,7 +136,7 @@ namespace Layihe.Areas.AdminPanel.Controllers
             if (dbCourse == null)
                 return NotFound();
 
-            if(course.Photo != null)
+            if (course.Photo != null)
             {
                 if (!course.Photo.IsImage())
                 {
@@ -175,6 +178,10 @@ namespace Layihe.Areas.AdminPanel.Controllers
 
             return RedirectToAction("Index");
         }
+
+        #endregion
+
+        #region Delete
         public IActionResult Delete(int? id)
         {
             if (id == null)
@@ -203,18 +210,14 @@ namespace Layihe.Areas.AdminPanel.Controllers
             if (courseDetail == null)
                 return NotFound();
 
-            //var path = Path.Combine(Constants.ImageFolderPath, courseDetails.Course.Image);
-            //if (System.IO.File.Exists(path))
-            //{
-            //    System.IO.File.Delete(path);
-            //}
-
-           
             courseDetail.IsDeleted = true;
             courseDetail.Course.IsDeleted = true;
             await _dbContext.SaveChangesAsync();
 
             return RedirectToAction("Index");
         }
+
+        #endregion
+
     }
 }

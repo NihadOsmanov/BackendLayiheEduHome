@@ -48,6 +48,8 @@ namespace Layihe.Areas.AdminPanel.Controllers
             }
             return View(users);
         }
+
+        #region ChangePassword
         public async Task<IActionResult> ChangePassword(string id)
         {
             if (id == null)
@@ -107,6 +109,9 @@ namespace Layihe.Areas.AdminPanel.Controllers
 
             return RedirectToAction("Index");
         }
+        #endregion
+
+        #region ChangeRole
         public async Task<IActionResult> ChangeRole(string id)
         {
             ViewBag.Courses = _dbContext.Courses.Where(x => x.IsDeleted == false).Include(x => x.CourseDetail).ToList();
@@ -134,7 +139,7 @@ namespace Layihe.Areas.AdminPanel.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ChangeRole(string id, string selectedRole,List<int?> CoursesId)
+        public async Task<IActionResult> ChangeRole(string id, string selectedRole, List<int?> CoursesId)
         {
             ViewBag.Courses = _dbContext.Courses.Where(x => x.IsDeleted == false).Include(x => x.CourseDetail).ToList();
 
@@ -179,21 +184,24 @@ namespace Layihe.Areas.AdminPanel.Controllers
                 }
                 return View(changeRole);
             }
-            if(CoursesId == null)
+            if (CoursesId == null)
             {
                 return NotFound();
             }
 
-                foreach (int cId in CoursesId)
-                {
-                    Course course = _dbContext.Courses.Where(x => x.IsDeleted == false).FirstOrDefault(x => x.Id == cId);
-                    course.UserId = id;
-                    await _dbContext.SaveChangesAsync();
-                }
+            foreach (int cId in CoursesId)
+            {
+                Course course = _dbContext.Courses.Where(x => x.IsDeleted == false).FirstOrDefault(x => x.Id == cId);
+                course.UserId = id;
+                await _dbContext.SaveChangesAsync();
+            }
 
             return RedirectToAction("Index");
         }
 
+        #endregion
+
+        #region Activity
         public async Task<IActionResult> Activity(string id)
         {
             if (id == null)
@@ -216,5 +224,8 @@ namespace Layihe.Areas.AdminPanel.Controllers
 
             return RedirectToAction("Index");
         }
+
+        #endregion
+
     }
 }

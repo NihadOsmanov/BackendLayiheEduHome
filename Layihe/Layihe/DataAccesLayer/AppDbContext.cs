@@ -37,5 +37,6 @@ namespace Layihe.DataAccesLayer
         public DbSet<BlogDetail> BlogDetails { get; set; }
         public DbSet<EventSpiker> EventSpikers { get; set; }
         public DbSet<Subscriber> Subscribers { get; set; }
+        public DbSet<SocialMedia> SocialMedias { get; set; }
     }
 }

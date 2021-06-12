@@ -42,14 +42,15 @@
                                                     <div class="modal-body bg-dark text-white " >
                                                         @foreach (SocialMediaOfTeacher socMed in teacher.SocialMediaOfTeachers)
                                                         {
-                                                            <div class="d-flex justify-content-between mb-3">
-                                                                <div style="padding-top: 16px">@socMed.Link</div>
-                                                                <div>
-                                                                    <a class="btn btn-success" asp-controller="SocialMedia" asp-action="Detail" asp-route-id="@socMed.Id">Detail</a>
-                                                                    <a class="btn btn-primary" asp-controller="SocialMedia" asp-action="Update" asp-route-id="@socMed.Id">Update</a>
-                                                                    <a class="btn btn-danger" asp-controller="SocialMedia" asp-action="Delete" asp-route-id="@socMed.Id">Delete</a>
-                                                                </div>
+                                                        <div class="nihatPro d-flex justify-content-between mb-3">
+                                                            <div style="padding-top: 16px">@socMed.Link</div>
+                                                            <div class="myIcon" style="padding-top: 16px">@Html.Raw(socMed.Icon)</div>
+                                                            <div>
+                                                                <a class="btn btn-success" asp-controller="SocialMedia" asp-action="Detail" asp-route-id="@socMed.Id">Detail</a>
+                                                                <a class="btn btn-primary" asp-controller="SocialMedia" asp-action="Update" asp-route-id="@socMed.Id">Update</a>
+                                                                <a class="btn btn-danger" asp-controller="SocialMedia" asp-action="Delete" asp-route-id="@socMed.Id">Delete</a>
                                                             </div>
+                                                        </div>
 
                                                         }
                                                     </div>

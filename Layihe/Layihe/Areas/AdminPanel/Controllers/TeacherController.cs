@@ -36,6 +36,8 @@ namespace Layihe.Areas.AdminPanel.Controllers
 
             return View(teachers);
         }
+
+        #region Create
         public async Task<IActionResult> Create()
         {
             ViewBag.Profession = await _dbContext.ProfessionOfTeachers.Where(x => x.IsDeleted == false).ToListAsync();
@@ -48,7 +50,7 @@ namespace Layihe.Areas.AdminPanel.Controllers
         {
             ViewBag.Profession = await _dbContext.ProfessionOfTeachers.Where(x => x.IsDeleted == false).ToListAsync();
 
-            if(ProfessionId == null)
+            if (ProfessionId == null)
             {
                 ModelState.AddModelError("", "Please select");
                 return View();
@@ -88,13 +90,17 @@ namespace Layihe.Areas.AdminPanel.Controllers
 
             return RedirectToAction("Index");
         }
+
+        #endregion
+
+        #region Update
         public async Task<IActionResult> Update(int? id)
         {
             if (id == null)
                 return View();
 
             var teacher = _dbContext.Teachers.Where(x => x.IsDeleted == false).Include(x => x.TeacherDetail).Include(y => y.SocialMediaOfTeachers)
-                                                                                        .Include(y => y.ProfessionOfTeacher).FirstOrDefault(x => x.Id == id);
+                                                                                  .Include(y => y.ProfessionOfTeacher).FirstOrDefault(x => x.Id == id);
 
             ViewBag.Profession = await _dbContext.ProfessionOfTeachers.Where(x => x.IsDeleted == false).ToListAsync();
 
@@ -128,7 +134,7 @@ namespace Layihe.Areas.AdminPanel.Controllers
             if (dbTeacher == null)
                 return NotFound();
 
-            if(teacher.Photo != null)
+            if (teacher.Photo != null)
             {
                 if (!teacher.Photo.IsImage())
                 {
@@ -173,9 +179,13 @@ namespace Layihe.Areas.AdminPanel.Controllers
 
             return RedirectToAction("Index");
         }
+
+        #endregion
+
+        #region Detail
         public IActionResult Detail(int? id)
         {
-            if(id == null)
+            if (id == null)
                 return NotFound();
 
             var teacher = _dbContext.Teachers.Where(x => x.IsDeleted == false).Include(x => x.TeacherDetail).Include(x => x.ProfessionOfTeacher).
@@ -186,6 +196,10 @@ namespace Layihe.Areas.AdminPanel.Controllers
 
             return View(teacher);
         }
+
+        #endregion
+
+        #region Delete
         public IActionResult Delete(int? id)
         {
             if (id == null)
@@ -221,4 +235,7 @@ namespace Layihe.Areas.AdminPanel.Controllers
             return RedirectToAction("Index");
         }
     }
+
+    #endregion
+
 }

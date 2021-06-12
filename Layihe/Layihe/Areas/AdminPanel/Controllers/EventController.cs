@@ -38,16 +38,17 @@ namespace Layihe.Areas.AdminPanel.Controllers
 
             return View(events);
         }
+
+        #region Create
         public IActionResult Create()
         {
-            ViewBag.Speakers = _dbContext.Spikers.Where(x => x.IsDeleted ==false).ToList();
+            ViewBag.Speakers = _dbContext.Spikers.Where(x => x.IsDeleted == false).ToList();
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-
-        public async Task<IActionResult> Create(Event evnt,List<int?> SpeakersId)
+        public async Task<IActionResult> Create(Event evnt, List<int?> SpeakersId)
         {
             ViewBag.Speakers = _dbContext.Spikers.Where(x => x.IsDeleted == false).ToList();
 
@@ -56,7 +57,7 @@ namespace Layihe.Areas.AdminPanel.Controllers
                 return View();
             }
 
-            if(SpeakersId == null)
+            if (SpeakersId == null)
             {
                 ModelState.AddModelError("", "Please select");
                 return View();
@@ -85,7 +86,7 @@ namespace Layihe.Areas.AdminPanel.Controllers
             evnt.IsDeleted = false;
 
             var eventSpikers = new List<EventSpiker>();
-           
+
             await _dbContext.Events.AddAsync(evnt);
             evnt.EventDetail.EventId = evnt.Id;
             foreach (int es in SpeakersId)
@@ -99,7 +100,7 @@ namespace Layihe.Areas.AdminPanel.Controllers
             await _dbContext.EventDetails.AddAsync(evnt.EventDetail);
             await _dbContext.SaveChangesAsync();
 
-            string href = "https://localhost:44364/Event/Detail/"+evnt.Id;
+            string href = "https://localhost:44364/Event/Detail/" + evnt.Id;
             string subject = "New Event Created";
             string msgBody = $"<a href={href}>New Event Created for see you click here</a> ";
 
@@ -111,6 +112,10 @@ namespace Layihe.Areas.AdminPanel.Controllers
 
             return RedirectToAction("Index");
         }
+
+        #endregion
+
+        #region Update
         public IActionResult Update(int? id)
         {
             ViewBag.Speakers = _dbContext.Spikers.Where(x => x.IsDeleted == false).ToList();
@@ -193,6 +198,10 @@ namespace Layihe.Areas.AdminPanel.Controllers
 
             return RedirectToAction("Index");
         }
+
+        #endregion
+
+        #region Detail
         public IActionResult Detail(int? id)
         {
             if (id == null)
@@ -206,6 +215,10 @@ namespace Layihe.Areas.AdminPanel.Controllers
 
             return View(dbEvent);
         }
+
+        #endregion
+
+        #region Delete
         public IActionResult Delete(int? id)
         {
             if (id == null)
@@ -240,5 +253,7 @@ namespace Layihe.Areas.AdminPanel.Controllers
 
             return RedirectToAction("Index");
         }
+        #endregion
+
     }
 }

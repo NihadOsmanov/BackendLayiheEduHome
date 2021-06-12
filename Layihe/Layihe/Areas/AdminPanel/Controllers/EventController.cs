@@ -1,6 +1,7 @@
 ﻿using Layihe.Areas.AdminPanel.Utils;
 using Layihe.DataAccesLayer;
 using Layihe.Models;
+using Layihe.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -97,6 +98,16 @@ namespace Layihe.Areas.AdminPanel.Controllers
             evnt.EventSpikers = eventSpikers;
             await _dbContext.EventDetails.AddAsync(evnt.EventDetail);
             await _dbContext.SaveChangesAsync();
+
+            string href = "https://localhost:44364/Event/Detail/"+evnt.Id;
+            string subject = "New Event Created";
+            string msgBody = $"<a href={href}>New Event Created for see you click here</a> ";
+
+            foreach (var item in (await _dbContext.Subscribers.ToListAsync()))
+            {
+                await Helper.SendMessage(subject, msgBody, item.Email);
+
+            }
 
             return RedirectToAction("Index");
         }

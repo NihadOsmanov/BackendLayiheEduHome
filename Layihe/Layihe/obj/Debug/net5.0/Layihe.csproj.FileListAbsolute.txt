@@ -282,3 +282,4 @@ C:\Users\ASUS\Desktop\BackendLayiheEduHome\Layihe\Layihe\obj\Debug\net5.0\Razor\
 C:\Users\ASUS\Desktop\BackendLayiheEduHome\Layihe\Layihe\obj\Debug\net5.0\Razor\Areas\AdminPanel\Views\User\Index.cshtml.g.cs
 C:\Users\ASUS\Desktop\BackendLayiheEduHome\Layihe\Layihe\obj\Debug\net5.0\Razor\Areas\AdminPanel\Views\CourseModerator\Index.cshtml.g.cs
 C:\Users\ASUS\Desktop\BackendLayiheEduHome\Layihe\Layihe\obj\Debug\net5.0\Razor\Areas\AdminPanel\Views\CourseModerator\Update.cshtml.g.cs
+C:\Users\ASUS\Desktop\BackendLayiheEduHome\Layihe\Layihe\obj\Debug\net5.0\Razor\Areas\AdminPanel\Views\SocialMedia\Create.cshtml.g.cs

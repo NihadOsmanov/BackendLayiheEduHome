@@ -33,5 +33,9 @@ namespace Layihe.Areas.AdminPanel.Controllers
 
             return View(teachers);
         }
+        public IActionResult Create()
+        {
+            return View();
+        }
     }
 }

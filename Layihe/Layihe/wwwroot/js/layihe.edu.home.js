@@ -145,8 +145,8 @@ $(document).ready(function () {
         $("#span-subs").empty();
 
         $.ajax({
-            url: "Home/Subsriber?email=" + subscriber,
-            type: "Post",
+            url: "Home/Subscriber?email=" + subscriber,
+            type: "Get",
             success: function (res) {
                 console.log("ok")
 

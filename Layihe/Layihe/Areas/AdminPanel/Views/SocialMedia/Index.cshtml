@@ -10,59 +10,86 @@
             <p style="padding: 30px">
                 <a asp-action="Create" class="btn btn-primary btn-lg">Create</a>
             </p>
-            @foreach (var teacher in teachers)
-            {
-                <div class="card-body">
-                    <h4 class="card-title">Social Mdeia</h4>
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Link</th>
-                                    <th>Icon</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var socMed in teacher.SocialMediaOfTeachers)
-                                {
-                                    <tr>
-                                        <td>@socMed.Link</td>
-                                        <td>@Html.Raw(socMed.Icon)</td>
-                                        <td>
-                                            <a class="btn btn-success" asp-controller="SocialMedia" asp-action="Detail" asp-route-id="@socMed.Id">Detail</a>
-                                            <a class="btn btn-primary" asp-controller="SocialMedia" asp-action="Update" asp-route-id="@socMed.Id">Update</a>
-                                            <a class="btn btn-danger" asp-controller="SocialMedia" asp-action="Delete" asp-route-id="@socMed.Id">Delete</a>
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                        <div>
-                            <nav aria-label="..." id="pagination1">
-                                <ul class="pagination pagination-lg">
-                                    @for (int i = 1; i <= ViewBag.PageCount; i++)
-                                    {
-                                        if (ViewBag.Page == i)
-                                        {
-                                            <li class="page-item disabled">
-                                                <a class="page-link" asp-action="Index" asp-route-page="@i">@i</a>
-                                            </li>
-                                        }
-                                        else
-                                        {
-                                            <li class="page-item">
-                                                <a class="page-link" asp-action="Index" asp-route-page="@i">@i</a>
-                                            </li>
-                                        }
-                                    }
-                                </ul>
-                            </nav>
-                        </div>
 
+            <div class="card-body">
+                <h4 class="card-title">Social Mdeia</h4>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Teacher Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (Teacher teacher in teachers)
+                            {
+                                <tr>
+                                    <td>
+                                        <button type="button" class="btn btn-outline-success" data-toggle="modal" style="width: 100%" data-target=@($"#exampleModal{teacher.Id}")>
+                                            @teacher.FullName
+                                        </button>
+
+                                        <!-- Modal -->
+                                        <div  class="modal fade" id="@($"exampleModal{teacher.Id}")" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content  bg-dark text-white" style="width:700px !important">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body bg-dark text-white " >
+                                                        @foreach (SocialMediaOfTeacher socMed in teacher.SocialMediaOfTeachers)
+                                                        {
+                                                            <div class="d-flex justify-content-between mb-3">
+                                                                <div style="padding-top: 16px">@socMed.Link</div>
+                                                                <div>
+                                                                    <a class="btn btn-success" asp-controller="SocialMedia" asp-action="Detail" asp-route-id="@socMed.Id">Detail</a>
+                                                                    <a class="btn btn-primary" asp-controller="SocialMedia" asp-action="Update" asp-route-id="@socMed.Id">Update</a>
+                                                                    <a class="btn btn-danger" asp-controller="SocialMedia" asp-action="Delete" asp-route-id="@socMed.Id">Delete</a>
+                                                                </div>
+                                                            </div>
+
+                                                        }
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div>
+                        <nav aria-label="..." id="pagination1">
+                            <ul class="pagination pagination-lg">
+                                @for (int i = 1; i <= ViewBag.PageCount; i++)
+                                {
+                                    if (ViewBag.Page == i)
+                                    {
+                                        <li class="page-item disabled">
+                                            <a class="page-link" asp-action="Index" asp-route-page="@i">@i</a>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li class="page-item">
+                                            <a class="page-link" asp-action="Index" asp-route-page="@i">@i</a>
+                                        </li>
+                                    }
+                                }
+                            </ul>
+                        </nav>
                     </div>
+
                 </div>
-            }
+            </div>
+
 
         </div>
     </div>

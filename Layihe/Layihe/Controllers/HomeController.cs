@@ -52,7 +52,7 @@ namespace Layihe.Controllers
             
             if(email == null)
             {
-                return Content("Not");
+                return Content("Email can not empty");
             }
 
             if(!Regex.IsMatch(email, pattern))
@@ -71,14 +71,14 @@ namespace Layihe.Controllers
             {
                 if(item.Email == email)
                 {
-                    return Content("Successed");
+                    return Content("this account allready is subscriber");
                 }
             }
 
             await _dbContext.AddAsync(subscriber);
             await _dbContext.SaveChangesAsync();
 
-            return Content("Suceesfully");
+            return Content("Suceess");
         }
     }
 }

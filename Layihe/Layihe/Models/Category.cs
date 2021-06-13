@@ -11,6 +11,7 @@ namespace Layihe.Models
         public string Name { get; set; }
         public ICollection<EventCategory> EventCategories { get; set; }
         public ICollection<CourseCategory> CourseCategories { get; set; }
+        public ICollection<BlogCategory> BlogCategories { get; set; }
 
 
     }

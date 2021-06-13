@@ -27,7 +27,7 @@ namespace Layihe.ViewComponents
             else
             {
                 var teacher = await _dbContext.Teachers.Where(x => x.IsDeleted == false).Include(y => y.SocialMediaOfTeachers)
-                                                        .Include(z => z.ProfessionOfTeacher).Skip((skip - 1) * 6).Take((int)take).ToListAsync();
+                                                        .Include(z => z.ProfessionOfTeacher).Skip((skip - 1) * (int)take).Take((int)take).ToListAsync();
                 return View(teacher);
             }
 

@@ -24,7 +24,7 @@ namespace Layihe.Areas.AdminPanel.Controllers
 
         public IActionResult Index(int page = 1)
         {
-            ViewBag.PageCount = Decimal.Ceiling((decimal)_dbContext.Spikers.Where(s => s.IsDeleted == false).Count() / 4);
+            ViewBag.PageCount = Math.Ceiling((decimal)_dbContext.Spikers.Where(s => s.IsDeleted == false).Count() / 4);
             ViewBag.Page = page;
 
             if (ViewBag.PageCount < ViewBag.Page)

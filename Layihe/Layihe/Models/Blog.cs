@@ -23,5 +23,7 @@ namespace Layihe.Models
         [NotMapped]
         public IFormFile Photo { get; set; }
         public BlogDetail BlogDetail { get; set; }
+        public ICollection<BlogCategory> BlogCategories { get; set; }
+
     }
 }

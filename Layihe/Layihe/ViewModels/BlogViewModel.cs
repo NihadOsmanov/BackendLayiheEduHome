@@ -9,6 +9,7 @@ namespace Layihe.ViewModels
     public class BlogViewModel
     {
         public List<Blog> Blogs { get; set; }
+        public List<Category> Categories { get; set; }
         public BlogDetail BlogDetail { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Layihe.DataAccesLayer;
+using Layihe.Models;
 using Layihe.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -18,17 +19,33 @@ namespace Layihe.Controllers
             _dbContext = dbContext;
         }
 
-        public IActionResult Index(int page = 1)
+        public IActionResult Index(int? categoryId, int page = 1)
         {
-            ViewBag.PageCount = Decimal.Ceiling((decimal)_dbContext.Blogs.Count() / 6);
-            ViewBag.Page = page;
-
-            if (ViewBag.PageCount < page)
+            if (categoryId == null)
             {
-                return NotFound();
-            }
+                ViewBag.PageCount = Math.Ceiling((decimal)_dbContext.Blogs.Count() / 6);
+                ViewBag.Page = page;
 
-            return View();
+                if (ViewBag.PageCount < page)
+                {
+                    return NotFound();
+                }
+                return View();
+            }
+            else
+            {
+                List<Blog> blogs = new List<Blog>();
+                List<BlogCategory> blogCategories = _dbContext.BlogCategories.Include(x => x.Blog).ToList();
+                foreach (BlogCategory blogCategory in blogCategories)
+                {
+                    if (blogCategory.CategoryId == categoryId && blogCategory.Blog.IsDeleted == false)
+                    {
+                        blogs.Add(blogCategory.Blog);
+                    }
+                }
+
+                return View(blogs);
+            }
         }
 
         #region Detail
@@ -44,7 +61,8 @@ namespace Layihe.Controllers
             var blogViewModel = new BlogViewModel
             {
                 BlogDetail = blogDetails,
-                Blogs = _dbContext.Blogs.Where(x => x.IsDeleted == false).Take(3).ToList()
+                Blogs = _dbContext.Blogs.Where(x => x.IsDeleted == false).Take(3).ToList(),
+                Categories = _dbContext.Categories.Include(c => c.BlogCategories).ThenInclude(x => x.Blog).ToList()
             };
             return View(blogViewModel);
         }

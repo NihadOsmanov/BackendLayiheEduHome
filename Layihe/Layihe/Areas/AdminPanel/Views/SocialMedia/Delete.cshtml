@@ -4,16 +4,16 @@
     SocialMediaOfTeacher social = Model;
 }
 
-<div class="card-body">
+<div class="card-body bg-dark text-white text-center">
     <h5>Link : </h5>  @social.Link
 </div>
-<div class="card-body">
+<div class="card-body bg-dark text-white text-center">
     <h5>Teacher FullName : </h5> @social.Teacher.FullName
-<div class="card-body">
+<div class="card-body bg-dark text-white text-center">
     <h4 class="card-text" style="font-family: Montserrat, sans-serif;">Do you want to delete?</h4>
 </div>
-<div class="row" style="margin-left: 10px;">
-    <form method="post">
+<div class="row bg-dark text-white text-center" style=" padding-left: 500px; padding-bottom: 40px;">
+    <form method="post" class="bg-dark text-white text-center">
         <button type="submit" class="btn btn-danger">Delete</button>
     </form>
     <a asp-action="Index" class="btn btn-secondary" style="margin-left: 10px">Go Back</a>

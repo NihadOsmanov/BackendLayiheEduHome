@@ -24,5 +24,7 @@ namespace Layihe.Models
         public CourseDetail CourseDetail { get; set; }
         public string UserId { get; set; }
         public User User { get; set; }
+        public ICollection<CourseCategory> CourseCategories { get; set; }
+
     }
 }

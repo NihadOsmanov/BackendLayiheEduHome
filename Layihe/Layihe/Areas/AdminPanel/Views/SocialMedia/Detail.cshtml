@@ -4,19 +4,23 @@
     SocialMediaOfTeacher social = Model;
 }
 
-<div class="card-body">
-    <h5>Link</h5> <span>@social.Link</span> 
-</div>
-<div class="card-body">
-    <span>
-        <h5>Icon</h5> <span>@Html.Raw(social.Icon)</span>
-    </span>
-</div>
-<div class="card-body">
-    <span>
-        <h5>Teacher FullName</h5> <span>@social.Teacher.FullName</span>
-    </span>
-</div>
-<div class="card-body">
-    <a asp-action="Index" class="btn btn-secondary" style="margin-left: 10px">Go Back</a>
+<div class="col-md-12 grid-margin stretch-card bg-dark text-white">
+    <div class="card d-flex flex-column bg-dark">
+        <div class="card-body">
+            <h5>Link : <span style="font-weight: 200 !important">@social.Link</span> </h5>
+        </div>
+        <div class="card-body">
+            <span>
+                <h5>Icon : <span style="font-weight: 200">@Html.Raw(social.Icon)</span></h5>
+            </span>
+        </div>
+        <div class="card-body">
+            <span>
+                <h5>Teacher FullName : <span style="font-weight: 200">@social.Teacher.FullName</span></h5>
+            </span>
+        </div>
+        <div class="card-body">
+            <a asp-action="Index" class="btn btn-outline-secondary" style="margin-left: 10px">Go Back</a>
+        </div>
+    </div>
 </div>

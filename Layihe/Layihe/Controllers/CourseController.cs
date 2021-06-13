@@ -18,19 +18,36 @@ namespace Layihe.Controllers
         {
             _dbContext = dbContext;
         }
-        public IActionResult Index(int page = 1)
+        public IActionResult Index(int? categoryId, int page = 1)
         {
-            ViewBag.PageCount = Decimal.Ceiling((decimal)_dbContext.Courses.Count() / 6);
-            ViewBag.Page = page;
-
-            if (ViewBag.PageCount < page)
+            if (categoryId == null)
             {
-                return NotFound();
-            }
+                ViewBag.PageCount = Math.Ceiling((decimal)_dbContext.Courses.Where(x=>x.IsDeleted==false).Count() / 6);
+                ViewBag.Page = page;
 
-            var courses = _dbContext.Courses.Where(c => c.IsDeleted == false).ToList();
-            return View(courses);
+                if (ViewBag.PageCount < page)
+                {
+                    return NotFound();
+                }
+                return View();
+            }
+            else
+            {
+                List<Course> courses = new List<Course>();
+                List<CourseCategory> courseCategories = _dbContext.CourseCategories.Include(x => x.Course).ToList();
+                foreach (CourseCategory courseCategory in courseCategories)
+                {
+                    if (courseCategory.CategoryId == categoryId && courseCategory.Course.IsDeleted == false)
+                    {
+                        courses.Add(courseCategory.Course);
+                    }
+                }
+
+                return View(courses);
+            }
         }
+        
+        #region Detail
         public IActionResult Detail(int? id)
         {
             if (id == null)
@@ -45,10 +62,15 @@ namespace Layihe.Controllers
             var courseViewModel = new CourseViewModel
             {
                 CourseDetail = courseDetails,
-                Blogs = _dbContext.Blogs.Where(x => x.IsDeleted == false).Take(3).ToList()
+                Blogs = _dbContext.Blogs.Where(x => x.IsDeleted == false).Take(3).ToList(),
+                Categories = _dbContext.Categories.Include(c => c.CourseCategories).ThenInclude(x => x.Course).ToList()
             };
             return View(courseViewModel);
         }
+
+        #endregion
+
+        #region Search
         public IActionResult Search(string search)
         {
             if (string.IsNullOrEmpty(search))
@@ -60,5 +82,7 @@ namespace Layihe.Controllers
                                                                                                     .OrderByDescending(p => p.Id).ToList();
             return PartialView("_CourseSearchPartial", courses);
         }
+
+        #endregion
     }
 }

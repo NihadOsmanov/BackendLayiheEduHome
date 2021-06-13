@@ -10,7 +10,7 @@ namespace Layihe.DataAccesLayer
 {
     public class AppDbContext : IdentityDbContext<User>
     {
-        private readonly AppDbContext _dbContext;
+        
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -38,5 +38,8 @@ namespace Layihe.DataAccesLayer
         public DbSet<EventSpiker> EventSpikers { get; set; }
         public DbSet<Subscriber> Subscribers { get; set; }
         public DbSet<SocialMedia> SocialMedias { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<EventCategory> EventCategories { get; set; }
+        public DbSet<CourseCategory> CourseCategories { get; set; }
     }
 }

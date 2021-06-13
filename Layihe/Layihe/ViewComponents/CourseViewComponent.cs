@@ -25,7 +25,7 @@ namespace Layihe.ViewComponents
             }
             else
             {
-                var courses = await _dbContext.Courses.Where(d => d.IsDeleted == false).Skip((skip - 1) * 6).Take((int)take).ToListAsync();
+                var courses = await _dbContext.Courses.Where(d => d.IsDeleted == false).OrderByDescending(x=>x.Id).Skip((skip - 1) *(int) take).Take((int)take).ToListAsync();
                 return View(courses);
             }
         }

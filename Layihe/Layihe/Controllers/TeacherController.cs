@@ -27,19 +27,25 @@ namespace Layihe.Controllers
 
             return View();
         }
+
+        #region Detail
         public IActionResult Detail(int? id)
         {
-            if (id == null) 
+            if (id == null)
                 return NotFound();
 
             var teacherDetail = _dbContext.TeacherDetails.Where(x => x.IsDeleted == false).Include(x => x.Teacher).ThenInclude(y => y.SocialMediaOfTeachers)
-                                                        .Include(t => t.Teacher).ThenInclude(t => t.ProfessionOfTeacher).FirstOrDefault(z => z.TeacherId == id);
+                                                 .Include(t => t.Teacher).ThenInclude(t => t.ProfessionOfTeacher).FirstOrDefault(z => z.TeacherId == id);
 
-            if (teacherDetail == null) 
+            if (teacherDetail == null)
                 return NotFound();
-           
+
             return View(teacherDetail);
         }
+
+        #endregion
+
+        #region Search
         public IActionResult Search(string search)
         {
             if (search == null)
@@ -49,5 +55,7 @@ namespace Layihe.Controllers
                                             .Where(y => y.FullName.Contains(search)).Take(8).OrderByDescending(y => y.Id).ToList();
             return PartialView("_TeacherSearchPartial", teachers);
         }
+
+        #endregion
     }
 }

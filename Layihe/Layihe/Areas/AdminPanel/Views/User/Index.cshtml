@@ -6,32 +6,32 @@
 <div class="row">
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Users</h4>
+            <div class="card-body bg-dark font-weight-bold text-white">
+                <h4 class="card-title text-white">Users</h4>
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Surname</th>
-                                <th>Username</th>
-                                <th>Email</th>
-                                <th>Role</th>
-                                <th>IsDeactive</th>
-                                <th>Actions</th>
+                                <th class="text-white">Name</th>
+                                <th class="text-white">Surname</th>
+                                <th class="text-white">Username</th>
+                                <th class="text-white">Email</th>
+                                <th class="text-white">Role</th>
+                                <th class="text-white">IsDeactive</th>
+                                <th class="text-white">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var user in users)
                             {
                             <tr>
-                                <td>@user.Name</td>
-                                <td>@user.Surname</td>
-                                <td>@user.Username</td>
-                                <td>@user.Email</td>
-                                <td>@user.Role</td>
-                                <td>@user.IsDeactive</td>
-                                <td>
+                                <td class="text-white">@user.Name</td>
+                                <td class="text-white">@user.Surname</td>
+                                <td class="text-white">@user.Username</td>
+                                <td class="text-white">@user.Email</td>
+                                <td class="text-white">@user.Role</td>
+                                <td class="text-white">@user.IsDeactive</td>
+                                <td class="text-white">
                                     <a class="btn btn-success" asp-action="ChangePassword" asp-route-id="@user.Id">Change Password</a>
                                     <a class="btn btn-primary" asp-action="ChangeRole" asp-route-id="@user.Id">Change Role</a>
                                     @if (user.IsDeactive)

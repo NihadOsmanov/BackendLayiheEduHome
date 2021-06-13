@@ -7,18 +7,18 @@
 <div class="row">
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Categories</h4>
+            <div class="card-body bg-dark font-weight-bold text-white">
+                <h4 class="card-title text-white">Categories</h4>
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Image</th>
-                                <th>Name</th>
-                                <th>StartDate</th>
-                                <th>Language</th>
-                                <th>Price</th>
-                                <th>Actions</th>
+                                <th class="text-white">Image</thclass="text-white">
+                                <th class="text-white">Name</th>
+                                <th class="text-white">StartDate</th>
+                                <th class="text-white">Language</th>
+                                <th class="text-white">Price</th>
+                                <th class="text-white">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -26,10 +26,10 @@
                             {
                                 <tr>
                                     <td><img src="~/img/course/@course.Image" style="width: 100px !important; height:100px !important; object-fit: cover !important" /></td>
-                                    <td>@course.Name</td>
-                                    <td>@course.CourseDetail.StartDate.ToString("dd MMMM")</td>
-                                    <td>@course.CourseDetail.Language</td>
-                                    <td>@course.CourseDetail.Price</td>
+                                    <td class="text-white">@course.Name</td>
+                                    <td class="text-white">@course.CourseDetail.StartDate.ToString("dd MMMM")</td>
+                                    <td class="text-white">@course.CourseDetail.Language</td>
+                                    <td class="text-white">@course.CourseDetail.Price</td>
                                     <td>
                                         <a class="btn btn-primary" asp-action="Update" asp-route-id="@course.Id">Update</a>
                                     </td>

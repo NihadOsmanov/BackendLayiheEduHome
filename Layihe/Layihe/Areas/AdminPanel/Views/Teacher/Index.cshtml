@@ -7,20 +7,19 @@
 <div class="row">
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
-            <p style="padding: 30px">
-                <a asp-action="Create" class="btn btn-primary btn-lg">Create</a>
-            </p>
-            <div class="card-body">
-                <h4 class="card-title">Categories</h4>
+            <div class="card-body bg-dark font-weight-bold text-white">
+                <p style="padding-bottom: 10px">
+                    <a asp-action="Create" class="btn btn-success">Create</a>
+                </p>
+                <h4 class="card-title text-white">Teachers</h4>
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Image</th>
-                                <th>FullName</th>
-                                <th>Profession</th>
-                                @*<th>Social Icon</th>*@
-                                <th>Actions</th>
+                                <th class="text-white">Image</th>
+                                <th class="text-white">FullName</th>
+                                <th class="text-white">Profession</th>
+                                <th class="text-white">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -28,8 +27,8 @@
                             {
                                 <tr>
                                     <td><img src="~/img/teacher/@teacher.Image" style="width: 100px !important; height:100px !important; object-fit: cover !important" /></td>
-                                    <td>@teacher.FullName</td>
-                                    <td>@teacher.ProfessionOfTeacher.Profession</td>
+                                    <td class="text-white">@teacher.FullName</td>
+                                    <td class="text-white">@teacher.ProfessionOfTeacher.Profession</td>
                                     <td>
                                         <a class="btn btn-success" asp-action="Detail" asp-route-id="@teacher.Id">Detail</a>
                                         <a class="btn btn-primary" asp-action="Update" asp-route-id="@teacher.Id">Update</a>

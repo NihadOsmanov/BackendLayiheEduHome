@@ -1,33 +1,37 @@
-﻿   
+﻿
 @{
     ViewData["Title"] = "Delete";
     Event evnt = Model;
 }
 
-<div class="card-body">
-    <img src="~/img/event/@evnt.Image" style="width: 200px !important; height: 200px !important; object-fit: cover !important" />
-</div>
-<div class="card-body">
-    <h5>Course Name</h5>  @evnt.Name
-</div>
-<div class="card-body">
-    <h5>Speakers</h5>
-    @foreach (var item in Model.EventSpikers)
-    {
-        <ul>
-            <li>
-                @item.Spiker.Profession
+<div class="col-md-12 grid-margin stretch-card bg-dark text-white">
+    <div class="card d-flex flex-column bg-dark">
+        <div class="card-body">
+            <img src="~/img/event/@evnt.Image" style="width: 200px !important; height: 200px !important; object-fit: cover !important" />
+        </div>
+        <div class="card-body">
+            <h5>Course Name</h5>  @evnt.Name
+        </div>
+        <div class="card-body">
+            <h5>Speakers</h5>
+            @foreach (var item in Model.EventSpikers)
+            {
+                <ul>
+                    <li>
+                        @item.Spiker.Profession
 
-            </li>
-        </ul>
-    }
-</div>
-<div class="card-body">
-    <h4 class="card-text" style="font-family: Montserrat, sans-serif;">Do you want to delete?</h4>
-</div>
-<div class="row" style="margin-left: 10px;">
-    <form method="post">
-        <button type="submit" class="btn btn-danger">Delete</button>
-    </form>
-    <a asp-action="Index" class="btn btn-secondary" style="margin-left: 10px">Go Back</a>
+                    </li>
+                </ul>
+            }
+        </div>
+        <div class="card-body">
+            <h4 class="card-text" style="font-family: Montserrat, sans-serif;">Do you want to delete?</h4>
+        </div>
+        <div class="row" style="margin-left: 10px; padding-bottom: 15px">
+            <form method="post">
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+            <a asp-action="Index" class="btn btn-secondary" style="margin-left: 10px">Go Back</a>
+        </div>
+    </div>
 </div>

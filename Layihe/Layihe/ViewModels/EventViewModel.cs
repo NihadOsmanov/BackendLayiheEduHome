@@ -9,6 +9,7 @@ namespace Layihe.ViewModels
     public class EventViewModel
     {
         public EventDetail EventDetail { get; set; }
+        public List<Category> Categories { get; set; }
         public List<Blog> Blogs { get; set; }
     }
 }

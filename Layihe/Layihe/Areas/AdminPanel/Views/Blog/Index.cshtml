@@ -7,19 +7,19 @@
 <div class="row">
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
-            <p style="padding: 30px">
-                <a asp-action="Create" class="btn btn-primary btn-lg">Create</a>
-            </p>
-            <div class="card-body">
-                <h4 class="card-title">Categories</h4>
+            <div class="card-body bg-dark font-weight-bold text-white">
+                <p style="padding-bottom: 10px">
+                    <a asp-action="Create" class="btn btn-success">Create</a>
+                </p>
+                <h4 class="card-title text-white">Blogs</h4>
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Image</th>
-                                <th>Title</th>
-                                <th>StartDate</th>
-                                <th>Actions</th>
+                                <th class="text-white">Image</th>
+                                <th class="text-white">Title</th>
+                                <th class="text-white">StartDate</th>
+                                <th class="text-white">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -27,8 +27,8 @@
                             {
                                 <tr>
                                     <td><img src="~/img/blog/@blog.Image" style="width: 100px !important; height:100px !important; object-fit: cover !important" /></td>
-                                    <td>@blog.Title</td>
-                                    <td>@blog.DateTime.ToString("dd MMMM")</td>
+                                    <td class="text-white">@blog.Title</td>
+                                    <td class="text-white">@blog.DateTime.ToString("dd MMMM")</td>
                                     <td>
                                         <a class="btn btn-success" asp-action="Detail" asp-route-id="@blog.Id">Detail</a>
                                         <a class="btn btn-primary" asp-action="Update" asp-route-id="@blog.Id">Update</a>

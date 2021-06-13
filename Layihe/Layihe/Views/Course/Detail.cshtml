@@ -77,19 +77,12 @@
                     <div class="single-blog-widget mb-50">
                         <h3>categories</h3>
                         <ul>
-                            <li><a href="#">CSS Engineering (10)</a></li>
-                            <li><a href="#">Political Science (12)</a></li>
-                            <li><a href="#">Micro Biology (08)</a></li>
-                            <li><a href="#">HTML5 &amp; CSS3 (15)</a></li>
-                            <li><a href="#">Web Design (20)</a></li>
-                            <li><a href="#">PHP (23)</a></li>
+                            @foreach (Category cat in Model.Categories)
+                            {
+                               
+                                <li><a asp-action="Index" asp-route-categoryId="@cat.Id">@cat.Name (@cat.CourseCategories.Where(x=>x.Course.IsDeleted==false).Count())</a></li>
+                            }
                         </ul>
-                    </div>
-                    <div class="single-blog-widget mb-50">
-                        <div class="single-blog-banner">
-                            <a href="blog-details.html" id="blog"><img src="~/img/blog/blog-img.jpg" alt="blog"></a>
-                            <h2>best<br> eductaion<br> theme</h2>
-                        </div>
                     </div>
                     <div class="single-blog-widget mb-50">
                         <h3>latest post</h3>
@@ -97,7 +90,7 @@
                         {
                             <div class="single-post mb-30">
                                 <div class="single-post-img">
-                                    <a href="blog-details.html">
+                                    <a asp-controller="Blog" asp-action="Detail" asp-route-id="@item.Id">
                                         <img src="~/img/blog/@item.Image"  style="width:90px!important;height:90px!important; object-fit:cover" alt="post">
                                         <div class="blog-hover">
                                             <i class="fa fa-link"></i>
@@ -105,36 +98,11 @@
                                     </a>
                                 </div>
                                 <div class="single-post-content">
-                                    <h4><a href="blog-details.html">English Language Course for you</a></h4>
+                                    <h4><a asp-controller="Blog" asp-action="Detail" asp-route-id="@item.Id">English Language Course for you</a></h4>
                                     <p>@item.Author  /  @item.DateTime.ToString("dd MMMM yyyy")</p>
                                 </div>
                             </div>
                         }
-                        <div class="single-post mb-30">
-                            <div class="single-post-img">
-                                <a href="blog-details.html">
-                                    <img src="~/img/post/post2.jpg" alt="post">
-                                    <div class="blog-hover">
-                                        <i class="fa fa-link"></i>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="single-post-content">
-                                <h4><a href="blog-details.html">Advance Web Design and Develop</a></h4>
-                                <p>By Alex  /  June 20, 2017</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="single-blog-widget">
-                        <h3>tags</h3>
-                        <div class="single-tag">
-                            <a href="#" class="mr-10 mb-10">course</a>
-                            <a href="#" class="mr-10 mb-10">education</a>
-                            <a href="#" class="mb-10">teachers</a>
-                            <a href="#" class="mr-10">learning</a>
-                            <a href="#" class="mr-10">university</a>
-                            <a href="blog-details.html">events</a>
-                        </div>
                     </div>
                 </div>
             </div>

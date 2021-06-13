@@ -7,17 +7,16 @@
 <div class="row">
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
-            <p style="padding: 30px">
-                <a asp-action="Create" class="btn btn-primary btn-lg">Create</a>
-            </p>
-
-            <div class="card-body">
-                <h4 class="card-title">Social Mdeia</h4>
+            <div class="card-body bg-dark font-weight-bold text-white">
+                <p style="padding-bottom: 10px">
+                    <a asp-action="Create" class="btn btn-success">Create</a>
+                </p>
+                <h4 class="card-title text-white">Social Media</h4>
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Teacher Name</th>
+                                <th class="text-white text-center">Teacher Name</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -25,32 +24,34 @@
                             {
                                 <tr>
                                     <td>
-                                        <button type="button" class="btn btn-outline-success" data-toggle="modal" style="width: 100%" data-target=@($"#exampleModal{teacher.Id}")>
+                                        <button  type="button" class="btn btn-outline-success font-weight-bold" data-toggle="modal" style="width: 100%" data-target=@($"#exampleModal{teacher.Id}")>
                                             @teacher.FullName
                                         </button>
 
                                         <!-- Modal -->
-                                        <div  class="modal fade" id="@($"exampleModal{teacher.Id}")" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal fade" id="@($"exampleModal{teacher.Id}")" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
-                                                <div class="modal-content  bg-dark text-white" style="width:700px !important">
+                                                <div class="modal-content  bg-dark text-white" style="width:800px !important">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
-                                                    <div class="modal-body bg-dark text-white " >
+                                                    <div class="modal-body bg-dark text-white ">
                                                         @foreach (SocialMediaOfTeacher socMed in teacher.SocialMediaOfTeachers)
                                                         {
-                                                        <div class="nihatPro d-flex justify-content-between mb-3">
-                                                            <div style="padding-top: 16px">@socMed.Link</div>
-                                                            <div class="myIcon" style="padding-top: 16px">@Html.Raw(socMed.Icon)</div>
-                                                            <div>
-                                                                <a class="btn btn-success" asp-controller="SocialMedia" asp-action="Detail" asp-route-id="@socMed.Id">Detail</a>
-                                                                <a class="btn btn-primary" asp-controller="SocialMedia" asp-action="Update" asp-route-id="@socMed.Id">Update</a>
-                                                                <a class="btn btn-danger" asp-controller="SocialMedia" asp-action="Delete" asp-route-id="@socMed.Id">Delete</a>
+                                                            <div class="nihatPro d-flex justify-content-between mb-3 align-items-baseline">
+                                                                <div class="col-7 d-flex justify-content-between align-items-center">
+                                                                    <div class="myIcon" style="padding-top: 16px">@Html.Raw(socMed.Icon)</div>
+                                                                    <div style="padding-top: 16px">@socMed.Link</div>
+                                                                </div>
+                                                                <div class="col-5">
+                                                                    <a class="btn btn-success" asp-controller="SocialMedia" asp-action="Detail" asp-route-id="@socMed.Id">Detail</a>
+                                                                    <a class="btn btn-primary" asp-controller="SocialMedia" asp-action="Update" asp-route-id="@socMed.Id">Update</a>
+                                                                    <a class="btn btn-danger" asp-controller="SocialMedia" asp-action="Delete" asp-route-id="@socMed.Id">Delete</a>
+                                                                </div>
                                                             </div>
-                                                        </div>
 
                                                         }
                                                     </div>

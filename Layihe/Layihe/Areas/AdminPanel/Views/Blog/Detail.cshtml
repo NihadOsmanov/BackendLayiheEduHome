@@ -4,23 +4,27 @@
     BlogDetail blogDetail = Model;
 }
 
-<div class="card-body">
-    <h5>Image</h5> <img src="~/img/blog/@blogDetail.Blog.Image" style="width: 200px; height:200px; object-fit: cover"/> 
-</div>
-<div class="card-body">
-    <h5>Author</h5>  @blogDetail.Blog.Author
-</div>
-<div class="card-body">
-    <h5>title</h5>  @blogDetail.Blog.Title
-</div>
-<div class="card-body">
-    <h5>DateTime</h5>  @blogDetail.Blog.DateTime.ToString("dd MMMM yyyy")
-</div>
-<div class="card-body">
-    <h5>Description</h5>  @Html.Raw(blogDetail.Description)
-</div>
-<div style="padding 0 10px">
-    <a asp-action="Index" class="btn btn-secondary">Go Back</a>
+<div class="col-md-12 grid-margin stretch-card bg-dark text-white">
+    <div class="card d-flex flex-column bg-dark">
+        <div class="card-body">
+            <h5>Image</h5> <img src="~/img/blog/@blogDetail.Blog.Image" style="width: 200px; height:200px; object-fit: cover" />
+        </div>
+        <div class="card-body">
+            <h5>Author</h5>  @blogDetail.Blog.Author
+        </div>
+        <div class="card-body">
+            <h5>title</h5>  @blogDetail.Blog.Title
+        </div>
+        <div class="card-body">
+            <h5>DateTime</h5>  @blogDetail.Blog.DateTime.ToString("dd MMMM yyyy")
+        </div>
+        <div class="card-body">
+            <h5>Description</h5>  @Html.Raw(blogDetail.Description)
+        </div>
+        <div class="card-body">
+            <a asp-action="Index" class="btn btn-outline-secondary" style="margin-left: 10px">Go Back</a>
+        </div>
+    </div>
 </div>
 
 

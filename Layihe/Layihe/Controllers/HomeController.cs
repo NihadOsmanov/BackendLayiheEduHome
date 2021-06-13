@@ -32,6 +32,8 @@ namespace Layihe.Controllers
 
             return View(homeViewModel);
         }
+
+        #region Search
         public IActionResult Search(string search)
         {
             if (search == null)
@@ -46,16 +48,20 @@ namespace Layihe.Controllers
             };
             return PartialView("_SearchViewPartial", searchViewModel);
         }
+
+        #endregion
+
+        #region Subscriber
         public async Task<IActionResult> Subscriber(string email)
         {
             string pattern = "^(([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5}){1,25})+([;.](([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5}){1,25})+)*$";
-            
-            if(email == null)
+
+            if (email == null)
             {
                 return Content("Email can not empty");
             }
 
-            if(!Regex.IsMatch(email, pattern))
+            if (!Regex.IsMatch(email, pattern))
             {
                 return Content("Email is not valid");
             }
@@ -69,7 +75,7 @@ namespace Layihe.Controllers
 
             foreach (var item in dbSubsriber)
             {
-                if(item.Email == email)
+                if (item.Email == email)
                 {
                     return Content("this account allready is subscriber");
                 }
@@ -80,5 +86,7 @@ namespace Layihe.Controllers
 
             return Content("Suceess");
         }
+
+        #endregion
     }
 }

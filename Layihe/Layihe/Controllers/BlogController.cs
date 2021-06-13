@@ -30,6 +30,8 @@ namespace Layihe.Controllers
 
             return View();
         }
+
+        #region Detail
         public IActionResult Detail(int? id)
         {
             if (id == null)
@@ -46,6 +48,10 @@ namespace Layihe.Controllers
             };
             return View(blogViewModel);
         }
+
+        #endregion
+
+        #region Search
         public IActionResult Search(string search)
         {
             if (search == null)
@@ -56,5 +62,8 @@ namespace Layihe.Controllers
             return PartialView("_BlogSearchPartial", blogs);
 
         }
+
+        #endregion
+
     }
 }

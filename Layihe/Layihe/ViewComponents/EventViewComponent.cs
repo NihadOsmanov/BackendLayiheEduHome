@@ -21,13 +21,13 @@ namespace Layihe.ViewComponents
 
             if (take == null)
             {
-                var events = _dbContext.Events.Where(x => x.IsDeleted == false).OrderByDescending(y => y.StartingTime).ToList();
+                var events = await _dbContext.Events.Where(x => x.IsDeleted == false).OrderByDescending(y => y.StartingTime).ToListAsync();
                 return View(events);
             }
             else
             {
-                var events = _dbContext.Events.Where(x => x.IsDeleted == false).OrderByDescending(y => y.StartingTime).Skip((skip - 1) * 6)
-                                                                                                                      .Take((int)take).ToList();
+                var events = await _dbContext.Events.Where(x => x.IsDeleted == false).OrderByDescending(y => y.StartingTime).Skip((skip - 1) * (int)take)
+                                                                                                                      .Take((int)take).ToListAsync();
                 return View(events);
             }
 

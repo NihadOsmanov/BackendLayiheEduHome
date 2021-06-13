@@ -24,6 +24,7 @@ namespace Layihe.Controllers
             _roleManager = roleManager;
         }
 
+        #region Login
         public IActionResult Login()
         {
             return View();
@@ -39,7 +40,7 @@ namespace Layihe.Controllers
             }
 
             var existUser = await _userManager.FindByNameAsync(loginView.UserName);
-            if(existUser == null)
+            if (existUser == null)
             {
                 ModelState.AddModelError("", "Email or password invalid");
                 return View();
@@ -60,6 +61,10 @@ namespace Layihe.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+        #endregion
+
+        #region Register
         public IActionResult Register()
         {
             return View();
@@ -75,7 +80,7 @@ namespace Layihe.Controllers
             }
 
             var dbUser = await _userManager.FindByNameAsync(registerView.UserName);
-            if(dbUser != null)
+            if (dbUser != null)
             {
                 ModelState.AddModelError("Username", "Bu adda user var");
                 return View();
@@ -103,11 +108,19 @@ namespace Layihe.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+        #endregion
+
+        #region Logout
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+
+        #endregion
+
+        #region ForgotPassword
         public IActionResult ForgotPassword(string id)
         {
             return View();
@@ -149,6 +162,10 @@ namespace Layihe.Controllers
 
             return RedirectToAction("Login");
         }
+
+        #endregion
+
+        #region ResetPassword
         public IActionResult ResetPassword(string userEmail, string token)
         {
             if ((string)TempData["Email"] != userEmail || (string)TempData["Token"] != token)
@@ -157,6 +174,7 @@ namespace Layihe.Controllers
             }
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ResetPassword(string userEmail, string token, ResetPasswordViewModel resetPassword)
@@ -187,6 +205,10 @@ namespace Layihe.Controllers
             return RedirectToAction("Login");
         }
 
+        #endregion
+
+        #region CreateUserRole
+
         //public async Task CreateUserRole()
         //{
         //    if (!(await _roleManager.RoleExistsAsync("Admin")))
@@ -196,5 +218,8 @@ namespace Layihe.Controllers
         //    if (!(await _roleManager.RoleExistsAsync("Member")))
         //        await _roleManager.CreateAsync(new IdentityRole { Name = "Member" });
         //}
+
+        #endregion
+
     }
 }

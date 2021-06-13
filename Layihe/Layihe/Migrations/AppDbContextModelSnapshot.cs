@@ -143,6 +143,21 @@ namespace Layihe.Migrations
                     b.ToTable("BlogDetails");
                 });
 
+            modelBuilder.Entity("Layihe.Models.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
+                });
+
             modelBuilder.Entity("Layihe.Models.Contact", b =>
                 {
                     b.Property<int>("Id")
@@ -203,6 +218,28 @@ namespace Layihe.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Courses");
+                });
+
+            modelBuilder.Entity("Layihe.Models.CourseCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("CourseId");
+
+                    b.ToTable("CourseCategories");
                 });
 
             modelBuilder.Entity("Layihe.Models.CourseDetail", b =>
@@ -291,6 +328,28 @@ namespace Layihe.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Events");
+                });
+
+            modelBuilder.Entity("Layihe.Models.EventCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EventId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("EventId");
+
+                    b.ToTable("EventCategories");
                 });
 
             modelBuilder.Entity("Layihe.Models.EventDetail", b =>
@@ -428,12 +487,14 @@ namespace Layihe.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Icon")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("Link")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TeacherId")
@@ -864,6 +925,25 @@ namespace Layihe.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Layihe.Models.CourseCategory", b =>
+                {
+                    b.HasOne("Layihe.Models.Category", "Category")
+                        .WithMany("CourseCategories")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Layihe.Models.Course", "Course")
+                        .WithMany("CourseCategories")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+
+                    b.Navigation("Course");
+                });
+
             modelBuilder.Entity("Layihe.Models.CourseDetail", b =>
                 {
                     b.HasOne("Layihe.Models.Course", "Course")
@@ -873,6 +953,25 @@ namespace Layihe.Migrations
                         .IsRequired();
 
                     b.Navigation("Course");
+                });
+
+            modelBuilder.Entity("Layihe.Models.EventCategory", b =>
+                {
+                    b.HasOne("Layihe.Models.Category", "Category")
+                        .WithMany("EventCategories")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Layihe.Models.Event", "Event")
+                        .WithMany("EventCategories")
+                        .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+
+                    b.Navigation("Event");
                 });
 
             modelBuilder.Entity("Layihe.Models.EventDetail", b =>
@@ -994,13 +1093,24 @@ namespace Layihe.Migrations
                     b.Navigation("BlogDetail");
                 });
 
+            modelBuilder.Entity("Layihe.Models.Category", b =>
+                {
+                    b.Navigation("CourseCategories");
+
+                    b.Navigation("EventCategories");
+                });
+
             modelBuilder.Entity("Layihe.Models.Course", b =>
                 {
+                    b.Navigation("CourseCategories");
+
                     b.Navigation("CourseDetail");
                 });
 
             modelBuilder.Entity("Layihe.Models.Event", b =>
                 {
+                    b.Navigation("EventCategories");
+
                     b.Navigation("EventDetail");
 
                     b.Navigation("EventSpikers");

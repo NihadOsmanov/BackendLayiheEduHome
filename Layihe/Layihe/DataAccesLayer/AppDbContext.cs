@@ -41,5 +41,6 @@ namespace Layihe.DataAccesLayer
         public DbSet<Category> Categories { get; set; }
         public DbSet<EventCategory> EventCategories { get; set; }
         public DbSet<CourseCategory> CourseCategories { get; set; }
+        public DbSet<BlogCategory> BlogCategories { get; set; }
     }
 }

@@ -166,6 +166,24 @@ namespace Layihe.Areas.AdminPanel.Controllers
                 ModelState.AddModelError("", "Bosh ola bilmez");
                 return View(changeRole);
             }
+
+            if (selectedRole.ToLower() == RoleConstant.CourseModerator.ToLower())
+            {
+                if (CoursesId.Count == 0)
+                {
+                    ModelState.AddModelError("", "Please select Course");
+                    return View(changeRole);
+                }
+            }
+
+            if(selectedRole.ToLower() != RoleConstant.CourseModerator.ToLower())
+            {
+                foreach (var item in user.Courses)
+                {
+                    item.UserId = null;
+                }
+            }
+
             var addResult = await _userManager.AddToRoleAsync(user, selectedRole);
             if (!addResult.Succeeded)
             {
@@ -183,10 +201,6 @@ namespace Layihe.Areas.AdminPanel.Controllers
                     ModelState.AddModelError("", error.Description);
                 }
                 return View(changeRole);
-            }
-            if (CoursesId == null)
-            {
-                return NotFound();
             }
 
             foreach (int cId in CoursesId)
@@ -214,6 +228,11 @@ namespace Layihe.Areas.AdminPanel.Controllers
             if (user.IsDeleted == false)
             {
                 user.IsDeleted = true;
+                var courses = _dbContext.Courses.Where(x => x.IsDeleted == false && x.UserId == id);
+                foreach (var item in courses)
+                {
+                    item.UserId = null;
+                }
             }
             else
             {

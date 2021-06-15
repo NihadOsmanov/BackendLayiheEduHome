@@ -22,12 +22,16 @@
                         <span class=" text-danger" asp-validation-for="FullName"></span>
                     </div>
                     <div class="form-group">
+                        <label asp-for="ProfessionOfTeacher.Profession"></label>
+                        <input class="form-control" asp-for="ProfessionOfTeacher.Profession" placeholder="Profession">
+                        <span class=" text-danger" asp-validation-for="ProfessionOfTeacher.Profession"></span>
+                    </div>
+                    <div class="form-group">
                         <select class="custom-select" name="ProfessionId">
                             <option value="">Select Profession</option>
                             @foreach (ProfessionOfTeacher profession in ViewBag.Profession)
                             {
-                                    <option value="@profession.Id">@profession.Profession</option>
-                            }
+                <option value="@profession.Id">@profession.Profession</option>}
                         </select>
                     </div>
                     <div class="form-group">

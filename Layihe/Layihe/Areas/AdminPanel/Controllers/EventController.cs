@@ -28,7 +28,7 @@ namespace Layihe.Areas.AdminPanel.Controllers
             ViewBag.PageCount = Math.Ceiling((decimal)_dbContext.Events.Where(s => s.IsDeleted == false).Count() / 4);
             ViewBag.Page = page;
 
-            if (ViewBag.PageCount < page)
+            if (ViewBag.PageCount < page || page <= 0)
             {
                 return NotFound();
             }
@@ -43,23 +43,31 @@ namespace Layihe.Areas.AdminPanel.Controllers
         public IActionResult Create()
         {
             ViewBag.Speakers = _dbContext.Spikers.Where(x => x.IsDeleted == false).ToList();
+            ViewBag.Categories = _dbContext.Categories.Where(x => x.IsDeleted == false).ToList();
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Event evnt, List<int?> SpeakersId)
+        public async Task<IActionResult> Create(Event evnt, List<int?> SpeakersId, List<int?> CategoriesId)
         {
             ViewBag.Speakers = _dbContext.Spikers.Where(x => x.IsDeleted == false).ToList();
+            ViewBag.Categories = _dbContext.Categories.Where(x => x.IsDeleted == false).ToList();
 
             if (!ModelState.IsValid)
             {
                 return View();
             }
 
-            if (SpeakersId == null)
+            if (SpeakersId.Count == 0)
             {
-                ModelState.AddModelError("", "Please select");
+                ModelState.AddModelError("", "Please select Spiker");
+                return View();
+            }
+
+            if (CategoriesId.Count == 0)
+            {
+                ModelState.AddModelError("", "Please select Category");
                 return View();
             }
 
@@ -96,7 +104,19 @@ namespace Layihe.Areas.AdminPanel.Controllers
                 eventSpiker.SpikerId = es;
                 eventSpikers.Add(eventSpiker);
             }
+
+            var eventCategories = new List<EventCategory>();
+
+            foreach (var ec in CategoriesId)
+            {
+                var eventCategory = new EventCategory();
+                eventCategory.EventId = evnt.Id;
+                eventCategory.CategoryId = (int)ec;
+                eventCategories.Add(eventCategory);
+            }
+
             evnt.EventSpikers = eventSpikers;
+            evnt.EventCategories = eventCategories;
             await _dbContext.EventDetails.AddAsync(evnt.EventDetail);
             await _dbContext.SaveChangesAsync();
 
@@ -107,7 +127,6 @@ namespace Layihe.Areas.AdminPanel.Controllers
             foreach (var item in (await _dbContext.Subscribers.ToListAsync()))
             {
                 await Helper.SendMessage(subject, msgBody, item.Email);
-
             }
 
             return RedirectToAction("Index");
@@ -119,12 +138,13 @@ namespace Layihe.Areas.AdminPanel.Controllers
         public IActionResult Update(int? id)
         {
             ViewBag.Speakers = _dbContext.Spikers.Where(x => x.IsDeleted == false).ToList();
+            ViewBag.Categories = _dbContext.Categories.Where(x => x.IsDeleted == false).ToList();
 
             if (id == null)
                 return NotFound();
 
             var dbEvent = _dbContext.Events.Where(x => x.IsDeleted == false).Include(x => x.EventDetail).Include(x => x.EventSpikers).ThenInclude(x => x.Spiker)
-                                                                                                    .FirstOrDefault(x => x.Id == id);
+                                                .Include(y => y.EventCategories).ThenInclude(y => y.Category).FirstOrDefault(x => x.Id == id);
 
             if (dbEvent == null)
                 return NotFound();
@@ -135,9 +155,10 @@ namespace Layihe.Areas.AdminPanel.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update(int? id, Event evnt, List<int?> SpeakersId)
+        public async Task<IActionResult> Update(int? id, Event evnt, List<int?> SpeakersId, List<int?> CategoriesId)
         {
             ViewBag.Speakers = _dbContext.Spikers.Where(x => x.IsDeleted == false).ToList();
+            ViewBag.Categories = _dbContext.Categories.Where(x => x.IsDeleted == false).ToList();
 
             if (!ModelState.IsValid)
             {
@@ -146,7 +167,13 @@ namespace Layihe.Areas.AdminPanel.Controllers
 
             if (SpeakersId == null)
             {
-                ModelState.AddModelError("", "Please select");
+                ModelState.AddModelError("", "Please select Speaker");
+                return View();
+            }
+
+            if (CategoriesId == null)
+            {
+                ModelState.AddModelError("", "Please select Category");
                 return View();
             }
 
@@ -154,7 +181,7 @@ namespace Layihe.Areas.AdminPanel.Controllers
                 return NotFound();
 
             var dbEvent = _dbContext.Events.Where(x => x.IsDeleted == false).Include(x => x.EventDetail).Include(x => x.EventSpikers).ThenInclude(x => x.Spiker)
-                                                                                                    .FirstOrDefault(x => x.Id == id);
+                                                      .Include(y => y.EventCategories).ThenInclude(y => y.Category).FirstOrDefault(x => x.Id == id);
 
             if (dbEvent == null)
                 return NotFound();
@@ -188,12 +215,23 @@ namespace Layihe.Areas.AdminPanel.Controllers
                 eventSpikers.Add(eventSpiker);
             }
 
+            var eventCategories = new List<EventCategory>();
+
+            foreach (var ec in CategoriesId)
+            {
+                var eventCategory = new EventCategory();
+                eventCategory.EventId = evnt.Id;
+                eventCategory.CategoryId = (int)ec;
+                eventCategories.Add(eventCategory);
+            }
+
             dbEvent.Name = evnt.Name;
             dbEvent.Adress = evnt.Adress;
             dbEvent.StartingTime = evnt.StartingTime;
             dbEvent.EndTime = evnt.EndTime;
             dbEvent.EventDetail.Decscription = evnt.EventDetail.Decscription;
             dbEvent.EventSpikers = eventSpikers;
+            dbEvent.EventCategories = eventCategories;
             await _dbContext.SaveChangesAsync();
 
             return RedirectToAction("Index");
@@ -208,7 +246,7 @@ namespace Layihe.Areas.AdminPanel.Controllers
                 return NotFound();
 
             var dbEvent = _dbContext.Events.Where(x => x.IsDeleted == false).Include(x => x.EventDetail).Include(y => y.EventSpikers)
-                                                                            .ThenInclude(y => y.Spiker).FirstOrDefault(z => z.Id == id);
+                                 .ThenInclude(y => y.Spiker).Include(y => y.EventCategories).ThenInclude(y => y.Category).FirstOrDefault(z => z.Id == id);
 
             if (dbEvent == null)
                 return NotFound();

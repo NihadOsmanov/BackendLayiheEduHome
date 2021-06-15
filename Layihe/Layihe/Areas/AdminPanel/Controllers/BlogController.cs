@@ -28,7 +28,7 @@ namespace Layihe.Areas.AdminPanel.Controllers
             ViewBag.PageCount = Math.Ceiling((decimal)_dbContext.Blogs.Where(s => s.IsDeleted == false).Count() / 4);
             ViewBag.Page = page;
 
-            if (ViewBag.PageCount < page)
+            if (ViewBag.PageCount < page || page <= 0)
             {
                 return NotFound();
             }
@@ -41,14 +41,24 @@ namespace Layihe.Areas.AdminPanel.Controllers
         #region Create
         public IActionResult Create()
         {
+            ViewBag.Categories = _dbContext.Categories.Where(x => x.IsDeleted == false).ToList();
+
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Blog blog)
+        public async Task<IActionResult> Create(Blog blog, List<int?> CategoriesId)
         {
+            ViewBag.Categories = _dbContext.Categories.Where(x => x.IsDeleted == false).ToList();
+
             if (!ModelState.IsValid)
             {
+                return View();
+            }
+
+            if (CategoriesId.Count == 0)
+            {
+                ModelState.AddModelError("", "Please select Category");
                 return View();
             }
 
@@ -82,8 +92,19 @@ namespace Layihe.Areas.AdminPanel.Controllers
             blog.Image = fileName;
             blog.IsDeleted = false;
 
+            var blogCategories = new List<BlogCategory>();
+
+            foreach (var ec in CategoriesId)
+            {
+                var blogcategory = new BlogCategory();
+                blogcategory.BlogId = blog.Id;
+                blogcategory.CategoryId = (int)ec;
+                blogCategories.Add(blogcategory);
+            }
+
             await _dbContext.Blogs.AddAsync(blog);
             blog.BlogDetail.BlogId = blog.Id;
+            blog.BlogCategories = blogCategories;
             await _dbContext.BlogDetails.AddAsync(blog.BlogDetail);
             await _dbContext.SaveChangesAsync();
 
@@ -95,10 +116,13 @@ namespace Layihe.Areas.AdminPanel.Controllers
         #region Update
         public IActionResult Update(int? id)
         {
+            ViewBag.Categories = _dbContext.Categories.Where(x => x.IsDeleted == false).ToList();
+
             if (id == null)
                 return NotFound();
 
-            var dbBlog = _dbContext.Blogs.Where(x => x.IsDeleted == false).Include(x => x.BlogDetail).FirstOrDefault(y => y.Id == id);
+            var dbBlog = _dbContext.Blogs.Where(x => x.IsDeleted == false).Include(x => x.BlogDetail).Include(t => t.BlogCategories)
+                                                                            .ThenInclude(t => t.Category).FirstOrDefault(y => y.Id == id);
 
             if (dbBlog == null)
                 return NotFound();
@@ -108,14 +132,23 @@ namespace Layihe.Areas.AdminPanel.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update(int? id, Blog blog)
+        public async Task<IActionResult> Update(int? id, Blog blog, List<int?> CategoriesId)
         {
+            ViewBag.Categories = _dbContext.Categories.Where(x => x.IsDeleted == false).ToList();
+
             if (!ModelState.IsValid)
             {
                 return View();
             }
 
-            var dbBlog = _dbContext.Blogs.Where(x => x.IsDeleted == false).Include(x => x.BlogDetail).FirstOrDefault(y => y.Id == id);
+            if (CategoriesId == null)
+            {
+                ModelState.AddModelError("", "Please select Category");
+                return View();
+            }
+
+            var dbBlog = _dbContext.Blogs.Where(x => x.IsDeleted == false).Include(x => x.BlogDetail).Include(t => t.BlogCategories)
+                                                                            .ThenInclude(t => t.Category).FirstOrDefault(y => y.Id == id);
 
             if (dbBlog == null)
                 return NotFound();
@@ -145,10 +178,22 @@ namespace Layihe.Areas.AdminPanel.Controllers
                 dbBlog.Image = fileName;
             }
 
+            var blogCategories = new List<BlogCategory>();
+
+            foreach (var ec in CategoriesId)
+            {
+                var blogcategory = new BlogCategory();
+                blogcategory.BlogId = blog.Id;
+                blogcategory.CategoryId = (int)ec;
+                blogCategories.Add(blogcategory);
+            }
+
             dbBlog.Author = blog.Author;
             dbBlog.Title = blog.Title;
             dbBlog.DateTime = blog.DateTime;
             dbBlog.BlogDetail.Description = blog.BlogDetail.Description;
+            dbBlog.BlogCategories = blogCategories;
+
             await _dbContext.SaveChangesAsync();
 
             return RedirectToAction("Index");
@@ -162,7 +207,8 @@ namespace Layihe.Areas.AdminPanel.Controllers
             if (id == null)
                 return NotFound();
 
-            var blogDetail = _dbContext.BlogDetails.Where(x => x.IsDelete == false).Include(x => x.Blog).FirstOrDefault(y => y.BlogId == id);
+            var blogDetail = _dbContext.BlogDetails.Where(x => x.IsDelete == false).Include(x => x.Blog)
+                                                .ThenInclude(y => y.BlogCategories).ThenInclude(y => y.Category).FirstOrDefault(y => y.BlogId == id);
 
             if (blogDetail == null)
                 return NotFound();

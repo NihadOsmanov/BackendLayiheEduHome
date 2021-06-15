@@ -40,11 +40,21 @@
                         <textarea asp-for="@Model.EventDetail.Decscription" class="form-control" rows="4"></textarea>
                         <span asp-validation-for="@Model.EventDetail.Decscription" class="text-danger"></span>
                     </div>
-                    <div class="form-group " id="Speakers">
+                    <div class="form-group" id="Speakers">
+                        <label>Select Spiker</label>
                         <select multiple class="custom-select" name="SpeakersId">
                             @foreach (Spiker spiker in ViewBag.Speakers)
                             {
-                                <option  value="@spiker.Id">@spiker.FullName</option>
+                                <option value="@spiker.Id">@spiker.FullName</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group" id="Categories">
+                        <label>Select Category</label>
+                        <select multiple class="custom-select" name="CategoriesId">
+                            @foreach (Category category in ViewBag.Categories)
+                            {
+                                <option value="@category.Id">@category.Name</option>
                             }
                         </select>
                     </div>

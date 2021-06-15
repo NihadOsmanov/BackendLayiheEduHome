@@ -27,7 +27,7 @@ namespace Layihe.Areas.AdminPanel.Controllers
             ViewBag.PageCount = Math.Ceiling((decimal)_dbContext.Spikers.Where(s => s.IsDeleted == false).Count() / 4);
             ViewBag.Page = page;
 
-            if (ViewBag.PageCount < ViewBag.Page)
+            if (ViewBag.PageCount < ViewBag.Page || page <= 0)
             {
                 return BadRequest();
             }

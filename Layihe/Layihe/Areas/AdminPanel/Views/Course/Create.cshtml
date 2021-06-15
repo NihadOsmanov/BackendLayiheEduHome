@@ -75,6 +75,15 @@
                         <input asp-for="@Model.CourseDetail.Price" class="form-control" placeholder="Price">
                         <span asp-validation-for="@Model.CourseDetail.Price" class="text-danger"></span>
                     </div>
+                    <div class="form-group" id="Categories">
+                        <label>Select Category</label>
+                        <select multiple class="custom-select" name="CategoriesId">
+                            @foreach (Category category in ViewBag.Categories)
+                            {
+                                <option value="@category.Id">@category.Name</option>
+                            }
+                        </select>
+                    </div>
                     <button type="submit" class="btn btn-primary mr-2">Create</button>
                     <a asp-action="Index" class="btn btn-light">Cancel</a>
                 </form>

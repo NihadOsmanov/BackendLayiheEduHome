@@ -286,3 +286,7 @@ C:\Users\ASUS\Desktop\BackendLayiheEduHome\Layihe\Layihe\obj\Debug\net5.0\Razor\
 C:\Users\ASUS\Desktop\BackendLayiheEduHome\Layihe\Layihe\obj\Debug\net5.0\Razor\Areas\AdminPanel\Views\SocialMedia\Update.cshtml.g.cs
 C:\Users\ASUS\Desktop\BackendLayiheEduHome\Layihe\Layihe\obj\Debug\net5.0\Razor\Areas\AdminPanel\Views\SocialMedia\Delete.cshtml.g.cs
 C:\Users\ASUS\Desktop\BackendLayiheEduHome\Layihe\Layihe\obj\Debug\net5.0\Razor\Areas\AdminPanel\Views\SocialMedia\Detail.cshtml.g.cs
+C:\Users\ASUS\Desktop\BackendLayiheEduHome\Layihe\Layihe\obj\Debug\net5.0\Razor\Areas\AdminPanel\Views\Category\Index.cshtml.g.cs
+C:\Users\ASUS\Desktop\BackendLayiheEduHome\Layihe\Layihe\obj\Debug\net5.0\Razor\Areas\AdminPanel\Views\Category\Create.cshtml.g.cs
+C:\Users\ASUS\Desktop\BackendLayiheEduHome\Layihe\Layihe\obj\Debug\net5.0\Razor\Areas\AdminPanel\Views\Category\Update.cshtml.g.cs
+C:\Users\ASUS\Desktop\BackendLayiheEduHome\Layihe\Layihe\obj\Debug\net5.0\Razor\Areas\AdminPanel\Views\Category\Delete.cshtml.g.cs

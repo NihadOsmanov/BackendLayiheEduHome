@@ -43,40 +43,36 @@
                     <div class="form-group " id="Speakers">
                         <label>Select Speakers</label>
                         <select multiple class="custom-select" name="SpeakersId">
-                            @{
-                                bool isTrue = true;
-
-                                @foreach (Spiker spiker in ViewBag.Speakers)
+                            @foreach (Spiker spiker in ViewBag.Speakers)
+                            {
+                                if (Model.EventSpikers.Any(x => x.SpikerId == spiker.Id))
                                 {
-                                    foreach (EventSpiker eventSpiker in Model.EventSpikers)
-                                    {
-                                        if (eventSpiker.SpikerId == spiker.Id)
-                                        {
-                                            isTrue = true;
-                                            break;
-                                        }
-                                        else
-                                        {
-                                            isTrue = false;
-                                        }
-
-                                    }
-                                    if (isTrue)
-                                    {
-                                        <option selected value="@spiker.Id">@spiker.FullName</option>
-
-                                    }
-                                    else
-                                    {
-                                        <option value="@spiker.Id">@spiker.FullName</option>
-
-                                    }
+                                    <option selected value="@spiker.Id">@spiker.FullName</option>
+                                }
+                                else
+                                {
+                                    <option value="@spiker.Id">@spiker.FullName</option>
                                 }
                             }
-
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary mr-2">Create</button>
+                    <div class="form-group " id="Categories">
+                        <label>Select Category</label>
+                        <select multiple class="custom-select " name="CategoriesId">
+                            @foreach (Category category in ViewBag.Categories)
+                            {
+                                if (Model.EventCategories.Any(x => x.CategoryId == category.Id))
+                                {
+                                    <option selected value="@category.Id">@category.Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@category.Id">@category.Name</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary mr-2">Update</button>
                     <a asp-action="Index" class="btn btn-light">Cancel</a>
                 </form>
             </div>

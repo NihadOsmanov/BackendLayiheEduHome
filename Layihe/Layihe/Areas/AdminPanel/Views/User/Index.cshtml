@@ -13,7 +13,6 @@
                         <thead>
                             <tr>
                                 <th class="text-white">Name</th>
-                                <th class="text-white">Surname</th>
                                 <th class="text-white">Username</th>
                                 <th class="text-white">Email</th>
                                 <th class="text-white">Role</th>
@@ -26,7 +25,6 @@
                             {
                             <tr>
                                 <td class="text-white">@user.Name</td>
-                                <td class="text-white">@user.Surname</td>
                                 <td class="text-white">@user.Username</td>
                                 <td class="text-white">@user.Email</td>
                                 <td class="text-white">@user.Role</td>
@@ -36,7 +34,7 @@
                                     <a class="btn btn-primary" asp-action="ChangeRole" asp-route-id="@user.Id">Change Role</a>
                                     @if (user.IsDeactive)
                                     {
-                                        <a class="btn btn-danger" asp-action="Activity" asp-route-id="@user.Id">Active</a>
+                                        <a class="btn btn-info" asp-action="Activity" asp-route-id="@user.Id">Active</a>
                                     }
                                     else
                                     {

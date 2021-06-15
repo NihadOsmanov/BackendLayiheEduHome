@@ -1,6 +1,8 @@
 ﻿#home-search{
     background-color:white !important;
     margin:0px !important;
+    overflow-y: scroll;
+    height: 300px;
 }
 .search-form{
     
@@ -17,3 +19,4 @@
     padding: 10px 0;
     font-weight: bold;
 }
+

@@ -22,6 +22,7 @@ namespace Layihe.Controllers
         {
             if (categoryId == null)
             {
+                
                 ViewBag.PageCount = Math.Ceiling((decimal)_dbContext.Courses.Where(x=>x.IsDeleted==false).Count() / 6);
                 ViewBag.Page = page;
 

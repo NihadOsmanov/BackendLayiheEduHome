@@ -10,40 +10,47 @@
             <img src="~/img/course/@courseDetail.Course.Image" style="width: 200px; height: 200px; object-fit: cover;" />
         </div>
         <div class="card-body">
-            <h5>Course Name</h5>  @courseDetail.Course.Name
+            <h4>Course Name</h4>  @courseDetail.Course.Name
         </div>
         <div class="card-body">
-            <h5>Course Description</h5>  @courseDetail.Course.Description
+            <h4>Course Description</h4>  @courseDetail.Course.Description
         </div>
         <div class="card-body">
-            <h5>AboutCourse</h5>  @courseDetail.AboutCourse
+            <h4>AboutCourse</h4>  @courseDetail.AboutCourse
         </div>
         <div class="card-body">
-            <h5>HowToApply</h5>  @courseDetail.HowToApply
+            <h4>HowToApply</h4>  @courseDetail.HowToApply
         </div>
         <div class="card-body">
-            <h5>Certification</h5>  @courseDetail.Certification
+            <h4>Certification</h4>  @courseDetail.Certification
         </div>
         <div class="card-body">
-            <h5>StartDate</h5>  @courseDetail.StartDate.ToString("dd MMM yyyy")
+            <h4>StartDate</h4>  @courseDetail.StartDate.ToString("dd MMM yyyy")
         </div>
         <div class="card-body">
-            <h5>Students</h5>  @courseDetail.Students
+            <h4>Students</h4>  @courseDetail.Students
         </div>
         <div class="card-body">
-            <h5>Duration</h5>  @courseDetail.Duration
+            <h4>Duration</h4>  @courseDetail.Duration
         </div>
         <div class="card-body">
-            <h5>ClassDuration</h5>  @courseDetail.ClassDuration
+            <h4>ClassDuration</h4>  @courseDetail.ClassDuration
         </div>
         <div class="card-body">
-            <h5>Assesments</h5>  @courseDetail.Assesments
+            <h4>Assesments</h4>  @courseDetail.Assesments
         </div>
         <div class="card-body">
-            <h5>Language</h5>  @courseDetail.Language
+            <h4>Language</h4>  @courseDetail.Language
         </div>
         <div class="card-body">
-            <h5>Price</h5>  @courseDetail.Price $
+            <h4>Price</h4>  @courseDetail.Price $
+        </div>
+        <div class="card-body">
+            <h4>Category Name</h4>
+            @foreach (var item in courseDetail.Course.CourseCategories)
+            {
+                <span>@item.Category.Name</span><span>,</span>
+            }
         </div>
         <div class="card-body">
             <a asp-action="Index" class="btn btn-outline-secondary" style="margin-left: 10px">Go Back</a>

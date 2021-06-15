@@ -20,12 +20,16 @@
                         <span class=" text-danger" asp-validation-for="Icon"></span>
                     </div>
                     <div class="form-group">
+                        <label asp-for="@Model.Teacher.FullName"></label>
+                        <input class="form-control" asp-for="@Model.Teacher.FullName">
+                        <span class=" text-danger" asp-validation-for="@Model.Teacher.FullName"></span>
+                    </div>
+                    <div class="form-group">
                         <select class="custom-select" name="teachersId">
                             <option value="">Select Teacher</option>
                             @foreach (var teacher in ViewBag.Teachers)
                             {
-                <option value="@teacher.Id">@teacher.FullName</option>
-}
+                <option value="@teacher.Id">@teacher.FullName</option>}
                         </select>
                     </div>
                     <button type="submit" class="btn btn-success mr-2">Update</button>

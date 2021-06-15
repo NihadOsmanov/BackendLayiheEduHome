@@ -26,7 +26,7 @@ namespace Layihe.Areas.AdminPanel.Controllers
             ViewBag.PageCount = Math.Ceiling((decimal)_dbContext.Teachers.Where(s => s.IsDeleted == false).Count() / 4);
             ViewBag.Page = page;
 
-            if (ViewBag.PageCount < page)
+            if (ViewBag.PageCount < page || page <= 0)
             {
                 return NotFound();
             }
@@ -92,20 +92,24 @@ namespace Layihe.Areas.AdminPanel.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(int? id, SocialMediaOfTeacher socialMedia, int? teachersId)
         {
-            if (id == null)
-                return NotFound();
+            if(teachersId != null)
+            {
+                if (id == null)
+                    return NotFound();
 
-            ViewBag.Teachers = _dbContext.Teachers.Where(x => x.IsDeleted == false).ToList();
-            ViewBag.SocialMedia = _dbContext.SocialMedias.ToList();
+                ViewBag.Teachers = _dbContext.Teachers.Where(x => x.IsDeleted == false).ToList();
+                ViewBag.SocialMedia = _dbContext.SocialMedias.ToList();
 
-            var dbSocMedOfTeacher = _dbContext.SocialMediaOfTeachers.Where(x => x.IsDeleted == false).Include(x => x.Teacher).FirstOrDefault(x => x.Id == id);
+                var dbSocMedOfTeacher = _dbContext.SocialMediaOfTeachers.Where(x => x.IsDeleted == false).Include(x => x.Teacher).FirstOrDefault(x => x.Id == id);
 
-            if (dbSocMedOfTeacher == null)
-                return NotFound();
+                if (dbSocMedOfTeacher == null)
+                    return NotFound();
 
-            dbSocMedOfTeacher.Link = socialMedia.Link;
-            dbSocMedOfTeacher.Icon = socialMedia.Icon;
-            dbSocMedOfTeacher.TeacherId = (int)teachersId;
+                dbSocMedOfTeacher.Link = socialMedia.Link;
+                dbSocMedOfTeacher.Icon = socialMedia.Icon;
+                dbSocMedOfTeacher.TeacherId = (int)teachersId;
+            }
+           
             await _dbContext.SaveChangesAsync();
 
             return RedirectToAction("Index");

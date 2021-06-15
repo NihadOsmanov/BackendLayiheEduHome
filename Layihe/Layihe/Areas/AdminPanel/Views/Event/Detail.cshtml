@@ -23,17 +23,26 @@
             <h5>EndTime</h5>  @Model.EndTime.ToString("dd MMMM yyyy")
         </div>
         <div class="card-body">
+            <h5>Spikers</h5>
             @foreach (var item in Model.EventSpikers)
             {
                 <ul>
                     <li>
-                        <h5>Spiker Name</h5> @item.Spiker.FullName
-                    </li>
-                    <li>
-                        <h5>Spiker Profession</h5> @item.Spiker.Profession
+                        <span><span class="font-weight-bold">Name : </span>@item.Spiker.FullName ,</span> <span class="font-weight-bold">Profession : </span><span>@item.Spiker.Profession</span>
                     </li>
                 </ul>
-              }
+            }
+        </div>
+        <div class="card-body">
+            <h5>Category</h5>
+            @foreach (var item in Model.EventCategories)
+            {
+                <ul>
+                    <li>
+                        <span><span class="font-weight-bold">Name : </span>@item.Category.Name ,</span>
+                    </li>
+                </ul>
+            }
         </div>
         <div class="card-body">
             <a asp-action="Index" class="btn btn-outline-secondary" style="margin-left: 10px">Go Back</a>

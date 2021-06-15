@@ -59,9 +59,15 @@
     <script src="https://cdn.ckeditor.com/ckeditor5/27.1.0/classic/ckeditor.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
     <script>
+        let selectedRole = $("#SelectedRole").children("option:selected").val();
+        if (selectedRole == "CourseModerator") {
+            $("#CoursesId").removeClass("d-none");
+        }
+        else {
+            $("#CoursesId").addClass("d-none");
+        }
         $("#SelectedRole").change(function () {
             let selectedRole = $(this).children("option:selected").val();
-            console.log(selectedRole);
             if (selectedRole == "CourseModerator") {
                 $("#CoursesId").removeClass("d-none");
             }

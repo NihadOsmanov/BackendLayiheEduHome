@@ -7,19 +7,26 @@
 <div class="col-md-12 grid-margin stretch-card bg-dark text-white">
     <div class="card d-flex flex-column bg-dark">
         <div class="card-body">
-            <h5>Image</h5> <img src="~/img/blog/@blogDetail.Blog.Image" style="width: 200px; height:200px; object-fit: cover" />
+            <h4>Image</h4> <img src="~/img/blog/@blogDetail.Blog.Image" style="width: 200px; height:200px; object-fit: cover" />
         </div>
         <div class="card-body">
-            <h5>Author</h5>  @blogDetail.Blog.Author
+            <h4>Author</h4>  @blogDetail.Blog.Author
         </div>
         <div class="card-body">
-            <h5>title</h5>  @blogDetail.Blog.Title
+            <h4>Title</h4>  @blogDetail.Blog.Title
         </div>
         <div class="card-body">
-            <h5>DateTime</h5>  @blogDetail.Blog.DateTime.ToString("dd MMMM yyyy")
+            <h4>DateTime</h4>  @blogDetail.Blog.DateTime.ToString("dd MMMM yyyy")
         </div>
         <div class="card-body">
-            <h5>Description</h5>  @Html.Raw(blogDetail.Description)
+            <h4>Description</h4>  @Html.Raw(blogDetail.Description)
+        </div>
+        <div class="card-body">
+            <h4>Category Name</h4>
+            @foreach (var item in blogDetail.Blog.BlogCategories)
+            {
+                        <span>@item.Category.Name</span><span>,</span>
+                }
         </div>
         <div class="card-body">
             <a asp-action="Index" class="btn btn-outline-secondary" style="margin-left: 10px">Go Back</a>

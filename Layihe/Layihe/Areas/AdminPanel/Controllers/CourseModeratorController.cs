@@ -40,11 +40,13 @@ namespace Layihe.Areas.AdminPanel.Controllers
         #region Update
         public IActionResult Update(int? id)
         {
+            ViewBag.Categories = _dbContext.Categories.Where(x => x.IsDeleted == false).ToList();
+
             if (id == null)
                 return NotFound();
 
-            var courseDetail = _dbContext.CourseDetails.Where(x => x.IsDeleted == false).Include(x => x.Course).OrderByDescending(t => t.Id)
-                                                                                                        .FirstOrDefault(y => y.CourseId == id);
+            var courseDetail = _dbContext.CourseDetails.Where(x => x.IsDeleted == false).Include(x => x.Course).ThenInclude(t => t.CourseCategories)
+                                                                            .ThenInclude(t => t.Category).FirstOrDefault(y => y.CourseId == id);
 
             if (courseDetail == null)
                 return NotFound();
@@ -54,18 +56,27 @@ namespace Layihe.Areas.AdminPanel.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update(int? id, Course course)
+        public async Task<IActionResult> Update(int? id, Course course, List<int?> CategoriesId)
         {
+            ViewBag.Categories = _dbContext.Categories.Where(x => x.IsDeleted == false).ToList();
+
             if (!ModelState.IsValid)
             {
                 return View();
             }
 
-            var dbCourse = _dbContext.CourseDetails.Where(x => x.IsDeleted == false).Include(x => x.Course).OrderByDescending(t => t.Id)
-                                                                                                        .FirstOrDefault(y => y.CourseId == id);
+            var dbCourse = _dbContext.CourseDetails.Where(x => x.IsDeleted == false).Include(x => x.Course).ThenInclude(t => t.CourseCategories)
+                                                                            .ThenInclude(t => t.Category).FirstOrDefault(y => y.CourseId == id);
 
             if (dbCourse == null)
                 return NotFound();
+
+
+            if (CategoriesId == null)
+            {
+                ModelState.AddModelError("", "Please select Category");
+                return View();
+            }
 
             if (course.Photo != null)
             {
@@ -92,6 +103,16 @@ namespace Layihe.Areas.AdminPanel.Controllers
                 dbCourse.Course.Image = fileName;
             }
 
+            var courseCategories = new List<CourseCategory>();
+
+            foreach (var ec in CategoriesId)
+            {
+                var courseCategory = new CourseCategory();
+                courseCategory.CourseId = course.Id;
+                courseCategory.CategoryId = (int)ec;
+                courseCategories.Add(courseCategory);
+            }
+
             dbCourse.Course.Name = course.Name;
             dbCourse.Course.Description = course.Description;
             dbCourse.AboutCourse = course.CourseDetail.AboutCourse;
@@ -104,6 +125,7 @@ namespace Layihe.Areas.AdminPanel.Controllers
             dbCourse.Students = course.CourseDetail.Students;
             dbCourse.Language = course.CourseDetail.Language;
             dbCourse.Price = course.CourseDetail.Price;
+            dbCourse.Course.CourseCategories = courseCategories;
 
             await _dbContext.SaveChangesAsync();
 

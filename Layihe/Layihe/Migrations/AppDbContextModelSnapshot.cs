@@ -172,6 +172,9 @@ namespace Layihe.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -930,13 +933,13 @@ namespace Layihe.Migrations
             modelBuilder.Entity("Layihe.Models.BlogCategory", b =>
                 {
                     b.HasOne("Layihe.Models.Blog", "Blog")
-                        .WithMany()
+                        .WithMany("BlogCategories")
                         .HasForeignKey("BlogId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Layihe.Models.Category", "Category")
-                        .WithMany()
+                        .WithMany("BlogCategories")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1131,11 +1134,15 @@ namespace Layihe.Migrations
 
             modelBuilder.Entity("Layihe.Models.Blog", b =>
                 {
+                    b.Navigation("BlogCategories");
+
                     b.Navigation("BlogDetail");
                 });
 
             modelBuilder.Entity("Layihe.Models.Category", b =>
                 {
+                    b.Navigation("BlogCategories");
+
                     b.Navigation("CourseCategories");
 
                     b.Navigation("EventCategories");

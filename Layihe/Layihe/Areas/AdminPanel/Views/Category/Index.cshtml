@@ -9,9 +9,9 @@
         <div class="card">
             <div class="card-body bg-dark font-weight-bold text-white">
                 <p style="padding-bottom: 10px">
-                    <a asp-action="Create" class="btn btn-success">Create</a>
+                    <a asp-action="Create" class="btn btn-outline-success" >Create</a>
                 </p>
-                <h4 class="card-title text-white">Events</h4>
+                <h4 class="card-title text-white">Categories</h4>
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
@@ -26,8 +26,8 @@
                                 <tr>
                                     <td class="text-white">@category.Name</td>
                                     <td>
-                                        <a class="btn btn-primary" asp-action="Update" asp-route-id="@category.Id">Update</a>
-                                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@category.Id">Delete</a>
+                                        <a class="btn btn-outline-primary" asp-action="Update" asp-route-id="@category.Id">Update</a>
+                                        <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@category.Id">Delete</a>
                                     </td>
                                 </tr>
                             }
@@ -54,7 +54,6 @@
                             </ul>
                         </nav>
                     </div>
-
                 </div>
             </div>
         </div>

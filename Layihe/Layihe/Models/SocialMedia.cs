@@ -10,5 +10,6 @@ namespace Layihe.Models
         public int Id { get; set; }
         public string Icon { get; set; }
         public string IconName { get; set; }
+        public bool IsDelete { get; set; }
     }
 }

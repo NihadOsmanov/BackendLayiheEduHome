@@ -8,7 +8,7 @@
     <div class="col-md-12 grid-margin stretch-card d-flex">
         <div class="card">
             <div class="card-body bg-dark font-weight-bold text-white">
-                <h4 class="card-title text-white">Create Teacher</h4>
+                <h4 class="card-title text-white font-italic">Create Teacher</h4>
                 <div class="text-danger" asp-validation-summary="ModelOnly"></div>
                 <form class="forms-sample" method="post" enctype="multipart/form-data">
                     <div class="form-group">
@@ -100,8 +100,8 @@
                         <input class="form-range" asp-for="@Model.TeacherDetail.DesignValue" type="range" placeholder="DesignValue">
                         <span class=" text-danger" asp-validation-for="@Model.TeacherDetail.DesignValue"></span>
                     </div>
-                    <button type="submit" class="btn btn-success mr-2">Create</button>
-                    <a asp-action="Index" class="btn btn-secondary">Go Back</a>
+                    <button type="submit" class="btn btn-outline-success mr-2">Create</button>
+                    <a asp-action="Index" class="btn btn-outline-warning">Go Back</a>
                 </form>
             </div>
         </div>

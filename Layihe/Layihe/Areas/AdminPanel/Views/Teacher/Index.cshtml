@@ -1,4 +1,4 @@
-﻿
+﻿    
 @{
     ViewData["Title"] = "Index";
     List<Teacher> teachers = Model;
@@ -8,8 +8,8 @@
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body bg-dark font-weight-bold text-white">
-                <p style="padding-bottom: 10px">
-                    <a asp-action="Create" class="btn btn-success">Create</a>
+                <p style="padding-bottom: 10px; text-align:center; ">
+                    <a asp-action="Create" class="btn btn-outline-success" style="width: 160px">Create</a>
                 </p>
                 <h4 class="card-title text-white">Teachers</h4>
                 <div class="table-responsive">
@@ -30,9 +30,9 @@
                                     <td class="text-white">@teacher.FullName</td>
                                     <td class="text-white">@teacher.ProfessionOfTeacher.Profession</td>
                                     <td>
-                                        <a class="btn btn-success" asp-action="Detail" asp-route-id="@teacher.Id">Detail</a>
-                                        <a class="btn btn-primary" asp-action="Update" asp-route-id="@teacher.Id">Update</a>
-                                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@teacher.Id">Delete</a>
+                                        <a class="btn btn-outline-success" asp-action="Detail" asp-route-id="@teacher.Id">Detail</a>
+                                        <a class="btn btn-outline-primary" asp-action="Update" asp-route-id="@teacher.Id">Update</a>
+                                        <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@teacher.Id">Delete</a>
                                     </td>
                                 </tr>
                             }

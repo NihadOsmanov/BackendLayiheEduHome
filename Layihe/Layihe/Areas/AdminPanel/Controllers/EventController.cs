@@ -51,7 +51,8 @@ namespace Layihe.Areas.AdminPanel.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Event evnt, List<int?> SpeakersId, List<int?> CategoriesId)
         {
-            ViewBag.Speakers = _dbContext.Spikers.Where(x => x.IsDeleted == false).ToList();
+            var speakers = _dbContext.Spikers.Where(x => x.IsDeleted == false).ToList();
+            ViewBag.Speakers = speakers;
             ViewBag.Categories = _dbContext.Categories.Where(x => x.IsDeleted == false).ToList();
 
             if (!ModelState.IsValid)
@@ -63,6 +64,14 @@ namespace Layihe.Areas.AdminPanel.Controllers
             {
                 ModelState.AddModelError("", "Please select Spiker");
                 return View();
+            }
+
+            foreach (var speaker in SpeakersId)
+            {
+                if(speakers.All(x => x.Id != (int)speaker))
+                {
+                    return BadRequest();
+                }
             }
 
             if (CategoriesId.Count == 0)
@@ -92,6 +101,12 @@ namespace Layihe.Areas.AdminPanel.Controllers
             var fileName = await FileUtil.GenerateFileAsync(Constants.EventImageFolderPath, evnt.Photo);
             evnt.Image = fileName;
             evnt.IsDeleted = false;
+
+            if(evnt.StartingTime > evnt.EndTime)
+            {
+                ModelState.AddModelError("", "Start date cannot be later than end date");
+                return View();
+            }
 
             var eventSpikers = new List<EventSpiker>();
 
@@ -157,7 +172,8 @@ namespace Layihe.Areas.AdminPanel.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(int? id, Event evnt, List<int?> SpeakersId, List<int?> CategoriesId)
         {
-            ViewBag.Speakers = _dbContext.Spikers.Where(x => x.IsDeleted == false).ToList();
+            var speakers = _dbContext.Spikers.Where(x => x.IsDeleted == false).ToList();
+            ViewBag.Speakers = speakers;
             ViewBag.Categories = _dbContext.Categories.Where(x => x.IsDeleted == false).ToList();
 
             if (!ModelState.IsValid)
@@ -175,6 +191,14 @@ namespace Layihe.Areas.AdminPanel.Controllers
             {
                 ModelState.AddModelError("", "Please select Category");
                 return View();
+            }
+
+            foreach (var speaker in SpeakersId)
+            {
+                if (speakers.All(x => x.Id != (int)speaker))
+                {
+                    return BadRequest();
+                }
             }
 
             if (id == null)
@@ -203,6 +227,12 @@ namespace Layihe.Areas.AdminPanel.Controllers
                 var fileName = await FileUtil.GenerateFileAsync(Constants.EventImageFolderPath, evnt.Photo);
                 evnt.Image = fileName;
                 evnt.IsDeleted = false;
+            }
+
+            if (evnt.StartingTime > evnt.EndTime)
+            {
+                ModelState.AddModelError("", "Start date cannot be later than end date");
+                return View();
             }
 
             var eventSpikers = new List<EventSpiker>();

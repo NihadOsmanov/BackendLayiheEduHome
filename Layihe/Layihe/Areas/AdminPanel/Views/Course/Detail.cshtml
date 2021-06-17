@@ -10,50 +10,50 @@
             <img src="~/img/course/@courseDetail.Course.Image" style="width: 200px; height: 200px; object-fit: cover;" />
         </div>
         <div class="card-body">
-            <h4>Course Name</h4>  @courseDetail.Course.Name
+            <h4 style="font-family: sans-serif; font-size: 23px">Course Name</h4> <p class="font-italic">@courseDetail.Course.Name</p>
         </div>
         <div class="card-body">
-            <h4>Course Description</h4>  @courseDetail.Course.Description
+            <h4 style="font-family: sans-serif; font-size: 23px">Course Description</h4>   <p class="font-italic">@courseDetail.Course.Description</p>
         </div>
         <div class="card-body">
-            <h4>AboutCourse</h4>  @courseDetail.AboutCourse
+            <h4 style="font-family: sans-serif; font-size: 23px">AboutCourse</h4> <p class="font-italic"> @courseDetail.AboutCourse</p>
         </div>
         <div class="card-body">
-            <h4>HowToApply</h4>  @courseDetail.HowToApply
+            <h4 style="font-family: sans-serif; font-size: 23px">HowToApply</h4> <p class="font-italic"> @courseDetail.HowToApply</p>
         </div>
         <div class="card-body">
-            <h4>Certification</h4>  @courseDetail.Certification
+            <h4 style="font-family: sans-serif; font-size: 23px">Certification</h4>  <p class="font-italic">@courseDetail.Certification</p>
         </div>
         <div class="card-body">
-            <h4>StartDate</h4>  @courseDetail.StartDate.ToString("dd MMM yyyy")
+            <h4 style="font-family: sans-serif; font-size: 23px">StartDate</h4> <p class="font-italic"> @courseDetail.StartDate.ToString("dd MMM yyyy")</p>
         </div>
         <div class="card-body">
-            <h4>Students</h4>  @courseDetail.Students
+            <h4 style="font-family: sans-serif; font-size: 23px">Students</h4> <p class="font-italic"> @courseDetail.Students</p>
         </div>
         <div class="card-body">
-            <h4>Duration</h4>  @courseDetail.Duration
+            <h4 style="font-family: sans-serif; font-size: 23px">Duration</h4> <p class="font-italic"> @courseDetail.Duration</p>
         </div>
         <div class="card-body">
-            <h4>ClassDuration</h4>  @courseDetail.ClassDuration
+            <h4 style="font-family: sans-serif; font-size: 23px">ClassDuration</h4> <p class="font-italic"> @courseDetail.ClassDuration</p>
         </div>
         <div class="card-body">
-            <h4>Assesments</h4>  @courseDetail.Assesments
+            <h4 style="font-family: sans-serif; font-size: 23px">Assesments</h4> <p class="font-italic"> @courseDetail.Assesments</p>
         </div>
         <div class="card-body">
-            <h4>Language</h4>  @courseDetail.Language
+            <h4 style="font-family: sans-serif; font-size: 23px">Language</h4> <p class="font-italic"> @courseDetail.Language</p>
         </div>
         <div class="card-body">
-            <h4>Price</h4>  @courseDetail.Price $
+            <h4 style="font-family: sans-serif; font-size: 23px">Price</h4> <p class="font-italic"> @courseDetail.Price $</p>
         </div>
         <div class="card-body">
-            <h4>Category Name</h4>
+            <h4 style="font-family: sans-serif; font-size: 23px">Category Name</h4>
             @foreach (var item in courseDetail.Course.CourseCategories)
             {
-                <span>@item.Category.Name</span><span>,</span>
+                <span class="font-italic">@item.Category.Name</span><span class="font-italic">,</span>
             }
         </div>
         <div class="card-body">
-            <a asp-action="Index" class="btn btn-outline-secondary" style="margin-left: 10px">Go Back</a>
+            <a asp-action="Index" class="btn btn-outline-secondary" style="margin-left: 5px; width:130px">Go Back</a>
         </div>
     </div>
 </div>

@@ -70,7 +70,8 @@ namespace Layihe.Areas.AdminPanel.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Course course, List<int?> CategoriesId)
         {
-            ViewBag.Categories = _dbContext.Categories.Where(x => x.IsDeleted == false).ToList();
+            var categories = _dbContext.Categories.Where(x => x.IsDeleted == false).ToList();
+            ViewBag.Categories = categories;
 
             if (!ModelState.IsValid)
             {
@@ -83,9 +84,23 @@ namespace Layihe.Areas.AdminPanel.Controllers
                 return View();
             }
 
+            foreach (var category in CategoriesId)
+            {
+                if (categories.All(x => x.Id != (int)category))
+                {
+                    return BadRequest();
+                }
+            }
+
             if (course.Photo == null)
             {
                 ModelState.AddModelError("Photo", "Please select Photo");
+                return View();
+            }
+
+            if(course.CourseDetail.StartDate < DateTime.Now)
+            {
+                ModelState.AddModelError("", "Please DateTime correct choose");
                 return View();
             }
 
@@ -116,6 +131,18 @@ namespace Layihe.Areas.AdminPanel.Controllers
                 courseCategories.Add(courseCategory);
             }
 
+            if(course.CourseDetail.Students < 0)
+            {
+                ModelState.AddModelError("", "Stundents can not be less than 0");
+                return View();
+            }
+
+            if (course.CourseDetail.Price < 0)
+            {
+                ModelState.AddModelError("", "Price can not be less than 0");
+                return View();
+            }
+
             await _dbContext.Courses.AddAsync(course);
             course.CourseDetail.CourseId = course.Id;
             course.CourseCategories = courseCategories;
@@ -130,7 +157,9 @@ namespace Layihe.Areas.AdminPanel.Controllers
         #region Update
         public IActionResult Update(int? id)
         {
-            ViewBag.Categories = _dbContext.Categories.Where(x => x.IsDeleted == false).ToList();
+            var categories = _dbContext.Categories.Where(x => x.IsDeleted == false).ToList();
+
+            ViewBag.Categories = categories;
 
             if (id == null)
                 return NotFound();
@@ -148,7 +177,9 @@ namespace Layihe.Areas.AdminPanel.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(int? id, Course course, List<int?> CategoriesId)
         {
-            ViewBag.Categories = _dbContext.Categories.Where(x => x.IsDeleted == false).ToList();
+            var categories = _dbContext.Categories.Where(x => x.IsDeleted == false).ToList();
+
+            ViewBag.Categories = categories;
 
             if (!ModelState.IsValid)
             {
@@ -165,6 +196,14 @@ namespace Layihe.Areas.AdminPanel.Controllers
             {
                 ModelState.AddModelError("", "Please select Category");
                 return View();
+            }
+
+            foreach (var category in CategoriesId)
+            {
+                if (categories.All(x => x.Id != (int)category))
+                {
+                    return BadRequest();
+                }
             }
 
             if (course.Photo != null)
@@ -192,6 +231,12 @@ namespace Layihe.Areas.AdminPanel.Controllers
                 dbCourse.Course.Image = fileName;
             }
 
+            if (course.CourseDetail.StartDate < DateTime.Now)
+            {
+                ModelState.AddModelError("", "Please DateTime correct choose");
+                return View();
+            }
+
             var courseCategories = new List<CourseCategory>();
 
             foreach (var ec in CategoriesId)
@@ -200,6 +245,18 @@ namespace Layihe.Areas.AdminPanel.Controllers
                 courseCategory.CourseId = course.Id;
                 courseCategory.CategoryId = (int)ec;
                 courseCategories.Add(courseCategory);
+            }
+
+            if (course.CourseDetail.Students < 0)
+            {
+                ModelState.AddModelError("", "Stundents can not be less than 0");
+                return View();
+            }
+
+            if (course.CourseDetail.Price < 0)
+            {
+                ModelState.AddModelError("", "Price can not be less than 0");
+                return View();
             }
 
             dbCourse.Course.Name = course.Name;

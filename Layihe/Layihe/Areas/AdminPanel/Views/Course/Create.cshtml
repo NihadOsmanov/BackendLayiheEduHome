@@ -7,7 +7,7 @@
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body bg-dark font-weight-bold text-white">
-                <h4 class="card-title text-white">Create Course</h4>
+                <h4 class="card-title text-white font-italic">Create Course</h4>
                 <div class="text-danger" asp-validation-summary="ModelOnly"></div>
                 <form class="forms-sample" method="post" enctype="multipart/form-data">
                     <div class="form-group">
@@ -84,8 +84,8 @@
                             }
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary mr-2">Create</button>
-                    <a asp-action="Index" class="btn btn-light">Cancel</a>
+                    <button type="submit" class="btn btn-outline-success mr-2">Create</button>
+                    <a asp-action="Index" class="btn btn-outline-warning">Cancel</a>
                 </form>
             </div>
         </div>

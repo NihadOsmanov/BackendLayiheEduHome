@@ -50,7 +50,8 @@ namespace Layihe.Areas.AdminPanel.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(SocialMediaOfTeacher SocialMediaOfTeacher, int? teachersId)
         {
-            ViewBag.Teachers = _dbContext.Teachers.Where(x => x.IsDeleted == false).ToList();
+            var teachers = _dbContext.Teachers.Where(x => x.IsDeleted == false).Include(x => x.SocialMediaOfTeachers).ToList();
+            ViewBag.Teachers = teachers;
             ViewBag.SocialMedia = _dbContext.SocialMedias.ToList();
 
             if (!ModelState.IsValid)
@@ -64,7 +65,27 @@ namespace Layihe.Areas.AdminPanel.Controllers
                 return View();
             }
 
-            SocialMediaOfTeacher.TeacherId = (int) teachersId;
+            if (teachers.All(x => x.Id != (int)teachersId))
+            {
+                return BadRequest();
+            }
+
+            foreach (var teacher in teachers)
+            {
+                if (teacher.Id == teachersId)
+                {
+                    foreach (var item in teacher.SocialMediaOfTeachers)
+                    {
+                        if (item.IsDeleted == false && item.Link == SocialMediaOfTeacher.Link && item.Icon == SocialMediaOfTeacher.Icon)
+                        {
+                            ModelState.AddModelError("", "is exists");
+                            return View();
+                        }
+                    }
+                }
+            }
+
+            SocialMediaOfTeacher.TeacherId = (int)teachersId;
             await _dbContext.AddAsync(SocialMediaOfTeacher);
             await _dbContext.SaveChangesAsync();
             return RedirectToAction("Index");
@@ -90,26 +111,38 @@ namespace Layihe.Areas.AdminPanel.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update(int? id, SocialMediaOfTeacher socialMedia, int? teachersId)
+        public async Task<IActionResult> Update(int? id, SocialMediaOfTeacher SocialMediaOfTeacher)
         {
-            if(teachersId != null)
+
+            if (id == null)
+                return NotFound();
+
+            var teachers = _dbContext.Teachers.Where(x => x.IsDeleted == false).Include(x => x.SocialMediaOfTeachers).ToList();
+            ViewBag.SocialMedia = _dbContext.SocialMedias.ToList();
+
+            var dbSocMedOfTeacher = _dbContext.SocialMediaOfTeachers.Where(x => x.IsDeleted == false).Include(x => x.Teacher).FirstOrDefault(x => x.Id == id);
+
+            if (dbSocMedOfTeacher == null)
+                return NotFound();
+
+            foreach (var teacher in teachers)
             {
-                if (id == null)
-                    return NotFound();
-
-                ViewBag.Teachers = _dbContext.Teachers.Where(x => x.IsDeleted == false).ToList();
-                ViewBag.SocialMedia = _dbContext.SocialMedias.ToList();
-
-                var dbSocMedOfTeacher = _dbContext.SocialMediaOfTeachers.Where(x => x.IsDeleted == false).Include(x => x.Teacher).FirstOrDefault(x => x.Id == id);
-
-                if (dbSocMedOfTeacher == null)
-                    return NotFound();
-
-                dbSocMedOfTeacher.Link = socialMedia.Link;
-                dbSocMedOfTeacher.Icon = socialMedia.Icon;
-                dbSocMedOfTeacher.TeacherId = (int)teachersId;
+                if (teacher.Id != id)
+                {
+                    foreach (var item in teacher.SocialMediaOfTeachers)
+                    {
+                        if (item.IsDeleted == false && item.Link == SocialMediaOfTeacher.Link && item.Icon == SocialMediaOfTeacher.Icon)
+                        {
+                            ModelState.AddModelError("", "is exists");
+                            return View(dbSocMedOfTeacher);
+                        }
+                    }
+                }
             }
-           
+
+            dbSocMedOfTeacher.Link = SocialMediaOfTeacher.Link;
+            dbSocMedOfTeacher.Icon = SocialMediaOfTeacher.Icon;
+
             await _dbContext.SaveChangesAsync();
 
             return RedirectToAction("Index");

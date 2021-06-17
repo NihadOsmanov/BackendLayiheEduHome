@@ -103,6 +103,12 @@ namespace Layihe.Areas.AdminPanel.Controllers
                 dbCourse.Course.Image = fileName;
             }
 
+            if (course.CourseDetail.StartDate < DateTime.Now)
+            {
+                ModelState.AddModelError("", "Please DateTime correct choose");
+                return View();
+            }
+
             var courseCategories = new List<CourseCategory>();
 
             foreach (var ec in CategoriesId)

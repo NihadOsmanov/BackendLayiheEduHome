@@ -48,12 +48,18 @@ namespace Layihe.Areas.AdminPanel.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Teacher teacher, int? ProfessionId)
         {
-            ViewBag.Profession = await _dbContext.ProfessionOfTeachers.Where(x => x.IsDeleted == false).ToListAsync();
+            var professions = await _dbContext.ProfessionOfTeachers.Where(x => x.IsDeleted == false).ToListAsync();
+            ViewBag.Profession = professions;
 
             if (ProfessionId == null)
             {
                 ModelState.AddModelError("", "Please select Profession");
                 return View();
+            }
+
+            if (professions.All(x => x.Id != (int)ProfessionId))
+            {
+                return BadRequest();
             }
 
             if (!ModelState.IsValid)
@@ -114,7 +120,8 @@ namespace Layihe.Areas.AdminPanel.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Update(int? id, Teacher teacher, int? ProfessionId)
         {
-            ViewBag.Profession = await _dbContext.ProfessionOfTeachers.Where(x => x.IsDeleted == false).ToListAsync();
+            var professions = await _dbContext.ProfessionOfTeachers.Where(x => x.IsDeleted == false).ToListAsync();
+            ViewBag.Profession = professions;
 
             if (ProfessionId != null)
             {
@@ -125,11 +132,12 @@ namespace Layihe.Areas.AdminPanel.Controllers
                     return View();
 
                 var dbTeacher = _dbContext.Teachers.Where(x => x.IsDeleted == false).Include(x => x.TeacherDetail).Include(y => y.SocialMediaOfTeachers)
-                                                                                            .Include(y => y.ProfessionOfTeacher).FirstOrDefault(x => x.Id == id);
+                                                                                   .Include(y => y.ProfessionOfTeacher).FirstOrDefault(x => x.Id == id);
 
                 if (dbTeacher == null)
                     return NotFound();
 
+                
                 if (teacher.Photo != null)
                 {
                     if (!teacher.Photo.IsImage())
@@ -172,6 +180,10 @@ namespace Layihe.Areas.AdminPanel.Controllers
                 dbTeacher.ProfessionOfTeacherId = (int)ProfessionId;
             }
 
+            if (professions.All(x => x.Id != (int)ProfessionId))
+            {
+                return BadRequest();
+            }
             await _dbContext.SaveChangesAsync();
 
             return RedirectToAction("Index");
@@ -227,6 +239,15 @@ namespace Layihe.Areas.AdminPanel.Controllers
 
             teacher.IsDeleted = true;
             teacher.TeacherDetail.IsDeleted = true;
+
+            foreach (var item in teacher.SocialMediaOfTeachers)
+            {
+                if(item.TeacherId == id)
+                {
+                    item.IsDeleted = true;
+                }
+            }
+
             await _dbContext.SaveChangesAsync();
 
             return RedirectToAction("Index");

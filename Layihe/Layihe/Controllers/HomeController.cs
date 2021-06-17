@@ -1,6 +1,7 @@
 ﻿using Layihe.DataAccesLayer;
 using Layihe.Models;
 using Layihe.ViewModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -15,10 +16,12 @@ namespace Layihe.Controllers
     public class HomeController : Controller
     {
         private readonly AppDbContext _dbContext;
+        private readonly UserManager<User> _userManager;
 
-        public HomeController(AppDbContext dbContext)
+        public HomeController(AppDbContext dbContext, UserManager<User> userManager)
         {
             _dbContext = dbContext;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
@@ -54,18 +57,25 @@ namespace Layihe.Controllers
         #region Subscriber
         public async Task<IActionResult> Subscriber(string email)
         {
-            string pattern = "^(([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5}){1,25})+([;.](([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5}){1,25})+)*$";
-
-            if (email == null)
+            if (!User.Identity.IsAuthenticated)
             {
-                return Content("Email can not empty");
-            }
+                string pattern = "^(([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5}){1,25})+([;.](([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5}){1,25})+)*$";
+                
+                if (email == null)
+                {
+                    return Content("Email can not empty");
+                }
 
-            if (!Regex.IsMatch(email, pattern))
+                if (!Regex.IsMatch(email, pattern))
+                {
+                    return Content("Email is not valid");
+                }
+            }
+            else
             {
-                return Content("Email is not valid");
+                User user = await _userManager.FindByNameAsync(User.Identity.Name);
+                email = user.Email;
             }
-
             var dbSubsriber = _dbContext.Subscribers.ToList();
 
             var subscriber = new Subscriber()

@@ -1,4 +1,5 @@
-﻿//Courses Search
+﻿
+//Courses Search
 
 
 $(document).ready(function () {
@@ -140,18 +141,33 @@ $(document).ready(function () {
 $(document).ready(function () {
     let subscriber;
     $(document).on("click", `#btn-subs`, function () {
-        subscriber = $("#inp-subs").val();
 
         $("#span-subs").empty();
 
-        $.ajax({
-            url: "Home/Subscriber?email=" + subscriber,
-            type: "Get",
-            success: function (res) {
-                console.log("ok")
+        if (isAuthenticated = false) {
+            subscriber = $("#inp-subs").val();
 
-                $("#span-subs").append(res);
-            }
-        });
+            $.ajax({
+                url: "Home/Subscriber?email=" + subscriber,
+                type: "Get",
+                success: function (res) {
+                    console.log("ok")
+
+                    $("#span-subs").append(res);
+                }
+            });
+        }
+        else {
+            $.ajax({
+                url: "Home/Subscriber?email=",
+                type: "Get",
+                success: function (res) {
+                    console.log("ok")
+
+                    $("#span-subs").append(res);
+                }
+            });
+        }
+     
     });
 });

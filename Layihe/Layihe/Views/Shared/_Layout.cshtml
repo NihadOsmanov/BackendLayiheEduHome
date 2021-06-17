@@ -44,9 +44,12 @@
                         <p>I must explain to you how all this mistaken idea </p>
                     </div>
                     <div class="newsletter-form mc_embed_signup">
-                        <form   >
+                        <form>
                             <div id="mc_embed_signup_scroll" class="mc-form">
-                                <input id="inp-subs" placeholder="Enter your e-mail address" required>
+                                @if (!User.Identity.IsAuthenticated)
+                                {
+                                    <input id="inp-subs" placeholder="Enter your e-mail address" required>
+                                }
                                 <button id="btn-subs" class="default-btn" type="button"><span>subscribe</span></button>
                             </div>
                         </form>
@@ -73,6 +76,19 @@
     <script src="~/js/main.js"></script>
     <script src="~/js/layihe.edu.home.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <script>
+            var isAuthenticated = true;
+        </script>
+    }
+    else
+    {
+        <script>
+            var isAuthenticated = false;
+        </script>
+    }
 </body>
 
 <!-- Mirrored from demo.devitems.com/eduhome/index-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 21 Jun 2020 19:41:25 GMT -->

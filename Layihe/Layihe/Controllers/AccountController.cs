@@ -211,12 +211,12 @@ namespace Layihe.Controllers
 
         //public async Task CreateUserRole()
         //{
-        //    if (!(await _roleManager.RoleExistsAsync("Admin")))
-        //        await _roleManager.CreateAsync(new IdentityRole { Name = "Admin" });
-        //    if (!(await _roleManager.RoleExistsAsync("CourseModerator")))
-        //        await _roleManager.CreateAsync(new IdentityRole { Name = "CourseModerator" });
-        //    if (!(await _roleManager.RoleExistsAsync("Member")))
-        //        await _roleManager.CreateAsync(new IdentityRole { Name = "Member" });
+        //    if (!(await _roleManager.RoleExistsAsync(RoleConstant.Admin)))
+        //        await _roleManager.CreateAsync(new IdentityRole { Name = RoleConstant.Admin });
+        //    if (!(await _roleManager.RoleExistsAsync(RoleConstant.CourseModerator)))
+        //        await _roleManager.CreateAsync(new IdentityRole { Name = RoleConstant.CourseModerator });
+        //    if (!(await _roleManager.RoleExistsAsync(RoleConstant.Member)))
+        //        await _roleManager.CreateAsync(new IdentityRole { Name = RoleConstant.Member });
         //}
 
         #endregion

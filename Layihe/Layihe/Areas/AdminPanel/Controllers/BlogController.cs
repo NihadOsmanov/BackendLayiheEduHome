@@ -49,7 +49,8 @@ namespace Layihe.Areas.AdminPanel.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Blog blog, List<int?> CategoriesId)
         {
-            ViewBag.Categories = _dbContext.Categories.Where(x => x.IsDeleted == false).ToList();
+            var categories = _dbContext.Categories.Where(x => x.IsDeleted == false).ToList();
+            ViewBag.Categories = categories;
 
             if (!ModelState.IsValid)
             {
@@ -60,6 +61,14 @@ namespace Layihe.Areas.AdminPanel.Controllers
             {
                 ModelState.AddModelError("", "Please select Category");
                 return View();
+            }
+
+            foreach (var category in CategoriesId)
+            {
+                if (categories.All(x => x.Id != (int)category))
+                {
+                    return BadRequest();
+                }
             }
 
             if (blog.Photo == null)
@@ -134,7 +143,9 @@ namespace Layihe.Areas.AdminPanel.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(int? id, Blog blog, List<int?> CategoriesId)
         {
-            ViewBag.Categories = _dbContext.Categories.Where(x => x.IsDeleted == false).ToList();
+            var categories = _dbContext.Categories.Where(x => x.IsDeleted == false).ToList();
+            ViewBag.Categories = categories;
+
 
             if (!ModelState.IsValid)
             {
@@ -145,6 +156,14 @@ namespace Layihe.Areas.AdminPanel.Controllers
             {
                 ModelState.AddModelError("", "Please select Category");
                 return View();
+            }
+
+            foreach (var category in CategoriesId)
+            {
+                if (categories.All(x => x.Id != (int)category))
+                {
+                    return BadRequest();
+                }
             }
 
             var dbBlog = _dbContext.Blogs.Where(x => x.IsDeleted == false).Include(x => x.BlogDetail).Include(t => t.BlogCategories)

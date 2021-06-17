@@ -141,8 +141,7 @@ namespace Layihe.Areas.AdminPanel.Controllers
             await _dbContext.SaveChangesAsync();
 
             return RedirectToAction("Index");
-            #endregion
-
         }
+        #endregion
     }
 }
